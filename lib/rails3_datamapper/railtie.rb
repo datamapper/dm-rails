@@ -1,6 +1,6 @@
 module Rails
   module DataMapper
-    class Plugin < Rails::Plugin
+    class Railtie < Rails::Railtie
       plugin_name :data_mapper
       include_modules_in 'DataMapper::Resource'
 
@@ -11,6 +11,6 @@ module Rails
       initializer 'data_mapper.logger' do
         DataMapper::Logger.new(Rails.logger)
       end
-    end # class Plugin
+    end # class Railtie
   end # module DataMapper
 end # module Rails
