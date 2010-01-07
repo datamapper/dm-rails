@@ -12,7 +12,7 @@ module Rails
       end
 
       initializer 'data_mapper.logger' do
-        DataMapper::Logger.new(Rails.logger)
+        ::DataMapper.logger = Rails.logger
       end
     end # class Railtie
   end # module DataMapper
