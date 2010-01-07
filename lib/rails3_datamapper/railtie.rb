@@ -2,7 +2,6 @@ module Rails
   module DataMapper
     class Railtie < Rails::Railtie
       plugin_name :data_mapper
-      include_modules_in 'DataMapper::Resource'
 
       rake_tasks do
         load 'rails3_datamapper/railties/databases.rake'
