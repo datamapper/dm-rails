@@ -7,7 +7,7 @@ module Rails
         def setup_repositories
           conf = config.dup
           repositories = conf.delete(:repositories)
-          DataMapper.setup(:default, conf) unless conf.empty?
+          ::DataMapper.setup(:default, conf) unless conf.empty?
         end
 
       private
