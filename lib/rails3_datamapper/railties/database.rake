@@ -18,7 +18,7 @@ namespace :db do
 
   namespace :migrate do
     task :load => :environment do
-      gem 'dm-migrations', '0.10.3'
+      gem 'dm-migrations', '0.10.2'
       FileList['db/migrations/*.rb'].each do |migration|
         load migration
       end
