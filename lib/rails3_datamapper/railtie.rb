@@ -4,7 +4,7 @@ module Rails
       plugin_name :data_mapper
 
       rake_tasks do
-        load 'rails3_datamapper/railties/databases.rake'
+        load 'rails3_datamapper/railties/database.rake'
       end
 
       initializer 'data_mapper.setup_repositories' do |app|
