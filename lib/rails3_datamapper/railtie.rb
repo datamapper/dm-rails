@@ -16,6 +16,20 @@ require 'rails'
 module Rails
   module DataMapper
 
+    module RoutingSupport
+
+      # I'm not sure wether this is active_model related or not
+      # but I can't remember any mention of #to_param in that
+      # context. If it is, this is probably better placed in
+      # dm-active_model, but for now it's fine to put it here.
+      # If this is not present, action_view helpers seem to be
+      # unable to identify a resource in routes
+      def to_param
+        id
+      end
+
+    end
+
     class Railtie < Rails::Railtie
 
       plugin_name :data_mapper
@@ -36,3 +50,5 @@ module Rails
 
   end
 end
+
+DataMapper::Model.append_inclusions(Rails::DataMapper::RoutingSupport)
