@@ -1,7 +1,10 @@
 module Rails
   module DataMapper
+
     class Config
+
       class << self
+
         extend ActiveSupport::Memoizable
 
         def setup_repositories
@@ -9,18 +12,6 @@ module Rails
           repositories = conf.delete(:repositories)
           ::DataMapper.setup(:default, conf) unless conf.empty?
         end
-
-      private
-
-        def config_file
-          Rails.root / 'config' / 'database.yml'
-        end
-
-        def full_config
-          YAML.load(ERB.new(config_file.read).result)
-        end
-
-        memoize :full_config
 
         def config
           if hash = full_config[Rails.env] || full_config[Rails.env.to_sym]
@@ -31,6 +22,19 @@ module Rails
         end
 
         memoize :config
+
+
+        private
+
+        def config_file
+          Rails.root / 'config' / 'database.yml'
+        end
+
+        def full_config
+          YAML.load(ERB.new(config_file.read).result)
+        end
+
+        memoize :full_config
 
         def normalize_config(hash)
           config = {}
