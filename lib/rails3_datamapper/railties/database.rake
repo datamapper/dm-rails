@@ -1,4 +1,40 @@
+require 'rails3_datamapper/config'
+
 namespace :db do
+
+  desc "Create the database"
+  task :create do
+    config = Rails::DataMapper::Config.config
+    database = config[:database] || config[:path]
+    puts "Creating database '#{database}'"
+    case config[:adapter]
+    when 'postgres'
+      `createdb -U #{config[:username]} #{database}`
+    when 'mysql'
+      user, password = config[:username], config[:password]
+      `mysql -u #{user} #{password ? "-p #{password}" : ''} -e "create database #{database}"`
+    when 'sqlite3'
+      Rake::Task['rake:db:automigrate'].invoke
+    else
+      raise "Adapter #{config[:adapter]} not supported for creating databases yet."
+    end
+  end
+
+  desc "Drop the database (postgres and mysql only)"
+  task :drop do
+    config   = Rails::DataMapper::Config.config
+    database = config[:database] || config[:path]
+    puts "Dropping database '#{database}'"
+    case config[:adapter]
+    when 'postgres'
+      `dropdb -U #{config[:username]} #{database}`
+    when 'mysql'
+      user, password = config[:username], config[:password]
+      `mysql -u #{user} #{password ? "-p #{password}" : ''} -e "drop database #{database}"`
+    else
+      raise "Adapter #{config[:adapter]} not supported for dropping databases yet.\ntry db:automigrate"
+    end
+  end
 
   desc 'Perform automigration'
   task :automigrate => :environment do
