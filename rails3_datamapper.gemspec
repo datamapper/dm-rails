@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Dan Kubb"]
-  s.date = %q{2010-01-12}
+  s.date = %q{2010-01-14}
   s.description = %q{Integrate DataMapper with Rails 3}
   s.email = %q{dan.kubb@gmail.com}
   s.extra_rdoc_files = [
@@ -58,20 +58,20 @@ Gem::Specification.new do |s|
 
     if Gem::Version.new(Gem::RubyGemsVersion) >= Gem::Version.new('1.2.0') then
       s.add_runtime_dependency(%q<dm-core>, ["~> 0.10.2"])
-      s.add_runtime_dependency(%q<dm-active_model>, ["~> 0.1"])
+      s.add_runtime_dependency(%q<dm-active_model>, ["~> 0.2"])
       s.add_runtime_dependency(%q<rails>, ["~> 3.0"])
       s.add_development_dependency(%q<rspec>, ["~> 1.2.9"])
       s.add_development_dependency(%q<yard>, ["~> 0.5"])
     else
       s.add_dependency(%q<dm-core>, ["~> 0.10.2"])
-      s.add_dependency(%q<dm-active_model>, ["~> 0.1"])
+      s.add_dependency(%q<dm-active_model>, ["~> 0.2"])
       s.add_dependency(%q<rails>, ["~> 3.0"])
       s.add_dependency(%q<rspec>, ["~> 1.2.9"])
       s.add_dependency(%q<yard>, ["~> 0.5"])
     end
   else
     s.add_dependency(%q<dm-core>, ["~> 0.10.2"])
-    s.add_dependency(%q<dm-active_model>, ["~> 0.1"])
+    s.add_dependency(%q<dm-active_model>, ["~> 0.2"])
     s.add_dependency(%q<rails>, ["~> 3.0"])
     s.add_dependency(%q<rspec>, ["~> 1.2.9"])
     s.add_dependency(%q<yard>, ["~> 0.5"])
