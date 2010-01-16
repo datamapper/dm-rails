@@ -26,7 +26,7 @@ module Rails
       end
 
       initializer 'data_mapper.generators' do |app|
-        app.config.generators.orm = :datamapper
+        app.config.generators.orm = :data_mapper
       end
 
       initializer 'data_mapper.config_defaults' do |app|
