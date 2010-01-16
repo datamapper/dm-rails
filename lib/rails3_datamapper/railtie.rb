@@ -20,13 +20,14 @@ module Rails
 
       plugin_name :data_mapper
 
-      config.generators.orm = :datamapper
-
 
       rake_tasks do
         load 'rails3_datamapper/railties/database.rake'
       end
 
+      initializer 'data_mapper.generators' do |app|
+        app.config.generators.orm = :datamapper
+      end
 
       initializer 'data_mapper.configurations' do |app|
         Rails::DataMapper.configurations = app.config.database_configuration
