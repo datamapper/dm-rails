@@ -31,6 +31,11 @@ namespace :db do
     when 'mysql'
       user, password = config[:username], config[:password]
       `mysql -u #{user} #{password ? "-p #{password}" : ''} -e "drop database #{database}"`
+    when 'sqlite3'
+      require 'pathname'
+      path = Pathname.new(config['database'])
+      file = path.absolute? ? path.to_s : File.join(Rails.root, path)
+      FileUtils.rm(file)
     else
       raise "Adapter #{config[:adapter]} not supported for dropping databases yet.\ntry db:automigrate"
     end
