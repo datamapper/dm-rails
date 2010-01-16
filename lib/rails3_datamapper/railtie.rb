@@ -20,6 +20,9 @@ module Rails
 
       plugin_name :data_mapper
 
+      config.generators.orm = :datamapper
+
+
       rake_tasks do
         load 'rails3_datamapper/railties/database.rake'
       end
