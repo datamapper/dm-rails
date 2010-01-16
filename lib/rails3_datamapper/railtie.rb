@@ -30,7 +30,8 @@ module Rails
       end
 
       initializer 'data_mapper.config_defaults' do |app|
-        app.config.data_mapper.use_identity_map ||= true
+        app.config.data_mapper.use_identity_map    ||= true
+        app.config.data_mapper.plugins ||= %w(dm-validations dm-timestamps)
       end
 
       initializer 'data_mapper.configurations' do |app|
@@ -49,6 +50,12 @@ module Rails
         if app.config.data_mapper.use_identity_map
           require 'rails3_datamapper/middleware/identity_map'
           app.config.middleware.use Middleware::IdentityMap
+        end
+      end
+
+      initializer 'data_mapper.plugins' do |app|
+        app.config.data_mapper.plugins.each do |plugin|
+          require plugin.to_s
         end
       end
 
