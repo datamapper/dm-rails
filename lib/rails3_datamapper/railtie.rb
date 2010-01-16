@@ -52,6 +52,25 @@ module Rails
         end
       end
 
+      initializer 'data_mapper.preload_lib' do |app|
+        app.config.paths.lib.each do |path|
+          Dir.glob("#{path}/**/*.rb").each { |file| require file }
+        end
+      end
+
+      initializer 'data_mapper.preload_models' do |app|
+        app.config.paths.app.models.each do |path|
+          Dir.glob("#{path}/**/*.rb").each { |file| require file }
+        end
+      end
+
+      # This depends on all models being loaded
+      initializer 'data_mapper.property_initializer' do
+        ::DataMapper::Model.descendants.each do |model|
+          model.relationships.each_value { |r| r.child_key }
+        end
+      end
+
       initializer 'data_mapper.routing_support' do
         Rails::DataMapper.setup_routing_support
       end
