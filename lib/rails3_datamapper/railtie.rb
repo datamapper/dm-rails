@@ -29,6 +29,10 @@ module Rails
         app.config.generators.orm = :datamapper
       end
 
+      initializer 'data_mapper.config_defaults' do |app|
+        app.config.data_mapper.use_identity_map ||= true
+      end
+
       initializer 'data_mapper.configurations' do |app|
         Rails::DataMapper.configurations = app.config.database_configuration
       end
@@ -39,6 +43,13 @@ module Rails
 
       initializer 'data_mapper.setup_repositories' do |app|
         Rails::DataMapper.setup(app.config.database_configuration[Rails.env])
+      end
+
+      initializer 'data_mapper.setup_identity_map' do |app|
+        if app.config.data_mapper.use_identity_map
+          require 'rails3_datamapper/middleware/identity_map'
+          app.config.middleware.use Middleware::IdentityMap
+        end
       end
 
       initializer 'data_mapper.routing_support' do
