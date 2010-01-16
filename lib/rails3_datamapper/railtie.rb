@@ -1,7 +1,7 @@
 require 'dm-core'
 require 'dm-active_model'
 
-require 'rails3_datamapper/config'
+require 'rails3_datamapper/setup'
 
 # Comment taken from active_record/railtie.rb
 #
@@ -16,20 +16,6 @@ require 'rails'
 module Rails
   module DataMapper
 
-    module RoutingSupport
-
-      # I'm not sure wether this is active_model related or not
-      # but I can't remember any mention of #to_param in that
-      # context. If it is, this is probably better placed in
-      # dm-active_model, but for now it's fine to put it here.
-      # If this is not present, action_view helpers seem to be
-      # unable to identify a resource in routes
-      def to_param
-        id
-      end
-
-    end
-
     class Railtie < Rails::Railtie
 
       plugin_name :data_mapper
@@ -38,17 +24,24 @@ module Rails
         load 'rails3_datamapper/railties/database.rake'
       end
 
-      initializer 'data_mapper.setup_repositories' do |app|
-        Rails::DataMapper::Config.setup_repositories
+
+      initializer 'data_mapper.configurations' do |app|
+        Rails::DataMapper.configurations = app.config.database_configuration
       end
 
       initializer 'data_mapper.logger' do
-        ::DataMapper.logger = Rails.logger
+        Rails::DataMapper.setup_logger(Rails.logger)
+      end
+
+      initializer 'data_mapper.setup_repositories' do |app|
+        Rails::DataMapper.setup(app.config.database_configuration[Rails.env])
+      end
+
+      initializer 'data_mapper.routing_support' do
+        Rails::DataMapper.setup_routing_support
       end
 
     end
 
   end
 end
-
-DataMapper::Model.append_inclusions(Rails::DataMapper::RoutingSupport)

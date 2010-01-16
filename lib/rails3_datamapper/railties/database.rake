@@ -1,65 +1,49 @@
-require 'rails3_datamapper/config'
+require 'rails3_datamapper/setup'
+require 'rails3_datamapper/storage'
 
 namespace :db do
 
+  task :load_config => :rails_env do
+    Rails::DataMapper.configurations = Rails::Configuration.new.database_configuration
+  end
+
+  task :load_models => :environment do
+    FileList["app/models/**/*.rb"].each { |model| load model }
+  end
+
+
+  namespace :create do
+    desc 'Create all the local databases defined in config/database.yml'
+    task :all => :load_config do
+      Rails::DataMapper::Storage.create_local_databases
+    end
+  end
+
   desc "Create the database"
-  task :create do
-    config = Rails::DataMapper::Config.config
-    database = config[:database] || config[:path]
-    puts "Creating database '#{database}'"
-    case config[:adapter]
-    when 'postgres'
-      `createdb -U #{config[:username]} #{database}`
-    when 'mysql'
-      user, password = config[:username], config[:password]
-      `mysql -u #{user} #{password ? "-p #{password}" : ''} -e "create database #{database}"`
-    when 'sqlite3'
-      Rake::Task['rake:db:automigrate'].invoke
-    else
-      raise "Adapter #{config[:adapter]} not supported for creating databases yet."
-    end
+  task :create => :load_config do
+    Rails::DataMapper::Storage.create_database(Rails::DataMapper.configurations[Rails.env])
   end
 
-  desc "Drop the database (postgres and mysql only)"
-  task :drop do
-    config   = Rails::DataMapper::Config.config
-    database = config[:database] || config[:path]
-    puts "Dropping database '#{database}'"
-    case config[:adapter]
-    when 'postgres'
-      `dropdb -U #{config[:username]} #{database}`
-    when 'mysql'
-      user, password = config[:username], config[:password]
-      `mysql -u #{user} #{password ? "-p #{password}" : ''} -e "drop database #{database}"`
-    when 'sqlite3'
-      require 'pathname'
-      path = Pathname.new(config['database'])
-      file = path.absolute? ? path.to_s : File.join(Rails.root, path)
-      FileUtils.rm(file)
-    else
-      raise "Adapter #{config[:adapter]} not supported for dropping databases yet.\ntry db:automigrate"
-    end
+  desc "Drop the database"
+  task :drop => :load_config do
+    Rails::DataMapper::Storage.drop_database(Rails::DataMapper.configurations[Rails.env])
   end
 
-  desc 'Perform automigration'
-  task :automigrate => :environment do
-    FileList["app/models/**/*.rb"].each do |model|
-      load model
-    end
+
+  desc 'Perform destructive automigration'
+  task :automigrate => :load_models do
     ::DataMapper.auto_migrate!
   end
 
   desc 'Perform non destructive automigration'
-  task :autoupgrade => :environment do
-    FileList["app/models/**/*.rb"].each do |model|
-      load model
-    end
+  task :autoupgrade => :load_models do
     ::DataMapper.auto_upgrade!
   end
 
+
   namespace :migrate do
     task :load => :environment do
-      gem 'dm-migrations', '0.10.2'
+      require 'dm-migrations'
       FileList['db/migrations/*.rb'].each do |migration|
         load migration
       end
@@ -67,14 +51,12 @@ namespace :db do
 
     desc 'Migrate up using migrations'
     task :up, :version, :needs => :load do |t, args|
-      version = args[:version]
-      migrate_up!(version)
+      migrate_up!(args[:version])
     end
 
     desc 'Migrate down using migrations'
     task :down, :version, :needs => :load do |t, args|
-      version = args[:version]
-      migrate_down!(version)
+      migrate_down!(args[:version])
     end
   end
 
@@ -92,4 +74,14 @@ namespace :db do
       ::DataMapperStore::Session.all.destroy!
     end
   end
+
+  desc 'Create the database, load the schema, and initialize with the seed data'
+  task :setup => [ 'db:create', 'db:automigrate', 'db:seed' ]
+
+  desc 'Load the seed data from db/seeds.rb'
+  task :seed => :environment do
+    seed_file = File.join(Rails.root, 'db', 'seeds.rb')
+    load(seed_file) if File.exist?(seed_file)
+  end
+
 end
