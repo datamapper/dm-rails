@@ -30,8 +30,8 @@ module Rails
       end
 
       initializer 'data_mapper.config_defaults' do |app|
-        app.config.data_mapper.use_identity_map    ||= true
-        app.config.data_mapper.plugins ||= %w(dm-validations dm-timestamps)
+        app.config.data_mapper.plugins           ||= %w(dm-validations dm-timestamps)
+        app.config.data_mapper.use_identity_map  ||= true
       end
 
       initializer 'data_mapper.configurations' do |app|
