@@ -3,23 +3,14 @@ module Rails
 
     module Storage
 
-      # Skips entries that don't have a database key, such as the first entry here:
-      #
-      #  defaults: &defaults
-      #    adapter: mysql
-      #    username: root
-      #    password:
-      #    host: localhost
-      #
-      #  development:
-      #    database: blog_development
-      #    <<: *defaults
       def self.create_local_databases
-        Rails::DataMapper.configurations.each_value do |config|
-          next unless config['database']
-          with_local_databases(config) { create_database(config) }
-        end
+        with_local_databases { |config| create_database(config) }
       end
+
+      def self.drop_local_databases
+        with_local_databases { |config| drop_database(config) }
+      end
+
 
       def self.create_database(config)
         database = config['database'] || config['path']
@@ -56,7 +47,26 @@ module Rails
         end
       end
 
-      def self.with_local_databases(config, &block)
+
+      # Skips entries that don't have a database key, such as the first entry here:
+      #
+      #  defaults: &defaults
+      #    adapter: mysql
+      #    username: root
+      #    password:
+      #    host: localhost
+      #
+      #  development:
+      #    database: blog_development
+      #    <<: *defaults
+      def self.with_local_databases
+        Rails::DataMapper.configurations.each_value do |config|
+          next unless config['database']
+          with_local_database(config) { yield(config) }
+        end
+      end
+
+      def self.with_local_database(config, &block)
         if %w( 127.0.0.1 localhost ).include?(config['host']) || config['host'].blank?
           yield
         else

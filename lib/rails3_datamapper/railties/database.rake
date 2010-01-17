@@ -24,6 +24,13 @@ namespace :db do
     Rails::DataMapper::Storage.create_database(Rails::DataMapper.configurations[Rails.env])
   end
 
+  namespace :drop do
+    desc 'Drop all the local databases defined in config/database.yml'
+    task :all => :load_config do
+      Rails::DataMapper::Storage.drop_local_databases
+    end
+  end
+
   desc "Drop the database"
   task :drop => :load_config do
     Rails::DataMapper::Storage.drop_database(Rails::DataMapper.configurations[Rails.env])
