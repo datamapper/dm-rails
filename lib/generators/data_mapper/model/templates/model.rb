@@ -4,10 +4,8 @@ class <%= class_name %><%= "< #{options[:parent].classify}" if options[:parent] 
   include DataMapper::Resource
 
   property :id, Serial
-
-<% end -%>
+<% end %>
 <% attributes.each do |attribute| -%>
-  property :<%= attribute.name -%>, <%= attribute.type_class -%>
-<% end -%>
-
+  property :<%= attribute.name -%>, <%= attribute.type_class %>
+<% end %>
 end

@@ -21,6 +21,9 @@ module Rails
       plugin_name :data_mapper
 
 
+      DEFAULT_PLUGINS = %w(dm-validations dm-timestamps dm-observer)
+
+
       rake_tasks do
         load 'rails3_datamapper/railties/database.rake'
       end
@@ -30,7 +33,7 @@ module Rails
       end
 
       initializer 'data_mapper.config_defaults' do |app|
-        app.config.data_mapper.plugins           ||= %w(dm-validations dm-timestamps)
+        app.config.data_mapper.plugins           ||= DEFAULT_PLUGINS
         app.config.data_mapper.use_identity_map  ||= true
       end
 

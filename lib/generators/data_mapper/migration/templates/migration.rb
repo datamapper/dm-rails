@@ -1,4 +1,5 @@
 migration <%= migration_number.to_i %>, :<%= migration_file_name %> do 
+
   up do
 <% unless attributes.empty? -%>
     modify_table :<%= table_name %> do
@@ -18,4 +19,5 @@ migration <%= migration_number.to_i %>, :<%= migration_file_name %> do
     end
 <% end -%>
   end
+
 end
