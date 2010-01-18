@@ -1,6 +1,6 @@
-require 'generators/named_base'
-require 'generators/migration'
-require 'generators/active_model'
+require 'rails/generators/named_base'
+require 'rails/generators/migration'
+require 'rails/generators/active_model'
 
 module Rails
   module DataMapper
