@@ -1,40 +1,25 @@
 require 'generators/data_mapper'
 
-module DataMapper
-  module Generators
-    class ModelGenerator < Base
-      argument :attributes, :type => :array, :default => [], :banner => "field:type field:type"
+module Rails
+  module DataMapper
+    module Generators
 
-      check_class_collision
+      class ModelGenerator < Base
+        argument :attributes, :type => :array, :default => [], :banner => "field:type field:type"
+        class_option :id, :type => :numeric, :desc => "The id to be used in the migration"
 
-      class_option :migration,  :type => :boolean
-      class_option :timestamps, :type => :boolean
-      class_option :parent,     :type => :string, :desc => "The parent class for the generated model"
+        check_class_collision
 
-      def create_migration_file
-        return unless options[:migration] && options[:parent].nil?
-        migration_template "migration.rb", "db/migrate/create_#{table_name}.rb"
+        class_option :timestamps, :type => :boolean
+        class_option :parent,     :type => :string, :desc => "The parent class for the generated model"
+
+        def create_model_file
+          template 'model.rb', File.join('app/models', class_path, "#{file_name}.rb")
+        end
+
+        hook_for :test_framework
+
       end
-
-      def create_model_file
-        template 'model.rb', File.join('app/models', class_path, "#{file_name}.rb")
-      end
-
-      hook_for :test_framework
-
-      protected
-
-        def parent_class_name
-          options[:parent]
-        end
-
-        def reference_attributes
-          attributes.select{ |attr| attr.reference? }
-        end
-
-        def property_attributes
-          attributes.select{ |attr| !attr.reference? }
-        end
 
     end
   end
