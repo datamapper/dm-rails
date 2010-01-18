@@ -6,7 +6,6 @@ module Rails
 
       class ModelGenerator < Base
         argument :attributes, :type => :array, :default => [], :banner => "field:type field:type"
-        class_option :id, :type => :numeric, :desc => "The id to be used in the migration"
 
         check_class_collision
 
