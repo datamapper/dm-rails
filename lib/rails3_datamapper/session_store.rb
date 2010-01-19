@@ -4,26 +4,30 @@ require 'dm-core'
 
 module Rails
   module DataMapper
-    class SessionStore < ActionDispatch::Session::AbstractStore
-      class Session
-        include DataMapper::Resource
 
-        def self.name
-          'session'
-        end
+    class SessionStore < ActionDispatch::Session::AbstractStore
+
+      class Session
+
+        include ::DataMapper::Resource
 
         property :id,         Serial
         property :session_id, String,   :required => true, :unique => true, :unique_index => true
         property :data,       Object,   :required => true, :default => ActiveSupport::Base64.encode64(Marshal.dump({}))
         property :updated_at, DateTime, :required => false, :index => true
-      end # class Session
+
+        def self.name
+          'session'
+        end
+
+      end
 
       SESSION_RECORD_KEY = 'rack.session.record'.freeze
 
       cattr_accessor :session_class
       self.session_class = Session
 
-    private
+      private
 
       def get_session(env, sid)
         sid ||= generate_sid
@@ -50,6 +54,8 @@ module Rails
       def find_session(sid)
         self.class.session_class.first_or_new(:session_id => sid)
       end
-    end # class SessionStore
-  end # module DataMapper
-end # module Rails
+
+    end
+
+  end
+end

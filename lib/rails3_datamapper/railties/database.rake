@@ -73,12 +73,16 @@ namespace :db do
   namespace :sessions do
     desc "Creates the sessions table for DataMapperStore"
     task :create => :environment do
-      ::DataMapperStore::Session.auto_migrate!
+      require 'rails3_datamapper/session_store'
+      Rails::DataMapper::SessionStore::Session.auto_migrate!
+      puts "Created '#{Rails::DataMapper.configurations[Rails.env]['database']}.sessions'"
     end
 
     desc "Clear the sessions table for DataMapperStore"
     task :clear => :environment do
-      ::DataMapperStore::Session.all.destroy!
+      require 'rails3_datamapper/session_store'
+      Rails::DataMapper::SessionStore::Session.all.destroy!
+      puts "Deleted entries from '#{Rails::DataMapper.configurations[Rails.env]['database']}.sessions'"
     end
   end
 
