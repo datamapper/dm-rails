@@ -18,7 +18,7 @@ module Rails
 
     class Railtie < Rails::Railtie
 
-      plugin_name :data_mapper
+      railtie_name :data_mapper
 
 
       DEFAULT_PLUGINS = %w(dm-validations dm-timestamps dm-observer)
