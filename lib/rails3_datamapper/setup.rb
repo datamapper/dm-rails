@@ -1,4 +1,5 @@
 require 'active_support/core_ext/hash/except'
+require 'rails3_datamapper/adapters'
 
 module Rails
   module DataMapper
@@ -35,13 +36,19 @@ module Rails
       end
 
       def setup
-        ::DataMapper.setup(:default, @config.except('repositories'))
+        setup_with_instrumentation(:default, @config.except('repositories'))
         (@config['repositories'] || []).each do |repository_name, repository_config|
-          ::DataMapper.setup(repository_name, repository_config)
-        end       
+          setup_with_instrumentation(repository_name, repository_config)
+        end
       end
 
       private
+
+      def setup_with_instrumentation(name, options)
+        adapter = ::DataMapper.setup(name, options)
+        Adapters::Cascade.push(Adapters::BenchmarkingAdapter)
+        ::DataMapper::Repository.adapters[adapter.name] = Adapters::Cascade.setup(adapter)
+      end
 
       def normalize_config(hash)
         config = {}

@@ -28,6 +28,10 @@ module Rails
         load 'rails3_datamapper/railties/database.rake'
       end
 
+      require "rails3_datamapper/railties/subscriber"
+      subscriber Rails::DataMapper::Railties::Subscriber.new
+
+
       initializer 'data_mapper.generators' do |app|
         app.config.generators.orm = :data_mapper
       end
@@ -47,6 +51,12 @@ module Rails
 
       initializer 'data_mapper.setup_repositories' do |app|
         Rails::DataMapper.setup(app.config.database_configuration[Rails.env])
+      end
+
+      # Expose database runtime to controller for logging.
+      initializer "data_mapper.log_runtime" do |app|
+        require "rails3_datamapper/railties/controller_runtime"
+        ActionController::Base.send :include, Railties::ControllerRuntime
       end
 
       initializer 'data_mapper.setup_identity_map' do |app|
