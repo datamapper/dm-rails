@@ -74,13 +74,13 @@ module Rails
 
       initializer 'data_mapper.preload_lib' do |app|
         app.config.paths.lib.each do |path|
-          Dir.glob("#{path}/**/*.rb").each { |file| require file }
+          Dir.glob("#{path}/**/*.rb").sort.each { |file| require file }
         end
       end
 
       initializer 'data_mapper.preload_models' do |app|
         app.config.paths.app.models.each do |path|
-          Dir.glob("#{path}/**/*.rb").each { |file| require file }
+          Dir.glob("#{path}/**/*.rb").sort.each { |file| require file }
         end
       end
 
