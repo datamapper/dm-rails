@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Dan Kubb"]
-  s.date = %q{2010-01-14}
+  s.date = %q{2010-01-25}
   s.description = %q{Integrate DataMapper with Rails 3}
   s.email = %q{dan.kubb@gmail.com}
   s.extra_rdoc_files = [
@@ -24,14 +24,24 @@ Gem::Specification.new do |s|
      "Rakefile",
      "VERSION",
      "lib/generators/data_mapper.rb",
+     "lib/generators/data_mapper/migration/migration_generator.rb",
+     "lib/generators/data_mapper/migration/templates/migration.rb",
      "lib/generators/data_mapper/model/model_generator.rb",
-     "lib/generators/data_mapper/model/templates/migration.rb",
      "lib/generators/data_mapper/model/templates/model.rb",
+     "lib/generators/data_mapper/observer/observer_generator.rb",
+     "lib/generators/data_mapper/observer/templates/observer.rb",
      "lib/rails3_datamapper.rb",
-     "lib/rails3_datamapper/config.rb",
+     "lib/rails3_datamapper/adapters.rb",
+     "lib/rails3_datamapper/adapters/adapter_wrapper.rb",
+     "lib/rails3_datamapper/adapters/benchmarking_adapter.rb",
+     "lib/rails3_datamapper/middleware/identity_map.rb",
      "lib/rails3_datamapper/railtie.rb",
+     "lib/rails3_datamapper/railties/controller_runtime.rb",
      "lib/rails3_datamapper/railties/database.rake",
+     "lib/rails3_datamapper/railties/subscriber.rb",
      "lib/rails3_datamapper/session_store.rb",
+     "lib/rails3_datamapper/setup.rb",
+     "lib/rails3_datamapper/storage.rb",
      "rails3_datamapper.gemspec",
      "spec/rcov.opts",
      "spec/spec.opts",
