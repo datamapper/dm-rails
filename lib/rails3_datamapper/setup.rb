@@ -28,8 +28,9 @@ module Rails
     class Initializer
 
       def initialize(config)
-        unless @config = normalize_config(config)
-          raise ArgumentError, "Missing environment '#{env}' in database.yml file"
+        @config = normalize_config(config)
+        if @config.empty?
+          raise ArgumentError, "Missing '#{Rails.env}' environment in config/database.yml"
         end
       end
 
