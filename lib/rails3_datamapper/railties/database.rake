@@ -50,7 +50,7 @@ namespace :db do
 
   namespace :migrate do
     task :load => :environment do
-      require 'dm-migrations'
+      require 'dm-migrations/migration_runner'
       FileList['db/migrations/*.rb'].each do |migration|
         load migration
       end
@@ -58,12 +58,12 @@ namespace :db do
 
     desc 'Migrate up using migrations'
     task :up, :version, :needs => :load do |t, args|
-      migrate_up!(args[:version])
+      ::DataMapper::MigrationRunner.migrate_up!(args[:version])
     end
 
     desc 'Migrate down using migrations'
     task :down, :version, :needs => :load do |t, args|
-      migrate_down!(args[:version])
+      ::DataMapper::MigrationRunner.migrate_down!(args[:version])
     end
   end
 

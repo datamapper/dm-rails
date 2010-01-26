@@ -24,7 +24,7 @@ module Rails
       subscriber Rails::DataMapper::Railties::Subscriber.new
 
 
-      DEFAULT_PLUGINS = %w(dm-validations dm-timestamps dm-observer)
+      DEFAULT_PLUGINS = %w(dm-validations dm-timestamps dm-observer dm-migrations)
 
 
       rake_tasks do
