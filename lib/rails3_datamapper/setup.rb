@@ -46,8 +46,7 @@ module Rails
 
       def setup_with_instrumentation(name, options)
         adapter = ::DataMapper.setup(name, options)
-        Adapters::Cascade.push(Adapters::BenchmarkingAdapter)
-        ::DataMapper::Repository.adapters[adapter.name] = Adapters::Cascade.setup(adapter)
+        ::DataMapper::Repository.adapters[adapter.name] = Adapters::Cascade.instantiate(adapter)
       end
 
       def normalize_config(hash)

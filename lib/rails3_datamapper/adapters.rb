@@ -6,12 +6,16 @@ module Rails
 
       class Cascade
 
-        def self.setup(base_adapter)
-          cascade.instantiate(base_adapter)
+        def self.configure
+          block_given? ? yield(cascade) : cascade
         end
 
-        def self.push(adapter)
-          cascade.push(adapter)
+        def self.instantiate(adapter, idx = 0)
+          if idx < cascade.size
+            instantiate(cascade[idx], idx + 1).new(adapter)
+          else
+            adapter
+          end
         end
 
         def self.cascade
@@ -19,17 +23,14 @@ module Rails
         end
 
 
-        def instantiate(adapter, idx = 0)
-          if idx < @cascade.size
-            instantiate(@cascade[idx], idx + 1).new(adapter)
-          else
-            adapter
-          end
-        end
-
         def push(adapter)
           @cascade << adapter
         end
+
+        alias :use :push
+
+        def size;    @cascade.size end
+        def [](idx); @cascade[idx] end
 
         private
 
