@@ -4,7 +4,7 @@ require 'rails3_datamapper/storage'
 namespace :db do
 
   task :load_config => :rails_env do
-    Rails::DataMapper.configurations = Rails::Application.instance.config.database_configuration
+    Rails::DataMapper.configurations = Rails::Application.config.database_configuration
   end
 
   task :load_models => :environment do
