@@ -18,7 +18,7 @@ begin
     gem.add_dependency 'dm-active_model', '~> 0.2'
     gem.add_dependency 'rails',           '~> 3.0'
 
-    gem.add_development_dependency 'rspec', '~> 1.2.9'
+    gem.add_development_dependency 'rspec', '~> 1.3'
     gem.add_development_dependency 'yard',  '~> 0.5'
 
   end
