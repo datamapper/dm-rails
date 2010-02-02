@@ -81,7 +81,9 @@ module Rails
 
         def preload_lib(app)
           app.config.paths.lib.each do |path|
-            Dir.glob("#{path}/**/*.rb").sort.each { |file| require file }
+            Dir.glob("#{path}/**/*.rb").sort.each do |file|
+              require file unless file.match(/#{path}\/generators\/*/)
+            end
           end
         end
 
