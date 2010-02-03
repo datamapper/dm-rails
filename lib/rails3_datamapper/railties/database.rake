@@ -19,9 +19,12 @@ namespace :db do
     end
   end
 
-  desc "Create the database"
+  desc "Create the database defined in config/database.yml for the current Rails.env - also creates the test database if Rails.env.development?"
   task :create => :load_config do
     Rails::DataMapper::Storage.create_database(Rails::DataMapper.configurations[Rails.env])
+    if Rails.env.development?
+      Rails::DataMapper::Storage.create_database(Rails::DataMapper.configurations['test'])
+    end
   end
 
   namespace :drop do
@@ -31,7 +34,7 @@ namespace :db do
     end
   end
 
-  desc "Drop the database"
+  desc "Drops the database for the current Rails.env"
   task :drop => :load_config do
     Rails::DataMapper::Storage.drop_database(Rails::DataMapper.configurations[Rails.env])
   end
