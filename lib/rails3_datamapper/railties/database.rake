@@ -22,7 +22,7 @@ namespace :db do
   desc "Create the database defined in config/database.yml for the current Rails.env - also creates the test database if Rails.env.development?"
   task :create => :load_config do
     Rails::DataMapper::Storage.create_database(Rails::DataMapper.configurations[Rails.env])
-    if Rails.env.development? && Rails::DataMapper::Storage.configurations['test']
+    if Rails.env.development? && Rails::DataMapper.configurations['test']
       Rails::DataMapper::Storage.create_database(Rails::DataMapper.configurations['test'])
     end
   end
