@@ -3,6 +3,10 @@ require 'rails3_datamapper/storage'
 
 namespace :db do
 
+  namespace :test do
+    task :prepare => ['db:setup']
+  end
+
   task :load_config => :rails_env do
     Rails::DataMapper.configurations = Rails::Application.config.database_configuration
   end
