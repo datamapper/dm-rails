@@ -1,33 +1,31 @@
-module Rails
-  module DataMapper
-    module Railties
+module DataMapper
+  module Railties
 
-      class Subscriber < Rails::Subscriber
+    class Subscriber < Rails::Subscriber
 
-        def sql(event)
-          name = '%s (%.1fms)' % [event.payload[:name], event.duration]
-          sql  = event.payload[:sql].squeeze(' ')
+      def sql(event)
+        name = '%s (%.1fms)' % [event.payload[:name], event.duration]
+        sql  = event.payload[:sql].squeeze(' ')
 
-          if odd?
-            name = color(name, :cyan, true)
-            sql  = color(sql, nil, true)
-          else
-            name = color(name, :magenta, true)
-          end
-
-          debug "  #{name}  #{sql}"
+        if odd?
+          name = color(name, :cyan, true)
+          sql  = color(sql, nil, true)
+        else
+          name = color(name, :magenta, true)
         end
 
-        def odd?
-          @odd_or_even = !@odd_or_even
-        end
+        debug "  #{name}  #{sql}"
+      end
 
-        def logger
-          ::DataMapper.logger
-        end
+      def odd?
+        @odd_or_even = !@odd_or_even
+      end
 
+      def logger
+        ::DataMapper.logger
       end
 
     end
+
   end
 end

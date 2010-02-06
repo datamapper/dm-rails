@@ -1,8 +1,8 @@
 require 'dm-core'
 require 'dm-active_model'
 
-require 'rails3_datamapper/setup'
-require "rails3_datamapper/railties/subscriber"
+require 'rails'
+require 'active_model/railtie'
 
 # Comment taken from active_record/railtie.rb
 #
@@ -11,7 +11,9 @@ require "rails3_datamapper/railties/subscriber"
 # here. This is needed for correctly setting up the middleware.
 # In the future, this might become an optional require.
 require 'action_controller/railtie'
-require 'rails'
+
+require 'rails3_datamapper/setup'
+require "rails3_datamapper/railties/subscriber"
 
 
 module Rails
@@ -21,7 +23,7 @@ module Rails
 
       railtie_name :data_mapper
 
-      subscriber Rails::DataMapper::Railties::Subscriber.new
+      subscriber ::DataMapper::Railties::Subscriber.new
 
 
       DEFAULT_PLUGINS = %w(dm-validations dm-timestamps dm-observer dm-migrations)
