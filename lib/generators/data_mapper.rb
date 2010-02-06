@@ -25,12 +25,8 @@ module DataMapper
 
       # Implement the required interface for Rails::Generators::Migration.
       #
-      def next_migration_number(dirname) #:nodoc:
-        if options[:id]
-          "%.3d" % options[:id]
-        else
-          "%.3d" % (current_migration_number(dirname) + 1)
-        end
+      def self.next_migration_number(dirname) #:nodoc:
+        "%.3d" % (current_migration_number(dirname) + 1)
       end
 
     end
