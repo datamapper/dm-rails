@@ -20,7 +20,7 @@ module Rails
           `createdb -U #{config['username']} #{database}`
         when 'mysql'
           user, password = config['username'], config['password']
-          `mysql -u #{user} #{password ? "-p #{password}" : ''} -e "create database #{database}"`
+          `mysql --user=#{user} #{password ? "--password=#{password}" : ''} -e "create database #{database}"`
         when 'sqlite3'
           Rails::DataMapper.setup(config)
         else
