@@ -1,6 +1,8 @@
 = rails3_datamapper
 
-Getting {datamapper}[http://github.com/datamapper/dm-core] up and running on rails3 is really easy. It won't take longer than 5 minutes, really :) The following will guide you through the process.
+This gem provides the railtie that allows {datamapper}[http://github.com/datamapper/dm-core] to hook into {rails3}[http://github.com/rails/rails] and thus behave like a rails framework component. Just like activercord does in rails, the two are actually hooked into rails almost identically.
+
+Getting datamapper up and running on rails3 is really easy. It won't take longer than 5 minutes, really :) The following will guide you through the process.
 
 == Sample application
 
