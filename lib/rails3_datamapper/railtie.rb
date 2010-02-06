@@ -35,7 +35,7 @@ module Rails
 
 
       initializer 'data_mapper.generators' do |app|
-        app.config.generators.orm = :data_mapper
+        app.config.generators.orm :data_mapper, :migration => true
       end
 
       initializer 'data_mapper.config_defaults' do |app|
