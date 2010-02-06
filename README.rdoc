@@ -11,26 +11,26 @@ To get a simple sample app up and running in 5 minutes have a look at {datamappe
 
 Using {bundler}[http://github.com/carlhuda/bundler] it's really easy to get an app going with datamapper and rails3. Just use a Gemfile like this, and bundler will pull in everything needed to run your app. Note that you also must add any additional datamapper plugin or any other gem that you'd like to use to the Gemfile. This makes sure that bundler is able to provide a complete environment containing all required dependencies for your app.
 
-source 'http://gemcutter.org'
-
-gem 'rails',        '3.0.0.beta'
-
-gem 'data_objects', '0.10.1'
-gem 'do_mysql',     '0.10.1'
-
-git 'git://github.com/snusnu/dm-core.git', 'branch' => 'active_support'
-git "git://github.com/snusnu/dm-more.git", 'branch' => 'active_support'
-git 'git://github.com/dkubb/rails3_datamapper.git'
-
-gem 'dm-core'
-gem 'dm-types'
-gem 'dm-validations'
-gem 'dm-constraints'
-gem 'dm-aggregates'
-gem 'dm-timestamps'
-gem 'dm-migrations'
-gem 'dm-observer'
-gem 'rails3_datamapper'
+  source 'http://gemcutter.org'
+  
+  gem 'rails',        '3.0.0.beta'
+  
+  gem 'data_objects', '0.10.1'
+  gem 'do_mysql',     '0.10.1'
+  
+  git 'git://github.com/snusnu/dm-core.git', 'branch' => 'active_support'
+  git "git://github.com/snusnu/dm-more.git", 'branch' => 'active_support'
+  git 'git://github.com/dkubb/rails3_datamapper.git'
+  
+  gem 'dm-core'
+  gem 'dm-types'
+  gem 'dm-validations'
+  gem 'dm-constraints'
+  gem 'dm-aggregates'
+  gem 'dm-timestamps'
+  gem 'dm-migrations'
+  gem 'dm-observer'
+  gem 'rails3_datamapper'
 
 
 == Available datamapper generators
