@@ -1,6 +1,139 @@
 = rails3_datamapper
 
-Integrate DataMapper with Rails 3.
+Getting {datamapper}[http://github.com/datamapper/dm-core] up and running on rails3 is really easy. It won't take longer than 5 minutes, really :) The following will guide you through the process.
+
+== Sample application
+
+To get a simple sample app up and running in 5 minutes have a look at {datamapper_on_rails3}[http://github.com/snusnu/datamapper_on_rails3] and follow the {README}[http://github.com/snusnu/datamapper_on_rails3/blob/master/README.rdoc]. The README also contains quite some instructions on how to come up with an environment suitable for generating new rails3 applications.
+
+
+== Sample Gemfile
+
+Using {bundler}[http://github.com/carlhuda/bundler] it's really easy to get an app going with datamapper and rails3. Just use a Gemfile like this, and bundler will pull in everything needed to run your app. Note that you also must add any additional datamapper plugin or any other gem that you'd like to use to the Gemfile. This makes sure that bundler is able to provide a complete environment containing all required dependencies for your app.
+
+source 'http://gemcutter.org'
+
+gem 'rails',        '3.0.0.beta'
+
+gem 'data_objects', '0.10.1'
+gem 'do_mysql',     '0.10.1'
+
+git 'git://github.com/snusnu/dm-core.git', 'branch' => 'active_support'
+git "git://github.com/snusnu/dm-more.git", 'branch' => 'active_support'
+git 'git://github.com/dkubb/rails3_datamapper.git'
+
+gem 'dm-core'
+gem 'dm-types'
+gem 'dm-validations'
+gem 'dm-constraints'
+gem 'dm-aggregates'
+gem 'dm-timestamps'
+gem 'dm-migrations'
+gem 'dm-observer'
+gem 'rails3_datamapper'
+
+
+== Available datamapper generators
+
+Due to the awesomeness of rails3 generators we get some cool generators for free. Since the new generators provide hooks that allow the rails3_datamapper gem to provide generators that hook into parts like model, scaffolds or test generation, everything just works like it would with active_record.
+
+The following generators are available to help you get started with some common components of any rails application. The list of these will probably grow over time. To invoke a generator simply issue one or all of the following inside Rails.root
+
+  bundle exec rails generate model Project name:string
+  bundle exec rails generate observer Project
+  bundle exec rails generate migration UpdateProject
+  bundle exec rails generate scaffold Project name:string
+
+  bundle exec rails destroy model Project
+  bundle exec rails destroy observer Project
+  bundle exec rails destroy migration UpdateProject
+  bundle exec rails destroy scaffold Project
+
+Well, everything isn't exactly true currently. I haven't yet played with rspec generators, but this is already on the TODO list.
+
+
+== Available datamapper specific rake tasks
+
+To get a list of all available rake tasks in your rails3 app, issue the usual
+
+  rake -T
+
+The following is an excerpt of the datamapper specific rake tasks that the rails3_datamapper gem adds for us.
+
+  ...
+  rake db:automigrate           # Perform destructive automigration
+  rake db:autoupgrade           # Perform non destructive automigration
+  rake db:create                # Create the database defined in config/database.yml for the current Rails.env - also creates the test database if Rails.env.development?
+  rake db:create:all            # Create all the local databases defined in config/database.yml
+  rake db:drop                  # Drops the database for the current Rails.env
+  rake db:drop:all              # Drop all the local databases defined in config/database.yml
+  rake db:migrate               # Migrate the database to the latest version
+  rake db:migrate:down[version] # Migrate down using migrations
+  rake db:migrate:up[version]   # Migrate up using migrations
+  rake db:seed                  # Load the seed data from db/seeds.rb
+  rake db:sessions:clear        # Clear the sessions table for DataMapperStore
+  rake db:sessions:create       # Creates the sessions table for DataMapperStore
+  rake db:setup                 # Create the database, load the schema, and initialize with the seed data
+  ...
+
+
+== Identity Map support
+
+By default, rails3_datamapper enables the use of the {identity map}[http://datamapper.org/why.html]. If for any reason you want to turn that off, just add the following line to your config/application.rb or config/environments/*.rb file.
+
+  config.data_mapper.use_identity_map = false
+
+
+== Using additional datamapper plugins
+
+In order to use additional plugins add them to the Gemfile and require them from inside a file in config/initializers. Once you've done that, update your bundle and you should be ready to use the plugin(s)
+
+  cd /path/to/your/app
+  edit Gemfile and add requires to your config/initializers/data_mapper_plugins
+  bundle install vendor
+
+Have a look at this application's {Gemfile}[http://github.com/snusnu/datamapper_on_rails3/blob/master/Gemfile] for an idea of how to use gems from git repositories.
+
+
+== Rails notification system
+
+Currently rails3_datamapper publishes the same benchmarking information like active_record does. This means that you will get output like this in your log files.
+
+  Completed in 9ms (Views: 7.6ms | DataMapper: 0.6ms) with 200
+
+While the SQL issued by DO adapters is already being logged properly, it is not yet published to possible rails subscribers. This is basically the only thing we're still missing in terms of datamapper rails3 notifications integration, compared with active_record. Of course we're not tied to only publishing these messages. If anyone can think of other useful information to publish, it's easy to hook into rails' notification system.
+
+
+== Current Issues
+
+  Migrations might not work perfectly
+
+
+== TODO (not necessarily in that order)
+
+  SPECS !!!
+  Think about a release strategy supporting both beta releases and master branch
+  Further README updates
+  More work on migrations
+  Check if the {session store}[http://github.com/dkubb/rails3_datamapper/blob/master/lib/rails3_datamapper/session_store.rb] support works
+  rspec-2.0.0 (generator) support
+  Provide a rails template for generating tailored apps for datamapper
+  Publish SQL issued by DO (and eventually every adapter) to rails subscribers
+  Think about integrating with {dana}[http://github.com/snusnu/dm-accepts_nested_attributes]
+  Think about integrating {dm-serializer}[http://github.com/datamapper/dm-more/tree/master/dm-serializer/]
+
+== Credits
+
+Big thanks to everyone working on {datamapper}[http://github.com/datamapper/dm-core], {rails}[http://github.com/rails/rails], {bundler}[http://github.com/carlhuda/bundler] and open source in general. This will be (and actually already is) an awesome platform for developing web applications.
+
+== Note on Patches/Pull Requests
+
+  Fork the project.
+  Make your feature addition or bug fix.
+  Add tests for it. This is important so I don’t break it in a future version unintentionally.
+  Commit, do not mess with rakefile, version, or history. (if you want to have your own version, that is fine but bump version in a commit by itself I can ignore when I pull)
+  Send me a pull request. Bonus points for topic branches.
+
 
 == Note on Patches/Pull Requests
 
@@ -14,4 +147,4 @@ Integrate DataMapper with Rails 3.
 
 == Copyright
 
-Copyright (c) 2009 Dan Kubb. See LICENSE for details.
+Copyright (c) 2009 Martin Gamsjaeger (snusnu), Dan Kubb, Alex Coles, Alexander Mankuta, Foy Savas. See LICENSE for details.
