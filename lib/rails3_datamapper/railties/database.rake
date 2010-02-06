@@ -54,7 +54,7 @@ namespace :db do
   namespace :migrate do
     task :load => :environment do
       require 'dm-migrations/migration_runner'
-      FileList['db/migrations/*.rb'].each do |migration|
+      FileList['db/migrate/*.rb'].each do |migration|
         load migration
       end
     end
