@@ -179,6 +179,19 @@ Big thanks to everyone working on {datamapper}[http://github.com/datamapper/dm-c
   (if you want to have your own version, that is fine but bump version in a commit by itself I can ignore when I pull)
 * Send me a pull request. Bonus points for topic branches.
 
+
+== The rails3_datamapper team
+
+Thx to all contributors, every patch, big or small is very much appreciated!
+
+* Martin Gamsjaeger (snusnu)
+* Dan Kubb (dkubb)
+* Alex Coles (myabc)
+* Alex Mankuta
+* Foy Savas
+* Randall Brewer
+* Josh Huckabee
+
 == Copyright
 
-Copyright (c) 2009 Martin Gamsjaeger (snusnu), Dan Kubb, Alex Coles, Alexander Mankuta, Foy Savas. See LICENSE for details.
+Copyright (c) 2009-2010 The rails3_datamapper team. See {LICENSE}[http://github.com/dkubb/rails3_datamapper/blob/master/LICENSE] for details.
