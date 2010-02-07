@@ -36,7 +36,7 @@ It's really easy to go from zero gems to a working rails3 app using datamapper. 
 
   gem install bundler
 
-Once you have bundler installed, you can bootsrap a rails3 application with the following commands. Note that you should choose either the Gemfile for the rails3 beta gem *or* the one for rails master, but not both. Furthermore, it's currently necessary to fetch a _config/database.yml_ file manually. This will change once I find out more clever ways to do this.
+Once you have bundler installed, you can bootstrap a rails3 application with the following commands. Note that you should choose either the Gemfile for the rails3 beta gem *or* the one for rails master, but not both. Furthermore, it's currently necessary to fetch a _config/database.yml_ file manually. This will change once I find out more clever ways to do this.
 
   mkdir rails3_app; cd rails3_app
   curl -L http://is.gd/7Q6AB > Gemfile # rails-3.0.0.beta gem
@@ -47,7 +47,7 @@ Once you have bundler installed, you can bootsrap a rails3 application with the 
   # This will not be necessary once we can come up with proper rails application templates
   # In the meantime, you can either write config/database.yml yourself or fetch one from the
   # sample app (note that you would have to change the name of the database in that case)
-  curl -L http://is.gd/7QoDR > config/database.yml
+  curl -L http://is.gd/7R29l > config/database.yml
 
 At that point, you should have a running rails3 application, but that's unfortunately not enough at that point. To really use rails3_datamapper you currently have to replace the corresponding lines in _config/application.rb_ with the following. This tells rails that we don't want to use active_record, but datamapper instead.
 
