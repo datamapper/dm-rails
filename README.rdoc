@@ -68,7 +68,7 @@ At this point you should have everything you need in order to start your datamap
 Have a look at {datamapper_on_rails3}[http://github.com/snusnu/datamapper_on_rails3] for a very minimal sample application that was built following the previous instructions on how to build a new application from scratch.
 
 
-== Available datamapper generators
+== Available generators
 
 Due to the awesomeness of rails3 generators we get some cool generators almost for free. Since the new generators provide hooks that allow the rails3_datamapper gem to provide generators that hook into parts like model, scaffolds or test generation, everything just works like it would with active_record.
 
@@ -167,14 +167,6 @@ While the SQL issued by DO adapters is already being logged properly, it is not 
 == Credits
 
 Big thanks to everyone working on {datamapper}[http://github.com/datamapper/dm-core], {rails}[http://github.com/rails/rails], {bundler}[http://github.com/carlhuda/bundler] and open source in general. This will be (and actually already is) an awesome platform for developing web applications.
-
-== Note on Patches/Pull Requests
-
-  Fork the project.
-  Make your feature addition or bug fix.
-  Add tests for it. This is important so I don’t break it in a future version unintentionally.
-  Commit, do not mess with rakefile, version, or history. (if you want to have your own version, that is fine but bump version in a commit by itself I can ignore when I pull)
-  Send me a pull request. Bonus points for topic branches.
 
 
 == Note on Patches/Pull Requests
