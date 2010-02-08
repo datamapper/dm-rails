@@ -16,16 +16,16 @@ module Rails
       end
 
       def create_environment(config)
-        config.each { |repo_name, repo_config| create(repo_config) }
+        config.each { |repo_name, repo_config| create(repo_name, repo_config) }
       end
 
       def drop_environment(config)
-        config.each { |repo_name, repo_config| drop(repo_config) }
+        config.each { |repo_name, repo_config| drop(repo_name, repo_config) }
       end
 
-      def create(config)
+      def create(repository, config)
+        puts "config = #{config.inspect}"
         database = config['database'] || config['path']
-        puts "Creating database '#{database}'"
         case config['adapter']
         when 'postgres'
           `createdb -U #{config['username']} #{database}`
@@ -33,15 +33,15 @@ module Rails
           user, password = config['username'], config['password']
           `mysql --user=#{user} #{password ? "--password=#{password}" : ''} -e "create database #{database}"`
         when 'sqlite3'
-          Rails::DataMapper.setup(config)
+          ::DataMapper.setup(repository.to_sym, config)
         else
           raise "Adapter #{config['adapter']} not supported for creating databases yet."
         end
+        puts "Created database '#{database}'"
       end
 
-      def drop(config)
+      def drop(repository, config)
         database = config['database'] || config['path']
-        puts "Dropping database '#{database}'"
         case config['adapter']
         when 'postgres'
           `dropdb -U #{config['username']} #{database}`
@@ -56,6 +56,7 @@ module Rails
         else
           raise "Adapter #{config['adapter']} not supported for dropping databases yet.\ntry db:automigrate"
         end
+        puts "Dropped database '#{database}'"
       end
 
 
