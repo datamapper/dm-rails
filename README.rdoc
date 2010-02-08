@@ -4,33 +4,6 @@ This gem provides the railtie that allows {datamapper}[http://github.com/datamap
 
 Creating new datamapper apps on rails3 from scratch is actually really easy. The following will guide you through the process.
 
-== Sample Gemfile
-
-Using {bundler}[http://github.com/carlhuda/bundler] it's really easy to get an app going with datamapper and rails3. Just use a Gemfile like this, and bundler will pull in everything needed to run your app. Note that you also must add any additional datamapper plugin or any other gem that you'd like to use to the Gemfile. This makes sure that bundler is able to provide a complete environment containing all required dependencies for your app.
-
-  source 'http://gemcutter.org'
-  
-  gem 'rails',        '3.0.0.beta'
-  
-  gem 'data_objects', '0.10.1'
-  gem 'do_mysql',     '0.10.1'
-  
-  git 'git://github.com/snusnu/dm-core.git', 'branch' => 'active_support'
-  git "git://github.com/snusnu/dm-more.git", 'branch' => 'active_support'
-  git 'git://github.com/dkubb/rails3_datamapper.git'
-  
-  gem 'rails3_datamapper'
-
-  gem 'dm-core'
-  gem 'dm-types'
-  gem 'dm-validations'
-  gem 'dm-constraints'
-  gem 'dm-aggregates'
-  gem 'dm-timestamps'
-  gem 'dm-migrations'
-  gem 'dm-observer'
-
-
 == Generating a new application from scratch
 
 It's really easy to go from zero gems to a working rails3 app using datamapper. Basically, all you need is {bundler}[http://github.com/carlhuda/bundler].
@@ -68,8 +41,34 @@ At this point you should have everything you need in order to start your datamap
 
 Have a look at {datamapper_on_rails3}[http://github.com/snusnu/datamapper_on_rails3] for a very minimal sample application that was built following the previous instructions on how to build a new application from scratch.
 
+== Sample Gemfile
 
-== Example database.yml files
+Using {bundler}[http://github.com/carlhuda/bundler] it's really easy to get an app going with datamapper and rails3. Just use a Gemfile like this, and bundler will pull in everything needed to run your app. Note that you also must add any additional datamapper plugin or any other gem that you'd like to use to the Gemfile. This makes sure that bundler is able to provide a complete environment containing all required dependencies for your app.
+
+  source 'http://gemcutter.org'
+
+  gem 'rails',        '3.0.0.beta'
+
+  gem 'data_objects', '0.10.1'
+  gem 'do_mysql',     '0.10.1'
+
+  git 'git://github.com/snusnu/dm-core.git', 'branch' => 'active_support'
+  git "git://github.com/snusnu/dm-more.git", 'branch' => 'active_support'
+  git 'git://github.com/dkubb/rails3_datamapper.git'
+
+  gem 'rails3_datamapper'
+
+  gem 'dm-core'
+  gem 'dm-types'
+  gem 'dm-validations'
+  gem 'dm-constraints'
+  gem 'dm-aggregates'
+  gem 'dm-timestamps'
+  gem 'dm-migrations'
+  gem 'dm-observer'
+
+
+== Sample database.yml files
 
 DataMapper supports connecting to and working with multiple repositories easily. In order to be able to take full advantage of that feature in rails, you can configure as many repositories for your different environments as you wish. All you need to do is follow some simple naming conventions and you're good to go. Have a look at the #{adapter}_defaults declarations in the sample files below. That's the only convention you need to follow. Your default declarations should always end with "defaults". This is necessary for rails3_datamapper to not confuse these with any of your environment declarations. In fact, rails3_datamapper looks at the content of your database.yml and rejects every key that matches /defaults/. The remaining entries represent the repository configurations for the available environments.
 
@@ -177,7 +176,7 @@ The following generators are available to help you get started with the typical 
 
 To get a list of all available rake tasks in your rails3 app, issue the usual
 
-  bundlex exec rake -T
+  vendor/bin/rake -T
 
 The following is an excerpt of the datamapper specific rake tasks that the rails3_datamapper gem adds for us.
 
@@ -346,11 +345,11 @@ By default, rails3_datamapper enables the use of the {identity map}[http://datam
 
     config.data_mapper.identity_map = false
 
-Activating the identity map is achieved by installing a middleware that wraps the whole request with a
+Activating the identity map is achieved by installing a middleware that wraps the whole request inside
 
   DataMapper.repository { ... }
 
-block. Note that this scopes every call to datamapper to the :default repository specified in your database.yml file. If you need to access a different repository from within your actions, just wrap the calls in another DataMapper.repository block. DataMapper stacks the repositories it uses and the innermost will always win.
+Note that this scopes every call to datamapper to the :default repository specified in your database.yml file. If you need to access a different repository from within your actions, just wrap the calls in another DataMapper.repository block. DataMapper stacks the repositories it uses and the innermost will always win.
 
 
 == Using additional datamapper plugins
