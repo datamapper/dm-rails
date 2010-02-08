@@ -3,44 +3,41 @@ require 'rails3_datamapper/storage'
 
 namespace :db do
 
-  namespace :test do
-    task :prepare => ['db:setup']
-  end
-
-  task :load_config => :rails_env do
-    Rails::DataMapper.configurations = Rails::Application.config.database_configuration
-  end
-
   task :load_models => :environment do
     FileList["app/models/**/*.rb"].each { |model| load model }
   end
 
+  desc 'Create the database, load the schema, and initialize with the seed data'
+  task :setup => [ 'db:create', 'db:automigrate', 'db:seed' ]
 
   namespace :create do
     desc 'Create all the local databases defined in config/database.yml'
-    task :all => :load_config do
-      Rails::DataMapper::Storage.create_local_databases
+    task :all => :environment do
+      Rails::DataMapper.storage.create_all
     end
   end
 
-  desc "Create the database defined in config/database.yml for the current Rails.env - also creates the test database if Rails.env.development?"
-  task :create => :load_config do
-    Rails::DataMapper::Storage.create_database(Rails::DataMapper.configurations[Rails.env])
-    if Rails.env.development? && Rails::DataMapper.configurations['test']
-      Rails::DataMapper::Storage.create_database(Rails::DataMapper.configurations['test'])
+  desc "Create the database(s) defined in config/database.yml for the current Rails.env - also creates the test database(s) if Rails.env.development?"
+  task :create => :environment do
+    Rails::DataMapper.storage.create_environment(Rails::DataMapper.configuration.repositories[Rails.env])
+    if Rails.env.development? && Rails::DataMapper.configuration.repositories['test']
+      Rails::DataMapper.storage.create_environment(Rails::DataMapper.configuration.repositories['test'])
     end
   end
 
   namespace :drop do
     desc 'Drop all the local databases defined in config/database.yml'
-    task :all => :load_config do
-      Rails::DataMapper::Storage.drop_local_databases
+    task :all => :environment do
+      Rails::DataMapper.storage.drop_all
     end
   end
 
-  desc "Drops the database for the current Rails.env"
-  task :drop => :load_config do
-    Rails::DataMapper::Storage.drop_database(Rails::DataMapper.configurations[Rails.env])
+  desc "Drops the database(s) for the current Rails.env - also drops the test database(s) if Rails.env.development?"
+  task :drop => :environment do
+    Rails::DataMapper.storage.drop_environment(Rails::DataMapper.configuration.repositories[Rails.env])
+    if Rails.env.development? && Rails::DataMapper.configuration.repositories['test']
+      Rails::DataMapper.storage.drop_environment(Rails::DataMapper.configuration.repositories['test'])
+    end
   end
 
 
@@ -54,6 +51,11 @@ namespace :db do
     ::DataMapper.auto_upgrade!
   end
 
+  desc 'Load the seed data from db/seeds.rb'
+  task :seed => :environment do
+    seed_file = File.join(Rails.root, 'db', 'seeds.rb')
+    load(seed_file) if File.exist?(seed_file)
+  end
 
   namespace :migrate do
     task :load => :environment do
@@ -91,15 +93,6 @@ namespace :db do
       Rails::DataMapper::SessionStore::Session.all.destroy!
       puts "Deleted entries from '#{Rails::DataMapper.configurations[Rails.env]['database']}.sessions'"
     end
-  end
-
-  desc 'Create the database, load the schema, and initialize with the seed data'
-  task :setup => [ 'db:create', 'db:automigrate', 'db:seed' ]
-
-  desc 'Load the seed data from db/seeds.rb'
-  task :seed => :environment do
-    seed_file = File.join(Rails.root, 'db', 'seeds.rb')
-    load(seed_file) if File.exist?(seed_file)
   end
 
 end

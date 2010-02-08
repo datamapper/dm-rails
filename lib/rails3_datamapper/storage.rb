@@ -1,18 +1,29 @@
 module Rails
   module DataMapper
 
-    module Storage
+    def self.storage
+      @storage ||= Storage.new
+    end
 
-      def self.create_local_databases
-        with_local_databases { |config| create_database(config) }
+    class Storage
+
+      def create_all
+        with_local_repositories { |config| create_environment(config) }
       end
 
-      def self.drop_local_databases
-        with_local_databases { |config| drop_database(config) }
+      def drop_all
+        with_local_repositories { |config| drop_environment(config) }
       end
 
+      def create_environment(config)
+        config.each { |repo_name, repo_config| create(repo_config) }
+      end
 
-      def self.create_database(config)
+      def drop_environment(config)
+        config.each { |repo_name, repo_config| drop(repo_config) }
+      end
+
+      def create(config)
         database = config['database'] || config['path']
         puts "Creating database '#{database}'"
         case config['adapter']
@@ -28,7 +39,7 @@ module Rails
         end
       end
 
-      def self.drop_database(config)
+      def drop(config)
         database = config['database'] || config['path']
         puts "Dropping database '#{database}'"
         case config['adapter']
@@ -48,29 +59,13 @@ module Rails
       end
 
 
-      # Skips entries that don't have a database key, such as the first entry here:
-      #
-      #  defaults: &defaults
-      #    adapter: mysql
-      #    username: root
-      #    password:
-      #    host: localhost
-      #
-      #  development:
-      #    database: blog_development
-      #    <<: *defaults
-      def self.with_local_databases
-        Rails::DataMapper.configurations.each_value do |config|
-          next unless config['database']
-          with_local_database(config) { yield(config) }
-        end
-      end
-
-      def self.with_local_database(config, &block)
-        if %w( 127.0.0.1 localhost ).include?(config['host']) || config['host'].blank?
-          yield
-        else
-          puts "This task only modifies local databases. #{config['database']} is on a remote host."
+      def with_local_repositories
+        Rails::DataMapper.configuration.repositories.each_value do |config|
+          if %w( 127.0.0.1 localhost ).include?(config['host']) || config['host'].blank?
+            yield(config)
+          else
+            puts "This task only modifies local databases. #{config['database']} is on a remote host."
+          end
         end
       end
 

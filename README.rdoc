@@ -19,6 +19,8 @@ Using {bundler}[http://github.com/carlhuda/bundler] it's really easy to get an a
   git "git://github.com/snusnu/dm-more.git", 'branch' => 'active_support'
   git 'git://github.com/dkubb/rails3_datamapper.git'
   
+  gem 'rails3_datamapper'
+
   gem 'dm-core'
   gem 'dm-types'
   gem 'dm-validations'
@@ -27,7 +29,6 @@ Using {bundler}[http://github.com/carlhuda/bundler] it's really easy to get an a
   gem 'dm-timestamps'
   gem 'dm-migrations'
   gem 'dm-observer'
-  gem 'rails3_datamapper'
 
 
 == Generating a new application from scratch
@@ -68,29 +69,108 @@ At this point you should have everything you need in order to start your datamap
 Have a look at {datamapper_on_rails3}[http://github.com/snusnu/datamapper_on_rails3] for a very minimal sample application that was built following the previous instructions on how to build a new application from scratch.
 
 
+== Example database.yml files
+
+DataMapper supports connecting to and working with multiple repositories easily. In order to be able to take full advantage of that feature in rails, you can configure as many repositories for your different environments as you wish. All you need to do is follow some simple naming conventions and you're good to go. Have a look at the #{adapter}_defaults declarations in the sample files below. That's the only convention you need to follow. Your default declarations should always end with "defaults". This is necessary for rails3_datamapper to not confuse these with any of your environment declarations. In fact, rails3_datamapper looks at the content of your database.yml and rejects every key that matches /defaults/. The remaining entries represent the repository configurations for the available environments.
+
+An example for setting up a single repository for every environment.
+
+  defaults: &defaults
+    adapter: mysql
+    username: root
+    password:
+    host: localhost
+
+  development:
+    database: rails3_app_development
+    <<: *defaults
+  test:
+    database: rails3_app_test
+    <<: *defaults
+  production:
+    database: rails3_app_production
+    <<: *defaults
+
+
+An example for setting up multiple repositories for every environment.
+
+  mysql_defaults: &mysql_defaults
+    adapter: mysql
+    username: mysql_user
+    password: mysql_sekret
+    host: localhost
+
+  postgres_defaults: &postgres_defaults
+    adapter: postgres
+    username: postgres_user
+    password: postgres_sekret
+    host: postgres_host
+
+  oracle_defaults: &oracle_defaults
+    adapter: oracle
+    username: oracle_user
+    password: oracle_sekret
+    host: oracle_host
+
+
+  development:
+    database: rails3_mysql_development
+    <<: *mysql_defaults
+    repositories:
+      foo:
+        database: rails3_postgres_development
+        <<: *postgres_defaults
+      bar:
+        database: rails3_oracle_development
+        <<: *oracle_defaults
+
+  test:
+    database: rails3_mysql_test
+    <<: *mysql_defaults
+    repositories:
+      foo:
+        database: rails3_postgres_test
+        <<: *postgres_defaults
+      bar:
+        database: rails3_oracle_test
+        <<: *oracle_defaults
+
+  production:
+    database: rails3_mysql_production
+    <<: *mysql_defaults
+    repositories:
+      foo:
+        database: rails3_postgres_production
+        <<: *postgres_defaults
+      bar:
+        database: rails3_oracle_production
+        <<: *oracle_defaults
+
+Once you have defined your database.yml file, rails3_datamapper's rake tasks will be able to create, drop, auto_migrate! and auto_upgrade! all your defined repositories.
+
 == Available generators
 
 Due to the awesomeness of rails3 generators we get some cool generators almost for free. Since the new generators provide hooks that allow the rails3_datamapper gem to provide generators that hook into parts like model, scaffolds or test generation, everything just works like it would with active_record.
 
 The following generators are available to help you get started with the typical components of any rails application.
 
-  bundle exec rails generate controller
-  bundle exec rails generate generator
-  bundle exec rails generate helper
-  bundle exec rails generate integration_test
-  bundle exec rails generate mailer
-  bundle exec rails generate metal
-  bundle exec rails generate migration
-  bundle exec rails generate model
-  bundle exec rails generate model_subclass
-  bundle exec rails generate observer
-  bundle exec rails generate performance_test
-  bundle exec rails generate plugin
-  bundle exec rails generate resource
-  bundle exec rails generate scaffold
-  bundle exec rails generate scaffold_controller
-  bundle exec rails generate session_migration
-  bundle exec rails generate stylesheets
+  vendor/bin/rails generate controller
+  vendor/bin/rails generate generator
+  vendor/bin/rails generate helper
+  vendor/bin/rails generate integration_test
+  vendor/bin/rails generate mailer
+  vendor/bin/rails generate metal
+  vendor/bin/rails generate migration
+  vendor/bin/rails generate model
+  vendor/bin/rails generate model_subclass
+  vendor/bin/rails generate observer
+  vendor/bin/rails generate performance_test
+  vendor/bin/rails generate plugin
+  vendor/bin/rails generate resource
+  vendor/bin/rails generate scaffold
+  vendor/bin/rails generate scaffold_controller
+  vendor/bin/rails generate session_migration
+  vendor/bin/rails generate stylesheets
 
 
 == Available datamapper specific rake tasks
@@ -102,27 +182,175 @@ To get a list of all available rake tasks in your rails3 app, issue the usual
 The following is an excerpt of the datamapper specific rake tasks that the rails3_datamapper gem adds for us.
 
   ...
-  rake db:automigrate           # Perform destructive automigration
-  rake db:autoupgrade           # Perform non destructive automigration
-  rake db:create                # Create the database defined in config/database.yml for the current Rails.env - also creates the test database if Rails.env.development?
-  rake db:create:all            # Create all the local databases defined in config/database.yml
-  rake db:drop                  # Drops the database for the current Rails.env
-  rake db:drop:all              # Drop all the local databases defined in config/database.yml
-  rake db:migrate               # Migrate the database to the latest version
-  rake db:migrate:down[version] # Migrate down using migrations
-  rake db:migrate:up[version]   # Migrate up using migrations
-  rake db:seed                  # Load the seed data from db/seeds.rb
-  rake db:sessions:clear        # Clear the sessions table for DataMapperStore
-  rake db:sessions:create       # Creates the sessions table for DataMapperStore
-  rake db:setup                 # Create the database, load the schema, and initialize with the seed data
+  vendor/bin/rake db:automigrate           # Perform destructive automigration
+  vendor/bin/rake db:autoupgrade           # Perform non destructive automigration
+  vendor/bin/rake db:create                # Create the database defined in config/database.yml for the current Rails.env - also creates the test database if Rails.env.development?
+  vendor/bin/rake db:create:all            # Create all the local databases defined in config/database.yml
+  vendor/bin/rake db:drop                  # Drops the database for the current Rails.env
+  vendor/bin/rake db:drop:all              # Drop all the local databases defined in config/database.yml
+  vendor/bin/rake db:migrate               # Migrate the database to the latest version
+  vendor/bin/rake db:migrate:down[version] # Migrate down using migrations
+  vendor/bin/rake db:migrate:up[version]   # Migrate up using migrations
+  vendor/bin/rake db:seed                  # Load the seed data from db/seeds.rb
+  vendor/bin/rake db:sessions:clear        # Clear the sessions table for DataMapperStore
+  vendor/bin/rake db:sessions:create       # Creates the sessions table for DataMapperStore
+  vendor/bin/rake db:setup                 # Create the database, load the schema, and initialize with the seed data
   ...
+
+
+== Configuring and introspecting rails3_datamapper
+
+Rails3 makes it easy to expose framework component specific configuration to application developers in a uniform and easy to use way. To build on this philosophy, rails3_datamapper exposes its configuration via a single object that is used throughout rails3_datamapper's code to store configuration relevant to datamapper and to rails. You can access it from within your application and of course alter it's settings in your config/application.rb or config/environments files. Here's a quick overview of the API the configuration object exposes. Expect this to grow as we come up with additional useful stuff to configure.
+
+
+  Rails::DataMapper.configuration
+  Rails::DataMapper::Configuration::DEFAULT_PLUGINS = %w(dm-validations dm-timestamps dm-observer dm-migrations)
+  Rails::DataMapper::Configuration.for(database_yml_hash)
+
+  Rails::DataMapper::Configuration#raw
+  Rails::DataMapper::Configuration#environments
+  Rails::DataMapper::Configuration#repositories
+  Rails::DataMapper::Configuration#identity_map=(value)
+  Rails::DataMapper::Configuration#identity_map
+  Rails::DataMapper::Configuration#plugins=(*plugins)
+  Rails::DataMapper::Configuration#plugins
+  Rails::DataMapper::Configuration#adapter_cascade
+
+
+
+As promised, you can easily inspect the configuration from your running rails application. Let's start a rails console and have a look what's configured for our app.
+
+  ree-1.8.7-2010.01 mungo:datamapper_on_rails3 snusnu$ vendor/bin/rails console
+  Loading development environment (Rails 3.0.0.beta)
+  ruby-1.8.7-p248 > require 'pp'
+   => ["PP"]
+  ruby-1.8.7-p248 > pp Rails::DataMapper.configuration
+  #<Rails::DataMapper::Configuration:0x1025bbc58
+   @adapter_cascade=Rails::DataMapper::Adapters::Cascade,
+   @identity_map=true,
+   @plugins=["dm-validations", "dm-timestamps", "dm-observer", "dm-migrations"],
+   @raw=
+    {"production"=>
+      {"adapter"=>"mysql",
+       "username"=>"root",
+       "database"=>"rails3_app_production",
+       "host"=>"localhost",
+       "password"=>nil},
+     "development"=>
+      {"adapter"=>"mysql",
+       "username"=>"root",
+       "database"=>"rails3_app_development",
+       "host"=>"localhost",
+       "password"=>nil},
+     "defaults"=>
+      {"username"=>"root",
+       "adapter"=>"mysql",
+       "host"=>"localhost",
+       "password"=>nil},
+     "test"=>
+      {"adapter"=>"mysql",
+       "username"=>"root",
+       "database"=>"rails3_app_test",
+       "host"=>"localhost",
+       "password"=>nil}},
+   @repositories=
+    {"production"=>
+      {"default"=>
+        {"adapter"=>"mysql",
+         "username"=>"root",
+         "database"=>"rails3_app_production",
+         "host"=>"localhost",
+         "password"=>nil}},
+     "development"=>
+      {"default"=>
+        {"adapter"=>"mysql",
+         "username"=>"root",
+         "database"=>"rails3_app_development",
+         "host"=>"localhost",
+         "password"=>nil}},
+     "test"=>
+      {"default"=>
+        {"adapter"=>"mysql",
+         "username"=>"root",
+         "database"=>"rails3_app_test",
+         "host"=>"localhost",
+         "password"=>nil}}}>
+   => nil
+
+Additionally, you can reach the configuration object via the standard way that rails provides to expose configuration for framework components and plugins.
+
+  Rails.application.config.data_mapper.configuration
+
+This will give you the exact same object we inspected in the previous pretty print output from rails console.
+
+
+== Extending rails3_datamapper
+
+It's easy to extend or adapt rails3_datamapper to meet your specific needs. Thanks to the railties API it's possible to hook into any part of the initialization process. In order to customize rails3_datamapper, all you need to do is define your own Rails::Railtie class that inherits from Rails::DataMapper::Railtie and require that instead of the standard rails3_datamapper/railtie. During initialization of any rails plugin, the initializers defined by that plugin are run in the order specified. Since rails3_datamapper defines every action that gets called by its initializers as a method on either the Railtie instance or the class, you can just go ahead and overwrite these in your subclass. All those methods get called with the running Rails::Application (always reachable via Rails.application) as single parameter, so you can customize depending on the app's state as much as you wish. Additionally, the initializers are all named, and you can hook your own additional initializers before or after any of the named rails (or rails3_datamapper) initializers.
+
+To give you an idea of what you get when inheriting from Rails::DataMapper::Railtie have a look at the list of methods provided by that object.
+
+  Rails::DataMapper::Railtie.setup_data_mapper(app)
+  Rails::DataMapper::Railtie.load_plugins(app)
+  Rails::DataMapper::Railtie.preload_lib(app)
+  Rails::DataMapper::Railtie.preload_models(app)
+
+  Rails::DataMapper::Railtie#configure_data_mapper(app)
+  Rails::DataMapper::Railtie#setup_adapter_cascade(app)
+  Rails::DataMapper::Railtie#setup_routing_support(app)
+  Rails::DataMapper::Railtie#setup_controller_runtime(app)
+  Rails::DataMapper::Railtie#setup_identity_map(app)
+  Rails::DataMapper::Railtie#setup_logger(app)
+
+
+To complete the picture of rails3_datamapper's initialization process, here's an overview of the defined initializers in the order they are called by rails during bootup. Note that every one of these initializers does one single thing; calling one of the methods listed above. This makes it easy to customize each of these steps by overwriting the respective method.
+
+  initializer 'data_mapper.configuration' do |app|
+    configure_data_mapper(app)
+  end
+
+  initializer 'data_mapper.logger' do |app|
+    setup_logger(app, Rails.logger)
+  end
+
+  initializer 'data_mapper.adapter_cascade' do |app|
+    setup_adapter_cascade(app)
+  end
+
+  initializer 'data_mapper.routing_support' do |app|
+    setup_routing_support(app)
+  end
+
+  # Expose database runtime to controller for logging.
+  initializer "data_mapper.log_runtime" do |app|
+    setup_controller_runtime(app)
+  end
+
+  initializer 'data_mapper.setup_identity_map' do |app|
+    setup_identity_map(app)
+  end
+
+  # Run setup code after_initialize to make sure all config/initializers
+  # are in effect once we setup the connection. This is especially necessary
+  # for the cascaded adapter wrappers that need to be declared before setup.
+  # Note that setup_datamapper (and needed methods are defined in class scope)
+
+  config.after_initialize do |app|
+    setup_data_mapper(app)
+  end
 
 
 == Identity Map support
 
-By default, rails3_datamapper enables the use of the {identity map}[http://datamapper.org/why.html]. If for any reason you want to turn that off, just add the following line to your config/application.rb or config/environments/*.rb file.
+By default, rails3_datamapper enables the use of the {identity map}[http://datamapper.org/why.html]. If for any reason you want to turn that off, just add the following line to your config/application.rb or your config/environments/*.rb file.
 
-  config.data_mapper.use_identity_map = false
+    config.data_mapper.identity_map = false
+
+Activating the identity map is achieved by installing a middleware that wraps the whole request with a
+
+  DataMapper.repository { ... }
+
+block. Note that this scopes every call to datamapper to the :default repository specified in your database.yml file. If you need to access a different repository from within your actions, just wrap the calls in another DataMapper.repository block. DataMapper stacks the repositories it uses and the innermost will always win.
 
 
 == Using additional datamapper plugins
