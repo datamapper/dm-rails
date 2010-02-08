@@ -14,7 +14,7 @@ It's really easy to go from zero gems to a working rails3 app using datamapper. 
 
 Once you have bundler installed, you can bootstrap a rails3 application with a single command. Yes! A single command. Behold!
 
-  rails dm_rails3_app -m http://is.gd/7V3Xq
+  rails dm_rails3_app -m http://pastie.org/814307.txt
 
 Now that was easy! Follow the instructions and point your browser to
 
