@@ -1,4 +1,4 @@
-migration <%= migration_number.to_i %>, :<%= migration_file_name %> do 
+migration <%= migration_number.to_i %>, :<%= migration_file_name %> do
 
   up do
 <% unless attributes.empty? -%>
