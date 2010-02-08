@@ -47,10 +47,10 @@ module Rails
         end
 
         def lookup_class(adapter)
-          klass_name = adapter.classify.to_sym
+          klass_name = adapter.camelize.to_sym
 
-          unless const_defined?(klass_name)
-            raise "Adapter #{adapter} not supported"
+          unless Storage.const_defined?(klass_name)
+            raise "Adapter #{adapter} not supported (#{klass_name.inspect})"
           end
 
           const_get(klass_name)
@@ -64,12 +64,12 @@ module Rails
 
       def create
         _create
-        puts "Created database '#{database}' for #{name}"
+        puts "Created database '#{database}'"
       end
 
       def drop
         _drop
-        puts "Dropped database '#{database}' for #{name}"
+        puts "Dropped database '#{database}'"
       end
 
       def database
@@ -84,47 +84,64 @@ module Rails
         @password ||= config['password']
       end
 
-    private
-
-      class Sqlite < Storage
-        def _create
-          ::DataMapper.setup(name, config)
-        end
-
-        def _drop
-          path = Pathname(database)
-          path = Rails.root.join(path) unless path.absolute?
-          path.unlink
-        end
+      def charset
+        @charset ||= config['charset'] || ENV['CHARSET'] || 'utf8'
       end
 
-      class Mysql < Storage
+      class Sqlite3 < Storage
         def _create
-          execute("CREATE DATABASE #{database}")
+          return if in_memory?
+          ::DataMapper.setup(name, config.merge('database' => path))
         end
 
         def _drop
-          execute("DROP DATABASE #{database}")
+          return if in_memory?
+          path.unlink if path.file?
         end
 
       private
 
-        def execute(command)
-          `mysql --user=#{username} #{password.blank? ? '' : "--password=#{password}"} -e "#{command}"`
+        def in_memory?
+          database == ':memory:'
+        end
+
+        def path
+          @path ||= Pathname(File.expand_path(database, Rails.root))
+        end
+
+      end
+
+      class Mysql < Storage
+        def _create
+          execute("CREATE DATABASE `#{database}` DEFAULT CHARACTER SET #{charset} DEFAULT COLLATE #{collation}")
+        end
+
+        def _drop
+          execute("DROP DATABASE IF EXISTS `#{database}`")
+        end
+
+      private
+
+        def execute(statement)
+          `mysql #{username.blank? ? '' : "--user=#{username}"} #{password.blank? ? '' : "--password=#{password}"} -e '#{statement}'`
+        end
+
+        def collation
+          @collation ||= config['collation'] || ENV['COLLATION'] || 'utf8_unicode_ci'
         end
 
       end
 
       class Postgres < Storage
         def _create
-          `createdb -U #{username} #{database}`
+          `createdb -E #{charset} -U #{username} #{database}`
         end
 
         def _drop
           `dropdb -U #{username} #{database}`
         end
-      end
 
+      end
     end
   end
 end
