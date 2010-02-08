@@ -181,19 +181,19 @@ To get a list of all available rake tasks in your rails3 app, issue the usual
 Once you do that, you will see the following rake tasks among others. These are the ones that rails3_datamapper added for us.
 
   ...
-  vendor/bin/rake db:automigrate                       # Perform destructive automigration
-  vendor/bin/rake db:autoupgrade                       # Perform non destructive automigration
-  vendor/bin/rake db:create                            # Create the database(s) defined in config/database.yml for the current Rails.env - also creates the test database(s) if Rails.env.development?
-  vendor/bin/rake db:create:all                        # Create all the local databases defined in config/database.yml
-  vendor/bin/rake db:drop                              # Drops the database(s) for the current Rails.env - also drops the test database(s) if Rails.env.development?
-  vendor/bin/rake db:drop:all                          # Drop all the local databases defined in config/database.yml
-  vendor/bin/rake db:migrate                           # Migrate the database to the latest version
-  vendor/bin/rake db:migrate:down[version]             # Migrate down using migrations
-  vendor/bin/rake db:migrate:up[version]               # Migrate up using migrations
-  vendor/bin/rake db:seed                              # Load the seed data from db/seeds.rb
-  vendor/bin/rake db:sessions:clear                    # Clear the sessions table for DataMapperStore
-  vendor/bin/rake db:sessions:create                   # Creates the sessions table for DataMapperStore
-  vendor/bin/rake db:setup                             # Create the database, load the schema, and initialize with the seed data
+  vendor/bin/rake db:automigrate           # Perform destructive automigration
+  vendor/bin/rake db:autoupgrade           # Perform non destructive automigration
+  vendor/bin/rake db:create                # Create the database(s) defined in config/database.yml for the current Rails.env - also creates the test database(s) if Rails.env.development?
+  vendor/bin/rake db:create:all            # Create all the local databases defined in config/database.yml
+  vendor/bin/rake db:drop                  # Drops the database(s) for the current Rails.env - also drops the test database(s) if Rails.env.development?
+  vendor/bin/rake db:drop:all              # Drop all the local databases defined in config/database.yml
+  vendor/bin/rake db:migrate               # Migrate the database to the latest version
+  vendor/bin/rake db:migrate:down[version] # Migrate down using migrations
+  vendor/bin/rake db:migrate:up[version]   # Migrate up using migrations
+  vendor/bin/rake db:seed                  # Load the seed data from db/seeds.rb
+  vendor/bin/rake db:sessions:clear        # Clear the sessions table for DataMapperStore
+  vendor/bin/rake db:sessions:create       # Creates the sessions table for DataMapperStore
+  vendor/bin/rake db:setup                 # Create the database, load the schema, and initialize with the seed data
 
   ...
 
