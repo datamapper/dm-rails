@@ -2,39 +2,25 @@
 
 This gem provides the railtie that allows {datamapper}[http://github.com/datamapper/dm-core] to hook into {rails3}[http://github.com/rails/rails] and thus behave like a rails framework component. Just like activercord does in rails, rails3_datamapper uses the railtie API to hook into rails. The two are actually hooked into rails almost identically.
 
-Creating new datamapper apps on rails3 from scratch is actually really easy. The following will guide you through the process.
+Creating new datamapper apps on rails3 from scratch is actually really easy. Like, *really* easy. The following will guide you through the process.
 
 == Generating a new application from scratch
 
 It's really easy to go from zero gems to a working rails3 app using datamapper. Basically, all you need is {bundler}[http://github.com/carlhuda/bundler].
 
   gem install bundler
+  gem install i18n tzinfo builder memcache-client rack rack-test rack-mount erubis mail text-format thor bundler
+  gem install rails --pre
 
-Once you have bundler installed, you can bootstrap a rails3 application with the following commands. Note that you should choose either the Gemfile for the rails3 beta gem *or* the one for rails master, but not both. Furthermore, it's currently necessary to fetch a _config/database.yml_ file manually. This will change once I find out more clever ways to do this.
+Once you have bundler installed, you can bootstrap a rails3 application with a single command. Yes! A single command. Behold!
 
-  mkdir rails3_app; cd rails3_app
-  curl -L http://is.gd/7Q6AB > Gemfile # rails-3.0.0.beta gem
-  curl -L http://is.gd/7QrBt > Gemfile # rails master from github
-  bundle install vendor
-  bundle exec vendor/bin/rails . -s --skip-activerecord --skip-prototype skip-testunit
-  # At this point you will have to get a config/database.yml still
-  # This will not be necessary once we can come up with proper rails application templates
-  # In the meantime, you can either write config/database.yml yourself or fetch one from the
-  # sample app (note that you would have to change the name of the database in that case)
-  curl -L http://is.gd/7R29l > config/database.yml
+  rails dm_rails3_app -m http://is.gd/7V3Xq
 
-At that point, you should have a running rails3 application, but that's unfortunately not enough at that point. To really use rails3_datamapper you currently have to replace the corresponding lines in _config/application.rb_ with the following. This tells rails that we don't want to use active_record, but datamapper instead.
+Now that was easy! Follow the instructions and point your browser to
 
-  # Pick the frameworks you want:
-  require "action_controller/railtie"
-  require "rails3_datamapper/railtie"
-  require "action_mailer/railtie"
-  # require "active_resource/railtie"
-  # require "rails/test_unit/railtie"
+  http://localhost:3000/people
 
-At this point you should have everything you need in order to start your datamapper on rails3 application. Type the following and you should be good to go.
-
-  vendor/bin/rails server
+Awesome.
 
 
 == Minimal sample application
