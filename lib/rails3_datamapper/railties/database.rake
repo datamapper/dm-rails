@@ -48,11 +48,11 @@ namespace :db do
   desc 'Perform destructive automigration of all repositories in the current Rails.env'
   task :automigrate => :load_models do
     Rails::DataMapper.configuration.repositories[Rails.env].each do |repository, config|
-      ::DataMapper.auto_migrate!(repository.to_syml)
+      ::DataMapper.auto_migrate!(repository.to_sym)
     end
     if Rails.env.development? && Rails::DataMapper.configuration.repositories['test']
       Rails::DataMapper.configuration.repositories[Rails.env].each do |repository, config|
-        ::DataMapper.auto_migrate!(repository.to_syml)
+        ::DataMapper.auto_migrate!(repository.to_sym)
       end
     end
   end
@@ -60,11 +60,11 @@ namespace :db do
   desc 'Perform non destructive automigration of all repositories in the current Rails.env'
   task :autoupgrade => :load_models do
     Rails::DataMapper.configuration.repositories[Rails.env].each do |repository, config|
-      ::DataMapper.auto_upgrade!(repository.to_syml)
+      ::DataMapper.auto_upgrade!(repository.to_sym)
     end
     if Rails.env.development? && Rails::DataMapper.configuration.repositories['test']
       Rails::DataMapper.configuration.repositories[Rails.env].each do |repository, config|
-        ::DataMapper.auto_upgrade!(repository.to_syml)
+        ::DataMapper.auto_upgrade!(repository.to_sym)
       end
     end
   end
