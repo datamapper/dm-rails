@@ -1,17 +1,17 @@
 = rails3_datamapper
 
-This gem provides the railtie that allows {datamapper}[http://github.com/datamapper/dm-core] to hook into {rails3}[http://github.com/rails/rails] and thus behave like a rails framework component. Just like activercord does in rails, rails3_datamapper uses the railtie API to hook into rails. The two are actually hooked into rails almost identically.
+This gem provides the railtie that allows {datamapper}[http://github.com/datamapper/dm-core] to hook into {rails3}[http://github.com/rails/rails] and thus behave like a rails framework component. Just like activercord does in rails, {rails3_datamapper}[http://github.com/dkubb/rails3_datamapper] uses the railtie API to hook into rails. The two are actually hooked into rails almost identically.
 
 Creating new datamapper apps on rails3 from scratch is actually really easy. Like, *really* easy. The following will guide you through the process.
 
 == Generating a new application from scratch
 
-It's really easy to go from zero gems to a working rails3 app using datamapper. Basically, all you need is {bundler}[http://github.com/carlhuda/bundler].
+It's really easy to go from zero gems to a working rails3 app using datamapper. All you need is {rails}[http://github.com/rails/rails]
 
   gem install bundler i18n tzinfo builder memcache-client rack rack-test rack-mount erubis mail text-format thor
   gem install rails --pre
 
-Once you have bundler installed, you can bootstrap a rails3 application with a single command. Yes! A single command. And to double the fun, you can either choose to run off rails-3.0.0.beta or off rails master branch. Cool.
+Once you have {rails}[http://github.com/rails/rails] and thus {bundler}[http://github.com/carlhuda/bundler] installed, you can bootstrap a rails3 application with a single command. Yes! A single command. And to double the fun, you can either choose to run off rails-3.0.0.beta or off rails master branch. Cool.
 
   rails dm_rails3_app -m http://github.com/snusnu/rails-templates/raw/master/dm_rails-3.0.0.beta.rb
   rails dm_rails3_app -m http://github.com/snusnu/rails-templates/raw/master/dm_rails-master.rb
@@ -22,7 +22,7 @@ Now that was easy! Follow the instructions and point your browser to
 
 Awesome.
 
-In the future, http://github.com/snusnu/rails-templates will host a more comprehensive set of rails application templates. Currently only the above are supported but you can expect some reasonable defaults to follow soon. Things like rspec and jquery support are definitely on the list, maybe also support for {devise}[http://github.com/plataformatec/devise] and {inherited_resources}[http://github.com/josevalim/inherited_resources].
+In the future, http://github.com/snusnu/rails-templates will host a more comprehensive set of rails application templates. Currently only the above are supported but you can expect some reasonable defaults to follow soon. Things like rspec and jquery support are definitely on the list, maybe also support for {devise}[http://github.com/plataformatec/devise] and {inherited_resources}[http://github.com/josevalim/inherited_resources]. These will of course be on a pluggable basis. Nothing will be forced upon you. We heavily encourage you to build your own customized application templates and maybe send us a note if you think they could be interesting to more people.
 
 == Minimal sample application
 
