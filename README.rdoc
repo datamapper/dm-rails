@@ -8,13 +8,13 @@ Creating new datamapper apps on rails3 from scratch is actually really easy. Lik
 
 It's really easy to go from zero gems to a working rails3 app using datamapper. Basically, all you need is {bundler}[http://github.com/carlhuda/bundler].
 
-  gem install bundler
-  gem install i18n tzinfo builder memcache-client rack rack-test rack-mount erubis mail text-format thor bundler
+  gem install bundler i18n tzinfo builder memcache-client rack rack-test rack-mount erubis mail text-format thor
   gem install rails --pre
 
-Once you have bundler installed, you can bootstrap a rails3 application with a single command. Yes! A single command. Behold!
+Once you have bundler installed, you can bootstrap a rails3 application with a single command. Yes! A single command. And to double the fun, you can either choose to run off rails-3.0.0.beta or off rails master branch. Cool.
 
-  rails dm_rails3_app -m http://pastie.org/814307.txt
+  rails dm_rails3_app -m http://github.com/snusnu/rails-templates/raw/master/dm_rails-3.0.0.beta.rb
+  rails dm_rails3_app -m http://github.com/snusnu/rails-templates/raw/master/dm_rails-master.rb
 
 Now that was easy! Follow the instructions and point your browser to
 
@@ -22,6 +22,7 @@ Now that was easy! Follow the instructions and point your browser to
 
 Awesome.
 
+In the future, http://github.com/snusnu/rails-templates will host a more comprehensive set of rails application templates. Currently only the above are supported but you can expect some reasonable defaults to follow soon. Things like rspec and jquery support are definitely on the list, maybe also support for {devise}[http://github.com/plataformatec/devise] and {inherited_resources}[http://github.com/josevalim/inherited_resources].
 
 == Minimal sample application
 
