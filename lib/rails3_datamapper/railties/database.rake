@@ -45,14 +45,28 @@ namespace :db do
   end
 
 
-  desc 'Perform destructive automigration'
+  desc 'Perform destructive automigration of all repositories in the current Rails.env'
   task :automigrate => :load_models do
-    ::DataMapper.auto_migrate!
+    Rails::DataMapper.configuration.repositories[Rails.env].each do |repository, config|
+      ::DataMapper.auto_migrate!(repository)
+    end
+    if Rails.env.development? && Rails::DataMapper.configuration.repositories['test']
+      Rails::DataMapper.configuration.repositories[Rails.env].each do |repository, config|
+        ::DataMapper.auto_migrate!(repository)
+      end
+    end
   end
 
-  desc 'Perform non destructive automigration'
+  desc 'Perform non destructive automigration of all repositories in the current Rails.env'
   task :autoupgrade => :load_models do
-    ::DataMapper.auto_upgrade!
+    Rails::DataMapper.configuration.repositories[Rails.env].each do |repository, config|
+      ::DataMapper.auto_upgrade!(repository)
+    end
+    if Rails.env.development? && Rails::DataMapper.configuration.repositories['test']
+      Rails::DataMapper.configuration.repositories[Rails.env].each do |repository, config|
+        ::DataMapper.auto_upgrade!(repository)
+      end
+    end
   end
 
   desc 'Load the seed data from db/seeds.rb'
