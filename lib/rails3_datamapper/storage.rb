@@ -77,11 +77,11 @@ module Rails
       end
 
       def username
-        @username ||= config['username']
+        @username ||= config['username'] || ''
       end
 
       def password
-        @password ||= config['password']
+        @password ||= config['password'] || ''
       end
 
       def charset
@@ -123,7 +123,13 @@ module Rails
       private
 
         def execute(statement)
-          `mysql #{username.blank? ? '' : "--user=#{username}"} #{password.blank? ? '' : "--password=#{password}"} -e '#{statement}'`
+          system(
+            'mysql',
+            (username.blank? ? '' : "--user=#{username}"),
+            (password.blank? ? '' : "--password=#{password}"),
+            '-e',
+            statement
+          )
         end
 
         def collation
@@ -134,11 +140,23 @@ module Rails
 
       class Postgres < Storage
         def _create
-          `createdb -E #{charset} -U #{username} #{database}`
+          system(
+            'createdb',
+            '-E',
+            charset,
+            '-U',
+            username,
+            database
+          )
         end
 
         def _drop
-          `dropdb -U #{username} #{database}`
+          system(
+            'dropdb',
+            '-U',
+            username,
+            database
+          )
         end
 
       end
