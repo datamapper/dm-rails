@@ -33,7 +33,11 @@ Issue the following commands to get a fully functional development environment i
   bundle install
   rake spec
 
-Now that was easy, wasn't it?
+Now that was easy, wasn't it? Whenever you want to update your dependencies because you want to make sure you develop against master branches, just issue
+
+  bundle install
+
+again and {bundler}[http://github.com/carlhuda/bundler] will go ahead and fetch the latest commits from the gems you depend on.
 
 
 == Minimal sample application
