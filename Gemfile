@@ -27,8 +27,6 @@ gem 'railties',       '~> 3.0.0.beta1', :require => 'rails'
 git 'git://github.com/snusnu/dm-core.git', 'branch' => 'active_support'
 git 'git://github.com/snusnu/dm-more.git', 'branch' => 'active_support'
 
-gem 'dm-core'
-
 gem 'dm-core',        '~> 0.10.2'
 gem 'dm-types',       '~> 0.10.2'
 gem 'dm-validations', '~> 0.10.2'
