@@ -7,6 +7,7 @@ module Rails
   module DataMapper
 
     def self.setup(environment)
+      puts "[datamapper] Setting up the #{environment.inspect} environment:"
       configuration.repositories[environment].each do |name, config|
         setup_with_instrumentation(name.to_sym, config)
       end
@@ -18,6 +19,7 @@ module Rails
     end
 
     def self.setup_with_instrumentation(name, options)
+      puts "[datamapper] Setting up #{name.inspect} repository: '#{options['database']}' on #{options['adapter']}"
       adapter = ::DataMapper.setup(name, options)
       ::DataMapper::Repository.adapters[adapter.name] = adapter_cascade(adapter)
     end

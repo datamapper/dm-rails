@@ -52,8 +52,8 @@ namespace :db do
       puts "Finished auto_migrate! for :#{repository} repository '#{config['database']}'"
     end
     if Rails.env.development? && Rails::DataMapper.configuration.repositories['test']
+      Rails::DataMapper.setup('test')
       Rails::DataMapper.configuration.repositories['test'].each do |repository, config|
-        Rails::DataMapper.setup('test')
         ::DataMapper.auto_migrate!(repository.to_sym)
         puts "Finished auto_migrate! for :#{repository} repository '#{config['database']}'"
       end
