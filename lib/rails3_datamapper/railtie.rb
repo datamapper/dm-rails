@@ -67,16 +67,9 @@ module Rails
       module Setup
 
         def setup_data_mapper(app)
-          load_plugins(app)
           preload_lib(app)
           preload_models(app)
           Rails::DataMapper.setup(Rails.env)
-        end
-
-        def load_plugins(app)
-          app.config.data_mapper.configuration.plugins.each do |plugin|
-            require plugin.to_s
-          end
         end
 
         def preload_lib(app)
