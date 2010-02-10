@@ -288,7 +288,6 @@ Rails3 makes it easy to expose framework component specific configuration to app
 
 
   Rails::DataMapper.configuration
-  Rails::DataMapper::Configuration::DEFAULT_PLUGINS = %w(dm-validations dm-timestamps dm-observer dm-migrations)
   Rails::DataMapper::Configuration.for(database_yml_hash)
 
   Rails::DataMapper::Configuration#raw
@@ -296,8 +295,6 @@ Rails3 makes it easy to expose framework component specific configuration to app
   Rails::DataMapper::Configuration#repositories
   Rails::DataMapper::Configuration#identity_map=(value)
   Rails::DataMapper::Configuration#identity_map
-  Rails::DataMapper::Configuration#plugins=(*plugins)
-  Rails::DataMapper::Configuration#plugins
   Rails::DataMapper::Configuration#adapter_cascade
 
 
@@ -375,7 +372,6 @@ It's easy to extend or adapt rails3_datamapper to meet your specific needs. Than
 To give you an idea of what you get when inheriting from Rails::DataMapper::Railtie have a look at the list of methods provided by that object.
 
   Rails::DataMapper::Railtie.setup_data_mapper(app)
-  Rails::DataMapper::Railtie.load_plugins(app)
   Rails::DataMapper::Railtie.preload_lib(app)
   Rails::DataMapper::Railtie.preload_models(app)
 

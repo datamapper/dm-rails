@@ -8,8 +8,6 @@ module Rails
 
     class Configuration
 
-      DEFAULT_PLUGINS = %w(dm-validations dm-timestamps dm-observer dm-migrations)
-
       def self.for(root, database_yml_hash)
         Rails::DataMapper.configuration ||= new(root, database_yml_hash)
       end
@@ -39,15 +37,6 @@ module Rails
 
       def identity_map
         @identity_map ||= true
-      end
-
-
-      def plugins=(*plugins)
-        @plugins = (DEFAULT_PLUGINS + plugins).uniq!
-      end
-
-      def plugins
-        @plugins ||= DEFAULT_PLUGINS
       end
 
 
