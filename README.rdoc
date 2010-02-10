@@ -25,6 +25,15 @@ Awesome.
 In the future, http://github.com/snusnu/rails-templates will host a more comprehensive set of rails application templates. Currently only the above are supported but you can expect some reasonable defaults to follow soon. Things like rspec and jquery support are definitely on the list, maybe also support for {devise}[http://github.com/plataformatec/devise] and {inherited_resources}[http://github.com/josevalim/inherited_resources]. These will of course be on a pluggable basis. Nothing will be forced upon you. We heavily encourage you to build your own customized application templates and maybe send us a note if you think they could be interesting to more people.
 
 
+== rspec support
+
+Currently, if you want to use {rspec-rails}[http:github.com/rspec/rspec-rails] you need to use the rails master Gemfile.
+
+  rails dm_rails3_app -m http://github.com/snusnu/rails-templates/raw/master/dm_rails_master.rb
+
+This will bundle everything from master, create the application, run specs on your scaffold and start the server.
+
+
 == Developing rails3_datamapper
 
 Issue the following commands to get a fully functional development environment including datamapper and rails up and running within a minute.
