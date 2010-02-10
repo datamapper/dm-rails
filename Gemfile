@@ -16,7 +16,7 @@ gem 'do_sqlite3',     '~> 0.10.1'
 
 git 'git://github.com/carlhuda/bundler.git'
 
-gem 'bundler'
+gem 'bundler',        '~> 0.9.3'
 
 git 'git://github.com/rails/rails.git'
 
@@ -38,13 +38,13 @@ gem 'dm-observer',    '~> 0.10.2'
 
 git 'git://github.com/snusnu/dm-active_model.git'
 
-gem 'dm-active_model'
+gem 'dm-active_model', '~> 0.3'
 
 
 group(:test) do
-  gem 'rspec',   '~> 1.3', :require => 'spec'
+  gem 'rspec',        '~> 1.3', :require => 'spec'
 end
 
 group(:development) do
-  gem 'jeweler', '~> 1.4'
+  gem 'jeweler',      '~> 1.4'
 end
