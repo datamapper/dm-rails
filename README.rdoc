@@ -79,7 +79,10 @@ Using {bundler}[http://github.com/carlhuda/bundler] it's really easy to get an a
   gem 'dm-migrations',     '~> 0.10.2'
   gem 'dm-observer',       '~> 0.10.2'
 
-  path '/Users/snusnu/projects/github/forks/rails3_datamapper'
+  # Use this instead of git if you're working on rails3_datamapper
+  # path '/full/path/to/your/local/clone/of/rails3_datamapper'
+
+  git 'git://github.com/dkubb/rails3_datamapper.git'
 
   gem 'rails3_datamapper', '~> 0.10.2'
 
