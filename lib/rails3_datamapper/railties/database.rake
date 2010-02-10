@@ -49,13 +49,13 @@ namespace :db do
   task :automigrate => :load_models do
     Rails::DataMapper.configuration.repositories[Rails.env].each do |repository, config|
       ::DataMapper.auto_migrate!(repository.to_sym)
-      puts "Finished auto_migrate! for :#{repository} repository '#{config['database']}'"
+      puts "[datamapper] Finished auto_migrate! for :#{repository} repository '#{config['database']}'"
     end
     if Rails.env.development? && Rails::DataMapper.configuration.repositories['test']
       Rails::DataMapper.setup('test')
       Rails::DataMapper.configuration.repositories['test'].each do |repository, config|
         ::DataMapper.auto_migrate!(repository.to_sym)
-        puts "Finished auto_migrate! for :#{repository} repository '#{config['database']}'"
+        puts "[datamapper] Finished auto_migrate! for :#{repository} repository '#{config['database']}'"
       end
     end
   end
@@ -64,13 +64,13 @@ namespace :db do
   task :autoupgrade => :load_models do
     Rails::DataMapper.configuration.repositories[Rails.env].each do |repository, config|
       ::DataMapper.auto_upgrade!(repository.to_sym)
-      puts "Finished auto_upgrade! for :#{repository} repository '#{config['database']}'"
+      puts "[datamapper] Finished auto_upgrade! for :#{repository} repository '#{config['database']}'"
     end
     if Rails.env.development? && Rails::DataMapper.configuration.repositories['test']
       Rails::DataMapper.setup('test')
       Rails::DataMapper.configuration.repositories['test'].each do |repository, config|
         ::DataMapper.auto_upgrade!(repository.to_sym)
-        puts "Finished auto_upgrade! for :#{repository} repository '#{config['database']}'"
+        puts "[datamapper] Finished auto_upgrade! for :#{repository} repository '#{config['database']}'"
       end
     end
   end

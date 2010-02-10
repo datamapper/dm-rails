@@ -64,12 +64,12 @@ module Rails
 
       def create
         _create
-        puts "Created database '#{database}'"
+        puts "[datamapper] Created database '#{database}'"
       end
 
       def drop
         _drop
-        puts "Dropped database '#{database}'"
+        puts "[datamapper] Dropped database '#{database}'"
       end
 
       def database
