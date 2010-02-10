@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{rails3_datamapper}
-  s.version = "0.10.2"
+  s.version = "0.0.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Dan Kubb"]
-  s.date = %q{2010-02-09}
+  s.date = %q{2010-02-10}
   s.description = %q{Integrate DataMapper with Rails 3}
   s.email = %q{dan.kubb@gmail.com}
   s.extra_rdoc_files = [
@@ -19,6 +19,7 @@ Gem::Specification.new do |s|
   s.files = [
     ".document",
      ".gitignore",
+     "Gemfile",
      "LICENSE",
      "README.rdoc",
      "Rakefile",
@@ -46,6 +47,7 @@ Gem::Specification.new do |s|
      "lib/rails3_datamapper/storage.rb",
      "rails3_datamapper.gemspec",
      "spec/rcov.opts",
+     "spec/setup_spec.rb",
      "spec/spec.opts",
      "spec/spec_helper.rb",
      "tasks/ci.rake",
@@ -61,7 +63,8 @@ Gem::Specification.new do |s|
   s.rubygems_version = %q{1.3.5}
   s.summary = %q{Use DataMapper with Rails 3}
   s.test_files = [
-    "spec/spec_helper.rb"
+    "spec/setup_spec.rb",
+     "spec/spec_helper.rb"
   ]
 
   if s.respond_to? :specification_version then
@@ -71,30 +74,24 @@ Gem::Specification.new do |s|
     if Gem::Version.new(Gem::RubyGemsVersion) >= Gem::Version.new('1.2.0') then
       s.add_runtime_dependency(%q<dm-core>, ["~> 0.10.2"])
       s.add_runtime_dependency(%q<dm-active_model>, ["~> 0.3"])
-      s.add_runtime_dependency(%q<activesupport>, ["= 3.0.0.beta1"])
-      s.add_runtime_dependency(%q<activemodel>, ["= 3.0.0.beta1"])
-      s.add_runtime_dependency(%q<actionpack>, ["= 3.0.0.beta1"])
-      s.add_runtime_dependency(%q<actionmailer>, ["= 3.0.0.beta1"])
-      s.add_runtime_dependency(%q<railties>, ["= 3.0.0.beta1"])
+      s.add_runtime_dependency(%q<activesupport>, ["~> 3.0.0.beta1"])
+      s.add_runtime_dependency(%q<actionpack>, ["~> 3.0.0.beta1"])
+      s.add_runtime_dependency(%q<railties>, ["~> 3.0.0.beta1"])
       s.add_development_dependency(%q<yard>, ["~> 0.5"])
     else
       s.add_dependency(%q<dm-core>, ["~> 0.10.2"])
       s.add_dependency(%q<dm-active_model>, ["~> 0.3"])
-      s.add_dependency(%q<activesupport>, ["= 3.0.0.beta1"])
-      s.add_dependency(%q<activemodel>, ["= 3.0.0.beta1"])
-      s.add_dependency(%q<actionpack>, ["= 3.0.0.beta1"])
-      s.add_dependency(%q<actionmailer>, ["= 3.0.0.beta1"])
-      s.add_dependency(%q<railties>, ["= 3.0.0.beta1"])
+      s.add_dependency(%q<activesupport>, ["~> 3.0.0.beta1"])
+      s.add_dependency(%q<actionpack>, ["~> 3.0.0.beta1"])
+      s.add_dependency(%q<railties>, ["~> 3.0.0.beta1"])
       s.add_dependency(%q<yard>, ["~> 0.5"])
     end
   else
     s.add_dependency(%q<dm-core>, ["~> 0.10.2"])
     s.add_dependency(%q<dm-active_model>, ["~> 0.3"])
-    s.add_dependency(%q<activesupport>, ["= 3.0.0.beta1"])
-    s.add_dependency(%q<activemodel>, ["= 3.0.0.beta1"])
-    s.add_dependency(%q<actionpack>, ["= 3.0.0.beta1"])
-    s.add_dependency(%q<actionmailer>, ["= 3.0.0.beta1"])
-    s.add_dependency(%q<railties>, ["= 3.0.0.beta1"])
+    s.add_dependency(%q<activesupport>, ["~> 3.0.0.beta1"])
+    s.add_dependency(%q<actionpack>, ["~> 3.0.0.beta1"])
+    s.add_dependency(%q<railties>, ["~> 3.0.0.beta1"])
     s.add_dependency(%q<yard>, ["~> 0.5"])
   end
 end
