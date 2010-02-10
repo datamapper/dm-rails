@@ -34,7 +34,7 @@ module Rails
 
       def configure_data_mapper(app)
         app.config.data_mapper.configuration = Rails::DataMapper::Configuration.for(
-          app.config.database_configuration
+          Rails.root, app.config.database_configuration
         )
       end
 

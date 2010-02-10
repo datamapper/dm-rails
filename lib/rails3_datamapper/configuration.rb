@@ -10,11 +10,11 @@ module Rails
 
       DEFAULT_PLUGINS = %w(dm-validations dm-timestamps dm-observer dm-migrations)
 
-      def self.for(database_yml_hash)
-        Rails::DataMapper.configuration ||= new(database_yml_hash)
+      def self.for(root, database_yml_hash)
+        Rails::DataMapper.configuration ||= new(root, database_yml_hash)
       end
 
-      attr_reader :raw
+      attr_reader :root, :raw
 
       def environments
         config.keys
@@ -58,8 +58,8 @@ module Rails
 
       private
 
-      def initialize(database_yml_hash)
-        @raw = database_yml_hash
+      def initialize(root, database_yml_hash)
+        @root, @raw = root, database_yml_hash
       end
 
       def normalize_repository_config(hash)
@@ -71,6 +71,8 @@ module Rails
             value.to_i
           elsif key == 'adapter' && value == 'postgresql'
             'postgres'
+          elsif key == 'database' && hash['adapter'] == 'sqlite3'
+            File.expand_path(hash['database'], root)
           else
             value
           end
