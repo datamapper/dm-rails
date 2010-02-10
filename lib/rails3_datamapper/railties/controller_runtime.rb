@@ -32,7 +32,7 @@ module Rails
 
           def log_process_action(payload)
             messages, db_runtime = super, payload[:db_runtime]
-            messages << ("DataMapper: %.1fms" % db_runtime.to_f) if db_runtime
+            messages << ("Models: %.1fms" % db_runtime.to_f) if db_runtime
             messages
           end
 
