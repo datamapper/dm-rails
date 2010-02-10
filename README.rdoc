@@ -31,7 +31,37 @@ Currently, if you want to use {rspec-rails}[http:github.com/rspec/rspec-rails] y
 
   rails dm_rails3_app -m http://github.com/snusnu/rails-templates/raw/master/dm_rails_master.rb
 
-This will bundle everything from master, create the application, run specs on your scaffold and start the server.
+This will bundle everything from master, create the application, run specs on your scaffold and start the server. Unfortunately, this is not yet possible with the default sqlite3 database.yml setup. In order to get rspec working you would need to change to another database for now, like mysql. Edit your database.yml file to look something like this:
+
+  defaults: &defaults
+    adapter: mysql
+    username: root
+    password:
+    host: localhost
+
+  development:
+    database: dm_rails3_app_development
+    <<: *defaults
+
+    # Add more repositories
+    # repositories:
+    #   repo1:
+    #     adapter:  postgresql
+    #     database: sample_development
+    #     username: the_user
+    #     password: secrets
+    #     host:     localhost
+    #   repo2:
+    #     ...
+
+  test:
+    database: dm_rails3_app_test
+    <<: *defaults
+  production:
+    database: dm_rails3_app_production
+    <<: *defaults
+
+and you should be good to and use rspec.
 
 
 == Developing rails3_datamapper
