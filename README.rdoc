@@ -14,7 +14,7 @@ It's really easy to go from zero gems to a working rails3 app using datamapper. 
 Once you have {rails}[http://github.com/rails/rails] and thus {bundler}[http://github.com/carlhuda/bundler] installed, you can bootstrap a rails3 application with a single command. Yes! A single command. And to double the fun, you can either choose to run off rails-3.0.0.beta or off rails master branch. Cool.
 
   rails dm_rails3_app -m http://github.com/snusnu/rails-templates/raw/master/dm_rails-3.0.0.beta.rb
-  rails dm_rails3_app -m http://github.com/snusnu/rails-templates/raw/master/dm_rails-master.rb
+  rails dm_rails3_app -m http://github.com/snusnu/rails-templates/raw/master/dm_rails_master.rb
 
 Now that was easy! Follow the instructions and point your browser to
 
