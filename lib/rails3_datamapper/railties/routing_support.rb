@@ -8,7 +8,7 @@ module Rails
         unless self.key.size == 1
           raise ArgumentError, 'Routing of resources with composite keys is currently not supported'
         end
-        self.key.to_s
+        self.key.join
       end
 
     end
