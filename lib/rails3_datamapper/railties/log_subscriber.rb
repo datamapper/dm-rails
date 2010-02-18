@@ -1,7 +1,7 @@
 module DataMapper
   module Railties
 
-    class Subscriber < Rails::Subscriber
+    class LogSubscriber < Rails::LogSubscriber
 
       def sql(event)
         name = '%s (%.1fms)' % [event.payload[:name], event.duration]
