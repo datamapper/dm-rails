@@ -15,6 +15,7 @@ require 'action_controller/railtie'
 require 'rails3_datamapper/setup'
 require "rails3_datamapper/railties/log_subscriber"
 require "rails3_datamapper/railties/routing_support"
+require "rails3_datamapper/railties/i18n_support"
 
 
 module Rails
@@ -46,6 +47,10 @@ module Rails
 
       def setup_routing_support(app)
         ::DataMapper::Model.append_inclusions(Rails::DataMapper::RoutingSupport)
+      end
+
+      def setup_i18n_support(app)
+        ::DataMapper::Model.append_inclusions(Rails::DataMapper::I18nSupport)
       end
 
       def setup_controller_runtime(app)
@@ -105,6 +110,10 @@ module Rails
 
       initializer 'data_mapper.routing_support' do |app|
         setup_routing_support(app)
+      end
+
+      initializer 'data_mapper.routing_support' do |app|
+        setup_i18n_support(app)
       end
 
       # Expose database runtime to controller for logging.
