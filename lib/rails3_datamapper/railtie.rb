@@ -112,7 +112,7 @@ module Rails
         setup_routing_support(app)
       end
 
-      initializer 'data_mapper.routing_support' do |app|
+      initializer 'data_mapper.i18n_support' do |app|
         setup_i18n_support(app)
       end
 
