@@ -14,7 +14,6 @@ require 'action_controller/railtie'
 
 require 'dm-rails/setup'
 require "dm-rails/railties/log_subscriber"
-require "dm-rails/railties/routing_support"
 require "dm-rails/railties/i18n_support"
 
 
@@ -43,10 +42,6 @@ module Rails
         app.config.data_mapper.configuration.adapter_cascade.configure do |cascade|
           cascade.use Rails::DataMapper::Adapters::BenchmarkingAdapter
         end
-      end
-
-      def setup_routing_support(app)
-        ::DataMapper::Model.append_inclusions(Rails::DataMapper::RoutingSupport)
       end
 
       def setup_i18n_support(app)
@@ -106,10 +101,6 @@ module Rails
 
       initializer 'data_mapper.adapter_cascade' do |app|
         setup_adapter_cascade(app)
-      end
-
-      initializer 'data_mapper.routing_support' do |app|
-        setup_routing_support(app)
       end
 
       initializer 'data_mapper.i18n_support' do |app|
