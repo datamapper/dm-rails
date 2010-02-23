@@ -8,7 +8,7 @@ Creating new datamapper apps on rails3 from scratch is actually really easy. Lik
 
 It's really easy to go from zero gems to a working rails3 app using datamapper. All you need is the latest {rubygems}[http://docs.rubygems.org/read/chapter/3] release and {rails}[http://github.com/rails/rails]
 
-  gem update —system # you will need rubygems-1.3.6 for this to work
+  gem update —system # you will need rubygems-1.3.6 for the command below to work
   gem install rails --pre
 
 Once you have {rails}[http://github.com/rails/rails] and thus {bundler}[http://github.com/carlhuda/bundler] installed, you can bootstrap a rails master branch application with a single command. Yes! A single command. Cool.
