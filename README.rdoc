@@ -1,6 +1,6 @@
-= rails3_datamapper
+= dm-rails
 
-This gem provides the railtie that allows {datamapper}[http://github.com/datamapper/dm-core] to hook into {rails3}[http://github.com/rails/rails] and thus behave like a rails framework component. Just like activercord does in rails, {rails3_datamapper}[http://github.com/dkubb/rails3_datamapper] uses the railtie API to hook into rails. The two are actually hooked into rails almost identically.
+This gem provides the railtie that allows {datamapper}[http://github.com/datamapper/dm-core] to hook into {rails3}[http://github.com/rails/rails] and thus behave like a rails framework component. Just like activercord does in rails, {dm-rails}[http://github.com/datamapper/dm-rails] uses the railtie API to hook into rails. The two are actually hooked into rails almost identically.
 
 Creating new datamapper apps on rails3 from scratch is actually really easy. Like, *really* easy. The following will guide you through the process.
 
@@ -59,7 +59,7 @@ Unfortunately, I haven't yet been able to get rspec to work with the default sql
 and you should be good to and use rspec.
 
 
-== Developing rails3_datamapper
+== Developing dm-rails
 
 Issue the following commands to get a fully functional development environment including datamapper and rails up and running within a minute.
 
@@ -125,12 +125,12 @@ Using {bundler}[http://github.com/carlhuda/bundler] it's really easy to get an a
   gem 'dm-migrations',     '~> 0.10.2'
   gem 'dm-observer',       '~> 0.10.2'
 
-  # Use this instead of git if you're working on rails3_datamapper
-  # path '/full/path/to/your/local/clone/of/rails3_datamapper'
+  # Use this instead of git if you're working on dm-rails
+  # path '/full/path/to/your/local/clone/of/dm-rails'
 
-  git 'git://github.com/dkubb/rails3_datamapper.git'
+  git 'git://github.com/datamapper/dm-rails.git'
 
-  gem 'rails3_datamapper', '~> 0.10.2'
+  gem 'dm-rails', '~> 0.10.2'
 
   git 'git://github.com/rspec/rspec.git'
   git 'git://github.com/rspec/rspec-core.git'
@@ -149,7 +149,7 @@ Using {bundler}[http://github.com/carlhuda/bundler] it's really easy to get an a
 
 == Sample database.yml files
 
-DataMapper supports connecting to and working with multiple repositories easily. In order to be able to take full advantage of that feature in rails, you can configure as many repositories for your different environments as you wish. All you need to do is follow some simple naming conventions and you're good to go. Have a look at the #{adapter}_defaults declarations in the sample files below. That's the only convention you need to follow. Your default declarations should always end with "defaults". This is necessary for rails3_datamapper to not confuse these with any of your environment declarations. In fact, rails3_datamapper looks at the content of your database.yml and rejects every key that matches /defaults/. The remaining entries represent the repository configurations for the available environments.
+DataMapper supports connecting to and working with multiple repositories easily. In order to be able to take full advantage of that feature in rails, you can configure as many repositories for your different environments as you wish. All you need to do is follow some simple naming conventions and you're good to go. Have a look at the #{adapter}_defaults declarations in the sample files below. That's the only convention you need to follow. Your default declarations should always end with "defaults". This is necessary for dm-rails to not confuse these with any of your environment declarations. In fact, dm-rails looks at the content of your database.yml and rejects every key that matches /defaults/. The remaining entries represent the repository configurations for the available environments.
 
 An example for setting up a single repository for every environment.
 
@@ -224,11 +224,11 @@ An example for setting up multiple repositories for every environment.
         database: rails3_oracle_production
         <<: *oracle_defaults
 
-Once you have defined your database.yml file, rails3_datamapper's rake tasks will be able to create, drop, auto_migrate! and auto_upgrade! all your defined repositories.
+Once you have defined your database.yml file, dm-rails's rake tasks will be able to create, drop, auto_migrate! and auto_upgrade! all your defined repositories.
 
 == Available generators
 
-Due to the awesomeness of rails3 generators we get some cool generators almost for free. Since the new generators provide hooks that allow the rails3_datamapper gem to provide generators that hook into parts like model, scaffolds or test generation, everything just works like it would with active_record.
+Due to the awesomeness of rails3 generators we get some cool generators almost for free. Since the new generators provide hooks that allow the dm-rails gem to provide generators that hook into parts like model, scaffolds or test generation, everything just works like it would with active_record.
 
 The following generators are available to help you get started with the typical components of any rails application.
 
@@ -257,7 +257,7 @@ To get a list of all available rake tasks in your rails3 app, issue the usual
 
   vendor/bin/rake -T
 
-Once you do that, you will see the following rake tasks among others. These are the ones that rails3_datamapper added for us.
+Once you do that, you will see the following rake tasks among others. These are the ones that dm-rails added for us.
 
   ...
   vendor/bin/rake db:automigrate           # Perform destructive automigration
@@ -277,9 +277,9 @@ Once you do that, you will see the following rake tasks among others. These are 
   ...
 
 
-== Configuring and introspecting rails3_datamapper
+== Configuring and introspecting dm-rails
 
-Rails3 makes it easy to expose framework component specific configuration to application developers in a uniform and easy to use way. To build on this philosophy, rails3_datamapper exposes its configuration via a single object that is used throughout rails3_datamapper's code to store configuration relevant to datamapper and to rails. You can access it from within your application and of course alter it's settings in your config/application.rb or config/environments files. Here's a quick overview of the API the configuration object exposes. Expect this to grow as we come up with additional useful stuff to configure.
+Rails3 makes it easy to expose framework component specific configuration to application developers in a uniform and easy to use way. To build on this philosophy, dm-rails exposes its configuration via a single object that is used throughout dm-rails's code to store configuration relevant to datamapper and to rails. You can access it from within your application and of course alter it's settings in your config/application.rb or config/environments files. Here's a quick overview of the API the configuration object exposes. Expect this to grow as we come up with additional useful stuff to configure.
 
 
   Rails::DataMapper.configuration
@@ -360,9 +360,9 @@ Additionally, you can reach the configuration object via the standard way that r
 This will give you the exact same object we inspected in the previous pretty print output from rails console.
 
 
-== Extending rails3_datamapper
+== Extending dm-rails
 
-It's easy to extend or adapt rails3_datamapper to meet your specific needs. Thanks to the railties API it's possible to hook into any part of the initialization process. In order to customize rails3_datamapper, all you need to do is define your own Rails::Railtie class that inherits from Rails::DataMapper::Railtie and require that instead of the standard rails3_datamapper/railtie. During initialization of any rails plugin, the initializers defined by that plugin are run in the order specified. Since rails3_datamapper defines every action that gets called by its initializers as a method on either the Railtie instance or the class, you can just go ahead and overwrite these in your subclass. All those methods get called with the running Rails::Application (always reachable via Rails.application) as single parameter, so you can customize depending on the app's state as much as you wish. Additionally, the initializers are all named, and you can hook your own additional initializers before or after any of the named rails (or rails3_datamapper) initializers.
+It's easy to extend or adapt dm-rails to meet your specific needs. Thanks to the railties API it's possible to hook into any part of the initialization process. In order to customize dm-rails, all you need to do is define your own Rails::Railtie class that inherits from Rails::DataMapper::Railtie and require that instead of the standard dm-rails/railtie. During initialization of any rails plugin, the initializers defined by that plugin are run in the order specified. Since dm-rails defines every action that gets called by its initializers as a method on either the Railtie instance or the class, you can just go ahead and overwrite these in your subclass. All those methods get called with the running Rails::Application (always reachable via Rails.application) as single parameter, so you can customize depending on the app's state as much as you wish. Additionally, the initializers are all named, and you can hook your own additional initializers before or after any of the named rails (or dm-rails) initializers.
 
 To give you an idea of what you get when inheriting from Rails::DataMapper::Railtie have a look at the list of methods provided by that object.
 
@@ -378,7 +378,7 @@ To give you an idea of what you get when inheriting from Rails::DataMapper::Rail
   Rails::DataMapper::Railtie#setup_logger(app)
 
 
-To complete the picture of rails3_datamapper's initialization process, here's an overview of the defined initializers in the order they are called by rails during bootup. Note that every one of these initializers does one single thing; calling one of the methods listed above. This makes it easy to customize each of these steps by overwriting the respective method.
+To complete the picture of dm-rails's initialization process, here's an overview of the defined initializers in the order they are called by rails during bootup. Note that every one of these initializers does one single thing; calling one of the methods listed above. This makes it easy to customize each of these steps by overwriting the respective method.
 
   initializer 'data_mapper.configuration' do |app|
     configure_data_mapper(app)
@@ -423,7 +423,7 @@ If you want to add additional rake tasks in your extension, you can do so by add
 
 == Identity Map support
 
-By default, rails3_datamapper enables the use of the {identity map}[http://datamapper.org/why.html]. If for any reason you want to turn that off, just add the following line to your config/application.rb or your config/environments/*.rb file.
+By default, dm-rails enables the use of the {identity map}[http://datamapper.org/why.html]. If for any reason you want to turn that off, just add the following line to your config/application.rb or your config/environments/*.rb file.
 
     config.data_mapper.identity_map = false
 
@@ -447,7 +447,7 @@ Have a look at this application's {Gemfile}[http://github.com/snusnu/datamapper_
 
 == Rails notification system
 
-Currently rails3_datamapper publishes the same benchmarking information like active_record does. This means that you will get output like this in your log files.
+Currently dm-rails publishes the same benchmarking information like active_record does. This means that you will get output like this in your log files.
 
   Completed in 9ms (Views: 7.6ms | Models: 0.6ms) with 200
 
@@ -466,7 +466,7 @@ While the SQL issued by DO adapters is already being logged properly, it is not 
 * Think about a release strategy supporting both beta releases and master branch
 * Further README updates
 * More work on migrations
-* Check if the {session store}[http://github.com/dkubb/rails3_datamapper/blob/master/lib/rails3_datamapper/session_store.rb] support works
+* Check if the {session store}[http://github.com/datamapper/dm-rails/blob/master/lib/dm-rails/session_store.rb] support works
 * Provide a rails template for generating tailored apps for datamapper
 * Publish SQL issued by DO (and eventually every adapter) to rails subscribers
 * Think about integrating with {dana}[http://github.com/snusnu/dm-accepts_nested_attributes]
@@ -488,7 +488,7 @@ Big thanks to everyone working on {datamapper}[http://github.com/datamapper/dm-c
 * Send me a pull request. Bonus points for topic branches.
 
 
-== The rails3_datamapper team
+== The dm-rails team
 
 Thx to all contributors, every patch, big or small is very much appreciated!
 
@@ -502,4 +502,4 @@ Thx to all contributors, every patch, big or small is very much appreciated!
 
 == Copyright
 
-Copyright (c) 2009-2010 The rails3_datamapper team. See {LICENSE}[http://github.com/dkubb/rails3_datamapper/blob/master/LICENSE] for details.
+Copyright (c) 2009-2010 The dm-rails team. See {LICENSE}[http://github.com/datamapper/dm-rails/blob/master/LICENSE] for details.
