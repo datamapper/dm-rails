@@ -1,5 +1,5 @@
-require 'rails3_datamapper/setup'
-require 'rails3_datamapper/storage'
+require 'dm-rails/setup'
+require 'dm-rails/storage'
 
 namespace :db do
 
@@ -106,14 +106,14 @@ namespace :db do
   namespace :sessions do
     desc "Creates the sessions table for DataMapperStore"
     task :create => :environment do
-      require 'rails3_datamapper/session_store'
+      require 'dm-rails/session_store'
       Rails::DataMapper::SessionStore::Session.auto_migrate!
       puts "Created '#{Rails::DataMapper.configurations[Rails.env]['database']}.sessions'"
     end
 
     desc "Clear the sessions table for DataMapperStore"
     task :clear => :environment do
-      require 'rails3_datamapper/session_store'
+      require 'dm-rails/session_store'
       Rails::DataMapper::SessionStore::Session.all.destroy!
       puts "Deleted entries from '#{Rails::DataMapper.configurations[Rails.env]['database']}.sessions'"
     end

@@ -1,7 +1,7 @@
 require 'active_support/core_ext/hash/except'
 
-require 'rails3_datamapper/configuration'
-require 'rails3_datamapper/adapters'
+require 'dm-rails/configuration'
+require 'dm-rails/adapters'
 
 module Rails
   module DataMapper

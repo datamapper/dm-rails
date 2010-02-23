@@ -1,4 +1,4 @@
-require 'rails3_datamapper/adapters/benchmarking_adapter'
+require 'dm-rails/adapters/benchmarking_adapter'
 
 module Rails
   module DataMapper

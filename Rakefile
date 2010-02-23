@@ -18,12 +18,12 @@ begin
 
   Jeweler::Tasks.new do |gem|
 
-    gem.name        = 'rails3_datamapper'
+    gem.name        = 'dm-rails'
     gem.summary     = 'Use DataMapper with Rails 3'
     gem.description = 'Integrate DataMapper with Rails 3'
-    gem.email       = 'dan.kubb@gmail.com'
-    gem.homepage    = 'http://github.com/dkubb/rails3_datamapper'
-    gem.authors     = [ 'Dan Kubb' ]
+    gem.email       = 'gamsnjaga@gmail.com'
+    gem.homepage    = 'http://github.com/datamapper/dm-rails'
+    gem.authors     = [ 'Martin Gamsjaeger (snusnu)', 'Dan Kubb' ]
 
     gem.add_dependency 'dm-core',           '~> 0.10.2'
     gem.add_dependency 'dm-active_model',   '~> 0.4'

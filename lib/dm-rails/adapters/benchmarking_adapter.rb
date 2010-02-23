@@ -1,4 +1,4 @@
-require 'rails3_datamapper/adapters/adapter_wrapper'
+require 'dm-rails/adapters/adapter_wrapper'
 
 module Rails
  module DataMapper

@@ -4,14 +4,14 @@
 # -*- encoding: utf-8 -*-
 
 Gem::Specification.new do |s|
-  s.name = %q{rails3_datamapper}
+  s.name = %q{dm-rails}
   s.version = "0.10.2"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
-  s.authors = ["Dan Kubb"]
+  s.authors = ["Martin Gamsjaeger (snusnu)", "Dan Kubb"]
   s.date = %q{2010-02-23}
   s.description = %q{Integrate DataMapper with Rails 3}
-  s.email = %q{dan.kubb@gmail.com}
+  s.email = %q{gamsnjaga@gmail.com}
   s.extra_rdoc_files = [
     "LICENSE",
      "README.rdoc"
@@ -24,6 +24,22 @@ Gem::Specification.new do |s|
      "README.rdoc",
      "Rakefile",
      "VERSION",
+     "dm-rails.gemspec",
+     "lib/dm-rails.rb",
+     "lib/dm-rails/adapters.rb",
+     "lib/dm-rails/adapters/adapter_wrapper.rb",
+     "lib/dm-rails/adapters/benchmarking_adapter.rb",
+     "lib/dm-rails/configuration.rb",
+     "lib/dm-rails/middleware/identity_map.rb",
+     "lib/dm-rails/railtie.rb",
+     "lib/dm-rails/railties/controller_runtime.rb",
+     "lib/dm-rails/railties/database.rake",
+     "lib/dm-rails/railties/i18n_support.rb",
+     "lib/dm-rails/railties/log_subscriber.rb",
+     "lib/dm-rails/railties/routing_support.rb",
+     "lib/dm-rails/session_store.rb",
+     "lib/dm-rails/setup.rb",
+     "lib/dm-rails/storage.rb",
      "lib/generators/data_mapper.rb",
      "lib/generators/data_mapper/migration/migration_generator.rb",
      "lib/generators/data_mapper/migration/templates/migration.rb",
@@ -31,22 +47,6 @@ Gem::Specification.new do |s|
      "lib/generators/data_mapper/model/templates/model.rb",
      "lib/generators/data_mapper/observer/observer_generator.rb",
      "lib/generators/data_mapper/observer/templates/observer.rb",
-     "lib/rails3_datamapper.rb",
-     "lib/rails3_datamapper/adapters.rb",
-     "lib/rails3_datamapper/adapters/adapter_wrapper.rb",
-     "lib/rails3_datamapper/adapters/benchmarking_adapter.rb",
-     "lib/rails3_datamapper/configuration.rb",
-     "lib/rails3_datamapper/middleware/identity_map.rb",
-     "lib/rails3_datamapper/railtie.rb",
-     "lib/rails3_datamapper/railties/controller_runtime.rb",
-     "lib/rails3_datamapper/railties/database.rake",
-     "lib/rails3_datamapper/railties/i18n_support.rb",
-     "lib/rails3_datamapper/railties/log_subscriber.rb",
-     "lib/rails3_datamapper/railties/routing_support.rb",
-     "lib/rails3_datamapper/session_store.rb",
-     "lib/rails3_datamapper/setup.rb",
-     "lib/rails3_datamapper/storage.rb",
-     "rails3_datamapper.gemspec",
      "spec/rcov.opts",
      "spec/setup_spec.rb",
      "spec/spec.opts",
@@ -58,7 +58,7 @@ Gem::Specification.new do |s|
      "tasks/yard.rake",
      "tasks/yardstick.rake"
   ]
-  s.homepage = %q{http://github.com/dkubb/rails3_datamapper}
+  s.homepage = %q{http://github.com/datamapper/dm-rails}
   s.rdoc_options = ["--charset=UTF-8"]
   s.require_paths = ["lib"]
   s.rubygems_version = %q{1.3.6}

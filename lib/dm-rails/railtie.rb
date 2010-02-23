@@ -12,10 +12,10 @@ require 'active_model/railtie'
 # In the future, this might become an optional require.
 require 'action_controller/railtie'
 
-require 'rails3_datamapper/setup'
-require "rails3_datamapper/railties/log_subscriber"
-require "rails3_datamapper/railties/routing_support"
-require "rails3_datamapper/railties/i18n_support"
+require 'dm-rails/setup'
+require "dm-rails/railties/log_subscriber"
+require "dm-rails/railties/routing_support"
+require "dm-rails/railties/i18n_support"
 
 
 module Rails
@@ -54,13 +54,13 @@ module Rails
       end
 
       def setup_controller_runtime(app)
-        require "rails3_datamapper/railties/controller_runtime"
+        require "dm-rails/railties/controller_runtime"
         ActionController::Base.send :include, Rails::DataMapper::Railties::ControllerRuntime
       end
 
       def setup_identity_map(app)
         if app.config.data_mapper.configuration.identity_map
-          require 'rails3_datamapper/middleware/identity_map'
+          require 'dm-rails/middleware/identity_map'
           app.config.middleware.use Rails::DataMapper::Middleware::IdentityMap
         end
       end
@@ -134,7 +134,7 @@ module Rails
       end
 
       rake_tasks do
-        load 'rails3_datamapper/railties/database.rake'
+        load 'dm-rails/railties/database.rake'
       end
 
     end
