@@ -14,10 +14,6 @@ gem 'yard',           '~> 0.5'
 gem 'data_objects',   '~> 0.10.1'
 gem 'do_sqlite3',     '~> 0.10.1'
 
-git 'git://github.com/carlhuda/bundler.git'
-
-gem 'bundler',        '~> 0.9.3'
-
 git 'git://github.com/rails/rails.git'
 
 gem 'activesupport',  '~> 3.0.0.beta1', :require => 'active_support'
