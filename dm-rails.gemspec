@@ -36,7 +36,6 @@ Gem::Specification.new do |s|
      "lib/dm-rails/railties/database.rake",
      "lib/dm-rails/railties/i18n_support.rb",
      "lib/dm-rails/railties/log_subscriber.rb",
-     "lib/dm-rails/railties/routing_support.rb",
      "lib/dm-rails/session_store.rb",
      "lib/dm-rails/setup.rb",
      "lib/dm-rails/storage.rb",
