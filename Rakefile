@@ -26,7 +26,7 @@ begin
     gem.authors     = [ 'Dan Kubb' ]
 
     gem.add_dependency 'dm-core',           '~> 0.10.2'
-    gem.add_dependency 'dm-active_model',   '~> 0.3'
+    gem.add_dependency 'dm-active_model',   '~> 0.4'
 
     gem.add_dependency 'activesupport',     '~> 3.0.0.beta1'
     gem.add_dependency 'actionpack',        '~> 3.0.0.beta1'

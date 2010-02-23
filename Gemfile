@@ -38,7 +38,7 @@ gem 'dm-observer',    '~> 0.10.2'
 
 git 'git://github.com/snusnu/dm-active_model.git'
 
-gem 'dm-active_model', '~> 0.3'
+gem 'dm-active_model', '~> 0.4'
 
 
 group(:test) do
