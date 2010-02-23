@@ -6,7 +6,7 @@ Creating new datamapper apps on rails3 from scratch is actually really easy. Lik
 
 == Generating a new application from scratch
 
-It's really easy to go from zero gems to a working rails3 app using datamapper. All you need is the latest {rubygems}(http://docs.rubygems.org/read/chapter/3) release and {rails}[http://github.com/rails/rails]
+It's really easy to go from zero gems to a working rails3 app using datamapper. All you need is the latest {rubygems}[http://docs.rubygems.org/read/chapter/3] release and {rails}[http://github.com/rails/rails]
 
   gem update —system # you will need rubygems-1.3.6 for this to work
   gem install rails --pre
