@@ -82,7 +82,7 @@ Have a look at {datamapper_on_rails3}[http://github.com/snusnu/datamapper_on_rai
 
 Using {bundler}[http://github.com/carlhuda/bundler] it's really easy to get an app going with datamapper and rails3. Just use a Gemfile like this, and bundler will pull in everything needed to run your app. Note that you also must add any additional datamapper plugin or any other gem that you'd like to use to the Gemfile. This makes sure that bundler is able to provide a complete environment containing all required dependencies for your app.
 
-  source 'http://gemcutter.org'
+  source 'http://rubygems.org'
 
   git 'git://github.com/carlhuda/bundler.git'
 
