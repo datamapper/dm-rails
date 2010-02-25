@@ -75,14 +75,14 @@ module Rails
         def preload_lib(app)
           app.config.paths.lib.each do |path|
             Dir.glob("#{path}/**/*.rb").sort.each do |file|
-              require file unless file.match(/#{path}\/generators\/*/)
+              require_dependency file unless file.match(/#{path}\/generators\/*/)
             end
           end
         end
 
         def preload_models(app)
           app.config.paths.app.models.each do |path|
-            Dir.glob("#{path}/**/*.rb").sort.each { |file| require file }
+            Dir.glob("#{path}/**/*.rb").sort.each { |file| require_dependency file }
           end
         end
 
