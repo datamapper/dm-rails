@@ -499,6 +499,7 @@ Thx to all contributors, every patch, big or small is very much appreciated!
 * Foy Savas
 * Randall Brewer
 * Josh Huckabee
+* Patrik Sundberg
 
 == Copyright
 
