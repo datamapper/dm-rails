@@ -29,7 +29,7 @@ module Rails
 
        def initialize(adapter)
          super
-         @runtime = 0
+         reset_runtime
        end
 
      end
