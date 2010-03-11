@@ -13,14 +13,16 @@ module Rails
          rt
        end
 
-       %w(create read update delete).each do |method|
-
-         define_method method do |*args, &block|
-           result = nil
-           @runtime += Benchmark.ms { result = adapter.send(method, *args, &block) }
-           result
-         end
-
+       %w[ create read update delete ].each do |method|
+         class_eval <<-RUBY, __FILE__, __LINE__
+           def #{method}(*args, &block)                    # def create(*args, &block)
+             result = nil                                  #   result = nil
+             @runtime += Benchmark.ms do                   #   @runtime += Benchmark.ms do
+               result = adapter.#{method}(*args, &block)   #     result = adapter.create(*args, &block)
+             end                                           #   end
+             result                                        #   result
+           end                                             # end
+         RUBY
        end
 
        private
