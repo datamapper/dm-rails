@@ -14,7 +14,7 @@ module Rails
        end
 
        %w[ create read update delete ].each do |method|
-         class_eval <<-RUBY, __FILE__, __LINE__
+         class_eval <<-RUBY, __FILE__, __LINE__ + 1
            def #{method}(*args, &block)                    # def create(*args, &block)
              result = nil                                  #   result = nil
              @runtime += Benchmark.ms do                   #   @runtime += Benchmark.ms do
