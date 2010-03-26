@@ -22,9 +22,7 @@ module Rails
 
     class Railtie < Rails::Railtie
 
-      railtie_name :data_mapper
-
-      log_subscriber ::DataMapper::Railties::LogSubscriber.new
+      log_subscriber :data_mapper, ::DataMapper::Railties::LogSubscriber.new
 
       config.generators.orm :data_mapper, :migration => true
 
@@ -33,13 +31,13 @@ module Rails
 
 
       def configure_data_mapper(app)
-        app.config.data_mapper.configuration = Rails::DataMapper::Configuration.for(
+        app.config.data_mapper = Rails::DataMapper::Configuration.for(
           Rails.root, app.config.database_configuration
         )
       end
 
       def setup_adapter_cascade(app)
-        app.config.data_mapper.configuration.adapter_cascade.configure do |cascade|
+        app.config.data_mapper.adapter_cascade.configure do |cascade|
           cascade.use Rails::DataMapper::Adapters::BenchmarkingAdapter
         end
       end
@@ -54,7 +52,7 @@ module Rails
       end
 
       def setup_identity_map(app)
-        if app.config.data_mapper.configuration.identity_map
+        if app.config.data_mapper.identity_map
           require 'dm-rails/middleware/identity_map'
           app.config.middleware.use Rails::DataMapper::Middleware::IdentityMap
         end
@@ -75,14 +73,14 @@ module Rails
         def preload_lib(app)
           app.config.paths.lib.each do |path|
             Dir.glob("#{path}/**/*.rb").sort.each do |file|
-              require_dependency file unless file.match(/#{path}\/generators\/*/)
+              require file unless file.match(/#{path}\/generators\/*/)
             end
           end
         end
 
         def preload_models(app)
           app.config.paths.app.models.each do |path|
-            Dir.glob("#{path}/**/*.rb").sort.each { |file| require_dependency file }
+            Dir.glob("#{path}/**/*.rb").sort.each { |file| require file }
           end
         end
 
