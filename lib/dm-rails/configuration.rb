@@ -61,7 +61,7 @@ module Rails
           elsif key == 'adapter' && value == 'postgresql'
             'postgres'
           elsif key == 'database' && hash['adapter'] == 'sqlite3'
-            File.expand_path(hash['database'], root)
+            value == ':memory:' ? value : File.expand_path(hash['database'], root)
           else
             value
           end
