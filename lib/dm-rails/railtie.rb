@@ -36,12 +36,6 @@ module Rails
         )
       end
 
-      def setup_adapter_cascade(app)
-        app.config.data_mapper.adapter_cascade.configure do |cascade|
-          cascade.use Rails::DataMapper::Adapters::BenchmarkingAdapter
-        end
-      end
-
       def setup_i18n_support(app)
         ::DataMapper::Model.append_inclusions(Rails::DataMapper::I18nSupport)
       end
@@ -95,10 +89,6 @@ module Rails
 
       initializer 'data_mapper.logger' do |app|
         setup_logger(app, Rails.logger)
-      end
-
-      initializer 'data_mapper.adapter_cascade' do |app|
-        setup_adapter_cascade(app)
       end
 
       initializer 'data_mapper.i18n_support' do |app|
