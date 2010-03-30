@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Martin Gamsjaeger (snusnu)", "Dan Kubb"]
-  s.date = %q{2010-03-29}
+  s.date = %q{2010-03-30}
   s.description = %q{Integrate DataMapper with Rails 3}
   s.email = %q{gamsnjaga@gmail.com}
   s.extra_rdoc_files = [
@@ -26,12 +26,10 @@ Gem::Specification.new do |s|
      "VERSION",
      "dm-rails.gemspec",
      "lib/dm-rails.rb",
-     "lib/dm-rails/adapters.rb",
-     "lib/dm-rails/adapters/adapter_wrapper.rb",
-     "lib/dm-rails/adapters/benchmarking_adapter.rb",
      "lib/dm-rails/configuration.rb",
      "lib/dm-rails/middleware/identity_map.rb",
      "lib/dm-rails/railtie.rb",
+     "lib/dm-rails/railties/benchmarking_mixin.rb",
      "lib/dm-rails/railties/controller_runtime.rb",
      "lib/dm-rails/railties/database.rake",
      "lib/dm-rails/railties/i18n_support.rb",
