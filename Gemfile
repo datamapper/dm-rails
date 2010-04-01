@@ -18,9 +18,9 @@ gem 'do_sqlite3',       '~> 0.10.1'
 
 git 'git://github.com/rails/rails.git' do
 
-  gem 'activesupport',  '~> 3.0.0.beta1', :require => 'active_support'
-  gem 'actionpack',     '~> 3.0.0.beta1', :require => 'action_pack'
-  gem 'railties',       '~> 3.0.0.beta1', :require => 'rails'
+  gem 'activesupport',  '~> 3.0.0.beta2', :require => 'active_support'
+  gem 'actionpack',     '~> 3.0.0.beta2', :require => 'action_pack'
+  gem 'railties',       '~> 3.0.0.beta2', :require => 'rails'
 
 end
 
