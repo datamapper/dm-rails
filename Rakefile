@@ -1,19 +1,8 @@
-begin
-  # Just in case the bundle was locked
-  # This shouldn't happen in a dev environment but lets be safe
-  require File.expand_path('../../.bundle/environment', __FILE__)
-rescue LoadError
-  require 'rubygems'
-  require 'bundler'
-  Bundler.setup
-end
-
-Bundler.require(:default, :development)
-
+require 'rubygems'
 require 'rake'
 
 begin
-  gem 'jeweler', '~> 1.4'
+
   require 'jeweler'
 
   Jeweler::Tasks.new do |gem|
