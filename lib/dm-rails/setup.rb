@@ -1,5 +1,7 @@
 require 'active_support/core_ext/hash/except'
 
+require 'dm-migrations'
+
 require 'dm-rails/configuration'
 require 'dm-rails/railties/benchmarking_mixin'
 
