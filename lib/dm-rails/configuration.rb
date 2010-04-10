@@ -40,12 +40,7 @@ module Rails
       end
 
 
-      def adapter_cascade
-        @adapter_cascade ||= Rails::DataMapper::Adapters::Cascade
-      end
-
-
-      private
+    private
 
       def initialize(root, database_yml_hash)
         @root, @raw = root, database_yml_hash
