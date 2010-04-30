@@ -25,4 +25,5 @@ log
 ## PROJECT::SPECIFIC
 vendor
 .bundle
+Gemfile.local
 

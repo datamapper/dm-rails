@@ -50,6 +50,7 @@ Gem::Specification.new do |s|
      "spec/spec_helper.rb",
      "tasks/ci.rake",
      "tasks/clean.rake",
+     "tasks/local_gemfile.rake",
      "tasks/metrics.rake",
      "tasks/spec.rake",
      "tasks/yard.rake",
