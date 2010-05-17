@@ -20,9 +20,6 @@ begin
     gem.add_dependency 'activesupport',     '~> 3.0.0.beta3'
     gem.add_dependency 'actionpack',        '~> 3.0.0.beta3'
     gem.add_dependency 'railties',          '~> 3.0.0.beta3'
-
-    gem.add_development_dependency 'yard',  '~> 0.5'
-
   end
 
   Jeweler::GemcutterTasks.new

@@ -21,15 +21,16 @@ group :development do
 
   gem 'rake',            '~> 0.8.7'
   gem 'jeweler',         '~> 1.4'
-  gem 'yard',            '~> 0.5'
 
 end
 
 group :quality do # These gems contain rake tasks that check the quality of the source code
 
-  gem 'yardstick',      '~> 0.1'
-  gem 'metric_fu',      '~> 1.3'
-  gem 'reek',           '~> 1.2.7'
-  gem 'roodi',          '~> 2.1'
+  gem 'metric_fu',       '~> 1.3'
+  gem 'rcov',            '~> 0.9.7'
+  gem 'reek',            '~> 1.2.7'
+  gem 'roodi',           '~> 2.1'
+  gem 'yard',            '~> 0.5'
+  gem 'yardstick',       '~> 0.1'
 
 end
