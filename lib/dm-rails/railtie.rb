@@ -29,7 +29,6 @@ module Rails
 
       # Support overwriting crucial steps in subclasses
 
-
       def configure_data_mapper(app)
         app.config.data_mapper = Rails::DataMapper::Configuration.for(
           Rails.root, app.config.database_configuration
@@ -56,32 +55,6 @@ module Rails
         Rails::DataMapper.setup_logger(logger)
       end
 
-      module Setup
-
-        def setup_data_mapper(app)
-          preload_lib(app)
-          preload_models(app)
-          Rails::DataMapper.setup(Rails.env)
-        end
-
-        def preload_lib(app)
-          app.config.paths.lib.each do |path|
-            Dir.glob("#{path}/**/*.rb").sort.each do |file|
-              require_dependency file unless file.match(/#{path}\/generators\/*/)
-            end
-          end
-        end
-
-        def preload_models(app)
-          app.config.paths.app.models.each do |path|
-            Dir.glob("#{path}/**/*.rb").sort.each { |file| require_dependency file }
-          end
-        end
-
-      end
-
-      extend Setup
-
 
       initializer 'data_mapper.configuration' do |app|
         configure_data_mapper(app)
@@ -104,12 +77,20 @@ module Rails
         setup_identity_map(app)
       end
 
-      # Run setup code after_initialize to make sure all config/initializers
-      # are in effect once we setup the connection. This is especially necessary
-      # for the cascaded adapter wrappers that need to be declared before setup.
+      # Preload all models once in production mode,
+      # and before every request in development mode
+      initializer "datamapper.add_to_prepare" do |app|
+        config.to_prepare { Rails::DataMapper.preload_models(app) }
+      end
 
+      # Run setup code once in after_initialize to make sure all initializers
+      # are in effect once we setup the connection. Also, this will make sure
+      # that the connection gets set up after all models have been loaded,
+      # because #after_initialize is guaranteed to run after #to_prepare.
+      # Both production and development environment will execute the setup
+      # code only once.
       config.after_initialize do |app|
-        setup_data_mapper(app)
+        Rails::DataMapper.setup(Rails.env)
       end
 
       rake_tasks do

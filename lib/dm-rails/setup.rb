@@ -30,5 +30,12 @@ module Rails
       end
     end
 
+    def self.preload_models(app)
+      app.config.paths.app.models.each do |path|
+        Dir.glob("#{path}/**/*.rb").sort.each { |file| require_dependency file }
+      end
+      initialize_foreign_keys
+    end
+
   end
 end
