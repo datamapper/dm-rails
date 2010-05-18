@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Martin Gamsjaeger (snusnu)", "Dan Kubb"]
-  s.date = %q{2010-05-01}
+  s.date = %q{2010-05-18}
   s.description = %q{Integrate DataMapper with Rails 3}
   s.email = %q{gamsnjaga@gmail.com}
   s.extra_rdoc_files = [
@@ -44,15 +44,10 @@ Gem::Specification.new do |s|
      "lib/generators/data_mapper/model/templates/model.rb",
      "lib/generators/data_mapper/observer/observer_generator.rb",
      "lib/generators/data_mapper/observer/templates/observer.rb",
-     "spec/rcov.opts",
-     "spec/setup_spec.rb",
-     "spec/spec.opts",
-     "spec/spec_helper.rb",
      "tasks/ci.rake",
      "tasks/clean.rake",
      "tasks/local_gemfile.rake",
      "tasks/metrics.rake",
-     "tasks/spec.rake",
      "tasks/yard.rake",
      "tasks/yardstick.rake"
   ]
@@ -61,10 +56,6 @@ Gem::Specification.new do |s|
   s.require_paths = ["lib"]
   s.rubygems_version = %q{1.3.6}
   s.summary = %q{Use DataMapper with Rails 3}
-  s.test_files = [
-    "spec/setup_spec.rb",
-     "spec/spec_helper.rb"
-  ]
 
   if s.respond_to? :specification_version then
     current_version = Gem::Specification::CURRENT_SPECIFICATION_VERSION
