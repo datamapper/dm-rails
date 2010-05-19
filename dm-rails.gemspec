@@ -5,7 +5,7 @@
 
 Gem::Specification.new do |s|
   s.name = %q{dm-rails}
-  s.version = "1.0.0.rc1"
+  s.version = "1.0.0.rc2"
 
   s.required_rubygems_version = Gem::Requirement.new("> 1.3.1") if s.respond_to? :required_rubygems_version=
   s.authors = ["Martin Gamsjaeger (snusnu)", "Dan Kubb"]
@@ -62,21 +62,21 @@ Gem::Specification.new do |s|
     s.specification_version = 3
 
     if Gem::Version.new(Gem::RubyGemsVersion) >= Gem::Version.new('1.2.0') then
-      s.add_runtime_dependency(%q<dm-core>, ["~> 1.0.0.rc1"])
-      s.add_runtime_dependency(%q<dm-active_model>, ["~> 1.0.0.rc1"])
+      s.add_runtime_dependency(%q<dm-core>, ["~> 1.0.0.rc2"])
+      s.add_runtime_dependency(%q<dm-active_model>, ["~> 1.0.0.rc2"])
       s.add_runtime_dependency(%q<activesupport>, ["~> 3.0.0.beta3"])
       s.add_runtime_dependency(%q<actionpack>, ["~> 3.0.0.beta3"])
       s.add_runtime_dependency(%q<railties>, ["~> 3.0.0.beta3"])
     else
-      s.add_dependency(%q<dm-core>, ["~> 1.0.0.rc1"])
-      s.add_dependency(%q<dm-active_model>, ["~> 1.0.0.rc1"])
+      s.add_dependency(%q<dm-core>, ["~> 1.0.0.rc2"])
+      s.add_dependency(%q<dm-active_model>, ["~> 1.0.0.rc2"])
       s.add_dependency(%q<activesupport>, ["~> 3.0.0.beta3"])
       s.add_dependency(%q<actionpack>, ["~> 3.0.0.beta3"])
       s.add_dependency(%q<railties>, ["~> 3.0.0.beta3"])
     end
   else
-    s.add_dependency(%q<dm-core>, ["~> 1.0.0.rc1"])
-    s.add_dependency(%q<dm-active_model>, ["~> 1.0.0.rc1"])
+    s.add_dependency(%q<dm-core>, ["~> 1.0.0.rc2"])
+    s.add_dependency(%q<dm-active_model>, ["~> 1.0.0.rc2"])
     s.add_dependency(%q<activesupport>, ["~> 3.0.0.beta3"])
     s.add_dependency(%q<actionpack>, ["~> 3.0.0.beta3"])
     s.add_dependency(%q<railties>, ["~> 3.0.0.beta3"])

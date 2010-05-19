@@ -14,8 +14,8 @@ begin
     gem.homepage    = 'http://github.com/datamapper/dm-rails'
     gem.authors     = [ 'Martin Gamsjaeger (snusnu)', 'Dan Kubb' ]
 
-    gem.add_dependency 'dm-core',           '~> 1.0.0.rc1'
-    gem.add_dependency 'dm-active_model',   '~> 1.0.0.rc1'
+    gem.add_dependency 'dm-core',           '~> 1.0.0.rc2'
+    gem.add_dependency 'dm-active_model',   '~> 1.0.0.rc2'
 
     gem.add_dependency 'activesupport',     '~> 3.0.0.beta3'
     gem.add_dependency 'actionpack',        '~> 3.0.0.beta3'
