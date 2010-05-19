@@ -63,20 +63,20 @@ Gem::Specification.new do |s|
 
     if Gem::Version.new(Gem::RubyGemsVersion) >= Gem::Version.new('1.2.0') then
       s.add_runtime_dependency(%q<dm-core>, ["~> 1.0.0.rc1"])
-      s.add_runtime_dependency(%q<dm-active_model>, ["~> 0.4"])
+      s.add_runtime_dependency(%q<dm-active_model>, ["~> 1.0.0.rc1"])
       s.add_runtime_dependency(%q<activesupport>, ["~> 3.0.0.beta3"])
       s.add_runtime_dependency(%q<actionpack>, ["~> 3.0.0.beta3"])
       s.add_runtime_dependency(%q<railties>, ["~> 3.0.0.beta3"])
     else
       s.add_dependency(%q<dm-core>, ["~> 1.0.0.rc1"])
-      s.add_dependency(%q<dm-active_model>, ["~> 0.4"])
+      s.add_dependency(%q<dm-active_model>, ["~> 1.0.0.rc1"])
       s.add_dependency(%q<activesupport>, ["~> 3.0.0.beta3"])
       s.add_dependency(%q<actionpack>, ["~> 3.0.0.beta3"])
       s.add_dependency(%q<railties>, ["~> 3.0.0.beta3"])
     end
   else
     s.add_dependency(%q<dm-core>, ["~> 1.0.0.rc1"])
-    s.add_dependency(%q<dm-active_model>, ["~> 0.4"])
+    s.add_dependency(%q<dm-active_model>, ["~> 1.0.0.rc1"])
     s.add_dependency(%q<activesupport>, ["~> 3.0.0.beta3"])
     s.add_dependency(%q<actionpack>, ["~> 3.0.0.beta3"])
     s.add_dependency(%q<railties>, ["~> 3.0.0.beta3"])

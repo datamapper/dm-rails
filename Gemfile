@@ -14,7 +14,7 @@ group :runtime do
   end
 
   gem 'dm-core',         DM_VERSION, :git => "#{DATAMAPPER}/dm-core.git"
-  gem 'dm-active_model', '~> 0.4',   :git => "#{DATAMAPPER}/dm-active_model.git"
+  gem 'dm-active_model', DM_VERSION, :git => "#{DATAMAPPER}/dm-active_model.git"
 
 end
 
