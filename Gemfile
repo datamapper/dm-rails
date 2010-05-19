@@ -1,6 +1,7 @@
 source 'http://rubygems.org'
 
 DATAMAPPER = 'git://github.com/datamapper'
+DM_VERSION = '~> 1.0.0.rc1'
 
 group :runtime do
 
@@ -12,8 +13,8 @@ group :runtime do
 
   end
 
-  gem 'dm-core',         '~> 0.10.3', :git => "#{DATAMAPPER}/dm-core.git"
-  gem 'dm-active_model', '~> 0.4',    :git => "#{DATAMAPPER}/dm-active_model.git"
+  gem 'dm-core',         DM_VERSION, :git => "#{DATAMAPPER}/dm-core.git"
+  gem 'dm-active_model', '~> 0.4',   :git => "#{DATAMAPPER}/dm-active_model.git"
 
 end
 
