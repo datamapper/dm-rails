@@ -503,4 +503,4 @@ Thx to all contributors, every patch, big or small is very much appreciated!
 
 == Copyright
 
-Copyright (c) 2009-2010 The dm-rails team. See {LICENSE}[http://github.com/datamapper/dm-rails/blob/master/LICENSE] for details.
+Copyright (c) 2010-2010 The dm-rails team. See {LICENSE}[http://github.com/datamapper/dm-rails/blob/master/LICENSE] for details.
