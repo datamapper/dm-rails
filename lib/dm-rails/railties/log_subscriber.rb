@@ -3,6 +3,11 @@ module DataMapper
 
     class LogSubscriber < Rails::LogSubscriber
 
+      def initialize
+        super
+        @odd_or_even = false
+      end
+
       def sql(event)
         name = '%s (%.1fms)' % [event.payload[:name], event.duration]
         sql  = event.payload[:sql].squeeze(' ')
