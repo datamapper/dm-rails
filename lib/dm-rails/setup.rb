@@ -32,7 +32,7 @@ module Rails
         # FIXME Setting DataMapper::Logger.new($stdout, :off) alone won't work because the #log
         # method is currently only available in DO and needs an explicit DO Logger instantiated.
         # We turn the logger :off because ActiveSupport::Notifications handles displaying log messages
-        do_adapter = DataObjects.const_get(adapter_name.classify)
+        do_adapter = DataObjects.const_get(ActiveSupport::Inflector.camelize(adapter_name))
         do_adapter.logger = DataObjects::Logger.new($stdout, :off)
       end
     end
