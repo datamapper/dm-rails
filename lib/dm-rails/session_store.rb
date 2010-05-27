@@ -12,9 +12,9 @@ module Rails
         include ::DataMapper::Resource
 
         property :id,         Serial
-        property :session_id, String,   :required => true, :unique => true, :unique_index => true
+        property :session_id, String,   :required => true, :unique => true
         property :data,       Object,   :required => true, :default => ActiveSupport::Base64.encode64(Marshal.dump({}))
-        property :updated_at, DateTime, :required => false, :index => true
+        property :updated_at, DateTime,                    :index => true
 
         def self.name
           'session'
