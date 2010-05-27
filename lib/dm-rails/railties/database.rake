@@ -116,7 +116,7 @@ namespace :db do
     desc "Clear the sessions table for DataMapperStore"
     task :clear => :environment do
       require 'dm-rails/session_store'
-      Rails::DataMapper::SessionStore::Session.all.destroy!
+      Rails::DataMapper::SessionStore::Session.destroy!
       puts "Deleted entries from '#{Rails::DataMapper.configurations[Rails.env]['database']}.sessions'"
     end
   end
