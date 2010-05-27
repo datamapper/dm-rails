@@ -27,7 +27,8 @@ module Rails
     end
 
     def self.setup_log_listener(adapter_name)
-      driver_name = ActiveSupport::Inflector.camelize(adapter_name)
+      adapter_name = 'sqlite3' if adapter_name == 'sqlite'
+      driver_name  = ActiveSupport::Inflector.camelize(adapter_name)
       if Object.const_defined?('DataObjects') && DataObjects.const_defined?(driver_name)
         DataObjects::Connection.send(:include, LogListener)
         # FIXME Setting DataMapper::Logger.new($stdout, :off) alone won't work because the #log
