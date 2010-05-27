@@ -12,7 +12,7 @@ module Rails
       configuration.repositories[environment].each do |name, config|
         setup_with_instrumentation(name.to_sym, config)
       end
-      initialize_foreign_keys
+      finalize
     end
 
     def self.setup_with_instrumentation(name, options)
@@ -37,17 +37,15 @@ module Rails
       end
     end
 
-    def self.initialize_foreign_keys
-      ::DataMapper::Model.descendants.each do |model|
-        model.relationships.each_value { |r| r.child_key }
-      end
+    def self.finalize
+      ::DataMapper.finalize
     end
 
     def self.preload_models(app)
       app.config.paths.app.models.each do |path|
         Dir.glob("#{path}/**/*.rb").sort.each { |file| require_dependency file }
       end
-      initialize_foreign_keys
+      finalize
     end
 
   end
