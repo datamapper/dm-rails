@@ -29,13 +29,13 @@ module Rails
     def self.setup_log_listener(adapter_name)
       adapter_name = 'sqlite3' if adapter_name == 'sqlite'
       driver_name  = ActiveSupport::Inflector.camelize(adapter_name)
-      if Object.const_defined?('DataObjects') && DataObjects.const_defined?(driver_name)
+
+      setup_do_driver(driver_name) do |driver|
         DataObjects::Connection.send(:include, LogListener)
         # FIXME Setting DataMapper::Logger.new($stdout, :off) alone won't work because the #log
         # method is currently only available in DO and needs an explicit DO Logger instantiated.
         # We turn the logger :off because ActiveSupport::Notifications handles displaying log messages
-        do_driver = DataObjects.const_get(driver_name)
-        do_driver.logger = DataObjects::Logger.new($stdout, :off)
+        driver.logger = DataObjects::Logger.new($stdout, :off)
       end
     end
 
@@ -48,6 +48,24 @@ module Rails
         Dir.glob("#{path}/**/*.rb").sort.each { |file| require_dependency file }
       end
       finalize
+    end
+
+    class << self
+      private
+
+      if RUBY_VERSION < '1.9'
+        def setup_do_driver(driver_name)
+          if Object.const_defined?('DataObjects') && DataObjects.const_defined?(driver_name)
+            yield DataObjects.const_get(driver_name)
+          end
+        end
+      else
+        def setup_do_driver(driver_name)
+          if Object.const_defined?('DataObjects', false) && DataObjects.const_defined?(driver_name, false)
+            yield DataObjects.const_get(driver_name, false)
+          end
+        end
+      end
     end
 
   end
