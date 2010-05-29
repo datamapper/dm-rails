@@ -50,13 +50,13 @@ namespace :db do
     require 'dm-migrations'
     Rails::DataMapper.configuration.repositories[Rails.env].each do |repository, config|
       ::DataMapper.auto_migrate!(repository.to_sym)
-      puts "[datamapper] Finished auto_migrate! for :#{repository} repository '#{config['database']}'"
+      ::DataMapper.logger.info "[datamapper] Finished auto_migrate! for :#{repository} repository '#{config['database']}'"
     end
     if Rails.env.development? && Rails::DataMapper.configuration.repositories['test']
       Rails::DataMapper.setup('test')
       Rails::DataMapper.configuration.repositories['test'].each do |repository, config|
         ::DataMapper.auto_migrate!(repository.to_sym)
-        puts "[datamapper] Finished auto_migrate! for :#{repository} repository '#{config['database']}'"
+        ::DataMapper.logger.info "[datamapper] Finished auto_migrate! for :#{repository} repository '#{config['database']}'"
       end
     end
   end
@@ -66,13 +66,13 @@ namespace :db do
     require 'dm-migrations'
     Rails::DataMapper.configuration.repositories[Rails.env].each do |repository, config|
       ::DataMapper.auto_upgrade!(repository.to_sym)
-      puts "[datamapper] Finished auto_upgrade! for :#{repository} repository '#{config['database']}'"
+      ::DataMapper.logger.info "[datamapper] Finished auto_upgrade! for :#{repository} repository '#{config['database']}'"
     end
     if Rails.env.development? && Rails::DataMapper.configuration.repositories['test']
       Rails::DataMapper.setup('test')
       Rails::DataMapper.configuration.repositories['test'].each do |repository, config|
         ::DataMapper.auto_upgrade!(repository.to_sym)
-        puts "[datamapper] Finished auto_upgrade! for :#{repository} repository '#{config['database']}'"
+        ::DataMapper.logger.info "[datamapper] Finished auto_upgrade! for :#{repository} repository '#{config['database']}'"
       end
     end
   end
@@ -110,14 +110,14 @@ namespace :db do
     task :create => :environment do
       require 'dm-rails/session_store'
       Rails::DataMapper::SessionStore::Session.auto_migrate!
-      puts "Created '#{Rails::DataMapper.configurations[Rails.env]['database']}.sessions'"
+      ::DataMapper.logger.info "Created '#{Rails::DataMapper.configurations[Rails.env]['database']}.sessions'"
     end
 
     desc "Clear the sessions table for DataMapperStore"
     task :clear => :environment do
       require 'dm-rails/session_store'
       Rails::DataMapper::SessionStore::Session.destroy!
-      puts "Deleted entries from '#{Rails::DataMapper.configurations[Rails.env]['database']}.sessions'"
+      ::DataMapper.logger.info "Deleted entries from '#{Rails::DataMapper.configurations[Rails.env]['database']}.sessions'"
     end
   end
 

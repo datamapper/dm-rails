@@ -10,6 +10,6 @@ module LogListener
     super
   rescue Exception => e
     # TODO proper logging
-    puts "[datamapper - ERROR] #{e.class.name}: #{e.message}: #{message.inspect}}"
+    ::DataMapper.logger.error "[datamapper] #{e.class.name}: #{e.message}: #{message.inspect}}"
   end
 end
