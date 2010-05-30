@@ -9,7 +9,6 @@ module LogListener
     )
     super
   rescue Exception => e
-    # TODO proper logging
     ::DataMapper.logger.error "[datamapper] #{e.class.name}: #{e.message}: #{message.inspect}}"
   end
 end
