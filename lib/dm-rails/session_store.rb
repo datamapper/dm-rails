@@ -1,4 +1,5 @@
 require 'dm-core'
+require 'active_support/core_ext/class/attribute'
 
 # Implements DataMapper-specific session store.
 
@@ -13,18 +14,22 @@ module Rails
 
         property :id,         Serial
         property :session_id, String,   :required => true, :unique => true
-        property :data,       Object,   :required => true, :default => ActiveSupport::Base64.encode64(Marshal.dump({}))
+        property :data,       Object,   :required => true
         property :updated_at, DateTime,                    :index => true
 
         def self.name
           'session'
         end
 
+        def data
+          attribute_get(:data) || {}
+        end
+
       end
 
       SESSION_RECORD_KEY = 'rack.session.record'.freeze
 
-      cattr_accessor :session_class
+      class_attribute :session_class
       self.session_class = Session
 
       private
