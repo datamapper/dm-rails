@@ -3,10 +3,6 @@ require 'dm-rails/storage'
 
 namespace :db do
 
-  task :load_models => :environment do
-    FileList["app/models/**/*.rb"].each { |model| load model }
-  end
-
   desc 'Create the database, load the schema, and initialize with the seed data'
   task :setup => [ 'db:create', 'db:automigrate', 'db:seed' ]
 
@@ -46,7 +42,7 @@ namespace :db do
 
 
   desc 'Perform destructive automigration of all repositories in the current Rails.env'
-  task :automigrate => :load_models do
+  task :automigrate => :environment do
     require 'dm-migrations'
     Rails::DataMapper.configuration.repositories[Rails.env].each do |repository, config|
       ::DataMapper.auto_migrate!(repository.to_sym)
@@ -62,7 +58,7 @@ namespace :db do
   end
 
   desc 'Perform non destructive automigration of all repositories in the current Rails.env'
-  task :autoupgrade => :load_models do
+  task :autoupgrade => :environment do
     require 'dm-migrations'
     Rails::DataMapper.configuration.repositories[Rails.env].each do |repository, config|
       ::DataMapper.auto_upgrade!(repository.to_sym)
