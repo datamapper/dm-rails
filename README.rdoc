@@ -105,21 +105,21 @@ Using {bundler}[http://github.com/carlhuda/bundler] it's really easy to get an a
   git 'git://github.com/snusnu/dm-core.git', 'branch' => 'active_support'
   git "git://github.com/snusnu/dm-more.git", 'branch' => 'active_support'
 
-  gem 'dm-core',           '~> 1.0.0.rc3'
-  gem 'dm-types',          '~> 1.0.0.rc3'
-  gem 'dm-validations',    '~> 1.0.0.rc3'
-  gem 'dm-constraints',    '~> 1.0.0.rc3'
-  gem 'dm-aggregates',     '~> 1.0.0.rc3'
-  gem 'dm-timestamps',     '~> 1.0.0.rc3'
-  gem 'dm-migrations',     '~> 1.0.0.rc3'
-  gem 'dm-observer',       '~> 1.0.0.rc3'
+  gem 'dm-core',           '~> 1.0.0'
+  gem 'dm-types',          '~> 1.0.0'
+  gem 'dm-validations',    '~> 1.0.0'
+  gem 'dm-constraints',    '~> 1.0.0'
+  gem 'dm-aggregates',     '~> 1.0.0'
+  gem 'dm-timestamps',     '~> 1.0.0'
+  gem 'dm-migrations',     '~> 1.0.0'
+  gem 'dm-observer',       '~> 1.0.0'
 
   # Use this instead of git if you're working on dm-rails
   # path '/full/path/to/your/local/clone/of/dm-rails'
 
   git 'git://github.com/datamapper/dm-rails.git'
 
-  gem 'dm-rails', '~> 1.0.0.rc3'
+  gem 'dm-rails', '~> 1.0.0'
 
   git 'git://github.com/rspec/rspec.git'
   git 'git://github.com/rspec/rspec-core.git'
