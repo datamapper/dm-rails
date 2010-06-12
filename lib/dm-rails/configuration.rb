@@ -15,7 +15,7 @@ module Rails
       attr_reader :root, :raw
 
       def environments
-        config.keys
+        raw.keys
       end
 
       def repositories
