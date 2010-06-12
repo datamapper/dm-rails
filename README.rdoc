@@ -2,7 +2,7 @@
 
 This gem provides the railtie that allows {datamapper}[http://github.com/datamapper/dm-core] to hook into {rails3}[http://github.com/rails/rails] and thus behave like a rails framework component. Just like activercord does in rails, {dm-rails}[http://github.com/datamapper/dm-rails] uses the railtie API to hook into rails. The two are actually hooked into rails almost identically.
 
-Creating new datamapper apps on rails3 from scratch is actually really easy. Like, *really* easy. The following will guide you through the process.
+Creating new datamapper apps on rails3 from scratch is actually really easy. The following will guide you through the process.
 
 == Generating a new application from scratch
 
@@ -13,9 +13,9 @@ It's really easy to go from zero gems to a working rails3 app using datamapper. 
 
 Once you have {rails}[http://github.com/rails/rails] and thus {bundler}[http://github.com/carlhuda/bundler] installed, you can bootstrap a rails master branch application with a single command. Yes! A single command. Cool.
 
-  rails dm_rails3_app -m http://datamapper.org/templates/rails.rb
+  rails new project_name -m http://datamapper.org/templates/rails.rb
 
-Now that was easy! When run, the command will print some options on how to proceed with your newly generated application, to the screen.
+When run, the command will print out some options on how to proceed with your newly generated application.
 
 == rspec support
 
@@ -58,9 +58,8 @@ Issue the following commands to get a fully functional development environment i
 
   gem install bundler # if this is new for you
   bundle install
-  rake spec
 
-Now that was easy, wasn't it? Whenever you want to update your dependencies because you want to make sure you develop against master branches, just issue
+Whenever you want to update your dependencies because you want to make sure you develop against master branches, just issue
 
   bundle install
 
@@ -73,21 +72,19 @@ Using {bundler}[http://github.com/carlhuda/bundler] it's really easy to get an a
 
   source 'http://rubygems.org'
 
-  git 'git://github.com/carlhuda/bundler.git'
+  RAILS_VERSION = '~> 3.0.0.beta4'
 
-  gem 'bundler',           '~> 0.9.3'
+  DM_VERSION    = '~> 1.0.0'
 
-  git 'git://github.com/rails/rails.git'
+  RSPEC_VERSION = '~> 2.0.0.beta.11'
 
-  gem 'activesupport',     '~> 3.0.0.beta1', :require => 'active_support'
-  gem 'actionpack',        '~> 3.0.0.beta1', :require => 'action_pack'
-  gem 'railties',          '~> 3.0.0.beta1', :require => 'rails'
+  gem 'activesupport',      RAILS_VERSION, :require => 'active_support'
+  gem 'actionpack',         RAILS_VERSION, :require => 'action_pack'
+  gem 'actionmailer',       RAILS_VERSION, :require => 'action_mailer'
+  gem 'railties',           RAILS_VERSION, :require => 'rails'
 
-  # Uncomment this if you need actionmailer
-  # gem 'actionmailer',      '~> 3.0.0.beta1', :require => 'action_mailer'
-
-  gem 'data_objects',      '~> 0.10.1'
-  gem 'do_sqlite3',        '~> 0.10.1'
+  gem 'dm-rails',               DM_VERSION
+  gem 'dm-#{database}-adapter', DM_VERSION
 
   # You can use any of the other available database adapters.
   # This is only a small excerpt of the list of all available adapters
@@ -98,42 +95,49 @@ Using {bundler}[http://github.com/carlhuda/bundler] it's really easy to get an a
   #
   # for a rather complete list of available datamapper adapters and plugins
 
-  # gem 'do_mysql',          '~> 0.10.1'
-  # gem 'do_postgres',       '~> 0.10.1'
-  # gem 'do_oracle',         '~> 0.10.1'
+  # gem 'dm-sqlite-adapter',    DM_VERSION
+  # gem 'dm-mysql-adapter',     DM_VERSION
+  # gem 'dm-postgres-adapter',  DM_VERSION
+  # gem 'dm-oracle-adapter',    DM_VERSION
+  # gem 'dm-sqlserver-adapter', DM_VERSION
 
-  git 'git://github.com/snusnu/dm-core.git', 'branch' => 'active_support'
-  git "git://github.com/snusnu/dm-more.git", 'branch' => 'active_support'
-
-  gem 'dm-core',           '~> 1.0.0'
-  gem 'dm-types',          '~> 1.0.0'
-  gem 'dm-validations',    '~> 1.0.0'
-  gem 'dm-constraints',    '~> 1.0.0'
-  gem 'dm-aggregates',     '~> 1.0.0'
-  gem 'dm-timestamps',     '~> 1.0.0'
-  gem 'dm-migrations',     '~> 1.0.0'
-  gem 'dm-observer',       '~> 1.0.0'
-
-  # Use this instead of git if you're working on dm-rails
-  # path '/full/path/to/your/local/clone/of/dm-rails'
-
-  git 'git://github.com/datamapper/dm-rails.git'
-
-  gem 'dm-rails', '~> 1.0.0'
-
-  git 'git://github.com/rspec/rspec.git'
-  git 'git://github.com/rspec/rspec-core.git'
-  git 'git://github.com/rspec/rspec-expectations.git'
-  git 'git://github.com/rspec/rspec-mocks.git'
-  git 'git://github.com/rspec/rspec-rails.git'
+  gem 'dm-migrations',        DM_VERSION
+  gem 'dm-types',             DM_VERSION
+  gem 'dm-validations',       DM_VERSION
+  gem 'dm-constraints',       DM_VERSION
+  gem 'dm-transactions',      DM_VERSION
+  gem 'dm-aggregates',        DM_VERSION
+  gem 'dm-timestamps',        DM_VERSION
+  gem 'dm-observer',          DM_VERSION
 
   group(:test) do
-    gem 'rspec',              '2.0.0.a8'
-    gem 'rspec-core',         '2.0.0.a8', :require => 'rspec/core'
-    gem 'rspec-expectations', '2.0.0.a8', :require => 'rspec/expectations'
-    gem 'rspec-mocks',        '2.0.0.a8', :require => 'rspec/mocks'
-    gem 'rspec-rails',        '2.0.0.a9'
+
+    gem 'rspec',              RSPEC_VERSION
+    gem 'rspec-core',         RSPEC_VERSION, :require => 'rspec/core'
+    gem 'rspec-expectations', RSPEC_VERSION, :require => 'rspec/expectations'
+    gem 'rspec-mocks',        RSPEC_VERSION, :require => 'rspec/mocks'
+    gem 'rspec-rails',        RSPEC_VERSION
+
   end
+
+  # ------------------------------------------------------------------------------
+
+  # These gems are only listed here in the Gemfile because we want to pin them
+  # to the github repositories for as long as no stable version has been released.
+  # The dm-core gem is a hard dependency for dm-rails so it would get pulled in by
+  # simply adding dm-rails. The dm-do-adapter gem is a hard dependency for any of
+  # the available dm-xxx-adapters. Once we have stable gems available, pinning these
+  # gems to github will be optional.
+
+  gem 'dm-core',              DM_VERSION
+  gem 'dm-do-adapter',        DM_VERSION
+  gem 'dm-active_model',      DM_VERSION
+
+
+  # Uncomment this line if you want to see application specific metric data
+
+  # gem 'rails_metrics', '~> 0.1', :git => 'git://github.com/engineyard/rails_metrics'
+
 
 
 == Sample database.yml files
@@ -217,52 +221,54 @@ Once you have defined your database.yml file, dm-rails's rake tasks will be able
 
 == Available generators
 
-Due to the awesomeness of rails3 generators we get some cool generators almost for free. Since the new generators provide hooks that allow the dm-rails gem to provide generators that hook into parts like model, scaffolds or test generation, everything just works like it would with active_record.
+Since the new generators provide hooks that allow the dm-rails gem to provide generators that hook into parts like model, scaffolds or test generation, everything just works like it does with active_record.
 
 The following generators are available to help you get started with the typical components of any rails application.
 
-  vendor/bin/rails generate controller
-  vendor/bin/rails generate generator
-  vendor/bin/rails generate helper
-  vendor/bin/rails generate integration_test
-  vendor/bin/rails generate mailer
-  vendor/bin/rails generate metal
-  vendor/bin/rails generate migration
-  vendor/bin/rails generate model
-  vendor/bin/rails generate model_subclass
-  vendor/bin/rails generate observer
-  vendor/bin/rails generate performance_test
-  vendor/bin/rails generate plugin
-  vendor/bin/rails generate resource
-  vendor/bin/rails generate scaffold
-  vendor/bin/rails generate scaffold_controller
-  vendor/bin/rails generate session_migration
-  vendor/bin/rails generate stylesheets
+  ...
+  rails generate controller
+  rails generate generator
+  rails generate helper
+  rails generate integration_test
+  rails generate migration
+  rails generate model
+  rails generate observer
+  rails generate performance_test
+  rails generate plugin
+  rails generate resource
+  rails generate scaffold
+  rails generate scaffold_controller
+  rails generate session_migration
+  rails generate stylesheets
+  ...
+
+For a complete list run the following in your project's directory
+
+  rails generate
 
 
 == Available datamapper specific rake tasks
 
 To get a list of all available rake tasks in your rails3 app, issue the usual
 
-  vendor/bin/rake -T
+  rake -T
 
 Once you do that, you will see the following rake tasks among others. These are the ones that dm-rails added for us.
 
   ...
-  vendor/bin/rake db:automigrate           # Perform destructive automigration
-  vendor/bin/rake db:autoupgrade           # Perform non destructive automigration
-  vendor/bin/rake db:create                # Create the database(s) defined in config/database.yml for the current Rails.env - also creates the test database(s) if Rails.env.development?
-  vendor/bin/rake db:create:all            # Create all the local databases defined in config/database.yml
-  vendor/bin/rake db:drop                  # Drops the database(s) for the current Rails.env - also drops the test database(s) if Rails.env.development?
-  vendor/bin/rake db:drop:all              # Drop all the local databases defined in config/database.yml
-  vendor/bin/rake db:migrate               # Migrate the database to the latest version
-  vendor/bin/rake db:migrate:down[version] # Migrate down using migrations
-  vendor/bin/rake db:migrate:up[version]   # Migrate up using migrations
-  vendor/bin/rake db:seed                  # Load the seed data from db/seeds.rb
-  vendor/bin/rake db:sessions:clear        # Clear the sessions table for DataMapperStore
-  vendor/bin/rake db:sessions:create       # Creates the sessions table for DataMapperStore
-  vendor/bin/rake db:setup                 # Create the database, load the schema, and initialize with the seed data
-
+  rake db:automigrate            # Perform destructive automigration of all repositories in the current Rails.env
+  rake db:autoupgrade            # Perform non destructive automigration of all repositories in the current Rails.env
+  rake db:create                 # Create the database(s) defined in config/database.yml for the current Rails.env - also creates the test database(s) if Rails.env.development?
+  rake db:create:all             # Create all the local databases defined in config/database.yml
+  rake db:drop                   # Drops the database(s) for the current Rails.env - also drops the test database(s) if Rails.env.development?
+  rake db:drop:all               # Drop all the local databases defined in config/database.yml
+  rake db:migrate                # Migrate the database to the latest version
+  rake db:migrate:down[version]  # Migrate down using migrations
+  rake db:migrate:up[version]    # Migrate up using migrations
+  rake db:seed                   # Load the seed data from db/seeds.rb
+  rake db:sessions:clear         # Clear the sessions table for DataMapperStore
+  rake db:sessions:create        # Creates the sessions table for DataMapperStore
+  rake db:setup                  # Create the database, load the schema, and initialize with the seed data
   ...
 
 
@@ -279,32 +285,29 @@ Rails3 makes it easy to expose framework component specific configuration to app
   Rails::DataMapper::Configuration#repositories
   Rails::DataMapper::Configuration#identity_map=(value)
   Rails::DataMapper::Configuration#identity_map
-  Rails::DataMapper::Configuration#adapter_cascade
 
 
 
 As promised, you can easily inspect the configuration from your running rails application. Let's start a rails console and have a look what's configured for our app.
 
-  ree-1.8.7-2010.01 mungo:datamapper_on_rails3 snusnu$ vendor/bin/rails console
-  Loading development environment (Rails 3.0.0.beta)
+  ree-1.8.7-2010.01 mungo:alfred snusnu$ rails console
+  Loading development environment (Rails 3.0.0.beta4)
   ruby-1.8.7-p248 > require 'pp'
    => ["PP"]
   ruby-1.8.7-p248 > pp Rails::DataMapper.configuration
-  #<Rails::DataMapper::Configuration:0x1025bbc58
-   @adapter_cascade=Rails::DataMapper::Adapters::Cascade,
+  #<Rails::DataMapper::Configuration:0x103b46460
    @identity_map=true,
-   @plugins=["dm-validations", "dm-timestamps", "dm-observer", "dm-migrations"],
    @raw=
     {"production"=>
       {"adapter"=>"mysql",
        "username"=>"root",
-       "database"=>"rails3_app_production",
+       "database"=>"alfred_production",
        "host"=>"localhost",
        "password"=>nil},
      "development"=>
       {"adapter"=>"mysql",
        "username"=>"root",
-       "database"=>"rails3_app_development",
+       "database"=>"alfred_development",
        "host"=>"localhost",
        "password"=>nil},
      "defaults"=>
@@ -315,7 +318,7 @@ As promised, you can easily inspect the configuration from your running rails ap
      "test"=>
       {"adapter"=>"mysql",
        "username"=>"root",
-       "database"=>"rails3_app_test",
+       "database"=>"alfred_test",
        "host"=>"localhost",
        "password"=>nil}},
    @repositories=
@@ -323,28 +326,30 @@ As promised, you can easily inspect the configuration from your running rails ap
       {"default"=>
         {"adapter"=>"mysql",
          "username"=>"root",
-         "database"=>"rails3_app_production",
+         "database"=>"alfred_production",
          "host"=>"localhost",
          "password"=>nil}},
      "development"=>
       {"default"=>
         {"adapter"=>"mysql",
          "username"=>"root",
-         "database"=>"rails3_app_development",
+         "database"=>"alfred_development",
          "host"=>"localhost",
          "password"=>nil}},
      "test"=>
       {"default"=>
         {"adapter"=>"mysql",
          "username"=>"root",
-         "database"=>"rails3_app_test",
+         "database"=>"alfred_test",
          "host"=>"localhost",
-         "password"=>nil}}}>
+         "password"=>nil}}},
+   @root=#<Pathname:/Users/snusnu/projects/github/mine/alfred>>
+
    => nil
 
 Additionally, you can reach the configuration object via the standard way that rails provides to expose configuration for framework components and plugins.
 
-  Rails.application.config.data_mapper.configuration
+  Rails.application.config.data_mapper
 
 This will give you the exact same object we inspected in the previous pretty print output from rails console.
 
@@ -355,13 +360,8 @@ It's easy to extend or adapt dm-rails to meet your specific needs. Thanks to the
 
 To give you an idea of what you get when inheriting from Rails::DataMapper::Railtie have a look at the list of methods provided by that object.
 
-  Rails::DataMapper::Railtie.setup_data_mapper(app)
-  Rails::DataMapper::Railtie.preload_lib(app)
-  Rails::DataMapper::Railtie.preload_models(app)
-
-  Rails::DataMapper::Railtie#configure_data_mapper(app)
-  Rails::DataMapper::Railtie#setup_adapter_cascade(app)
-  Rails::DataMapper::Railtie#setup_routing_support(app)
+  Rails::DataMapper::Railtie.configure_data_mapper(app)
+  Rails::DataMapper::Railtie.setup_i18n_support(app)
   Rails::DataMapper::Railtie#setup_controller_runtime(app)
   Rails::DataMapper::Railtie#setup_identity_map(app)
   Rails::DataMapper::Railtie#setup_logger(app)
@@ -377,12 +377,8 @@ To complete the picture of dm-rails's initialization process, here's an overview
     setup_logger(app, Rails.logger)
   end
 
-  initializer 'data_mapper.adapter_cascade' do |app|
-    setup_adapter_cascade(app)
-  end
-
-  initializer 'data_mapper.routing_support' do |app|
-    setup_routing_support(app)
+  initializer 'data_mapper.i18n_support' do |app|
+    setup_i18n_support(app)
   end
 
   # Expose database runtime to controller for logging.
@@ -394,13 +390,20 @@ To complete the picture of dm-rails's initialization process, here's an overview
     setup_identity_map(app)
   end
 
-  # Run setup code after_initialize to make sure all config/initializers
-  # are in effect once we setup the connection. This is especially necessary
-  # for the cascaded adapter wrappers that need to be declared before setup.
-  # Note that setup_datamapper (and needed methods are defined in class scope)
+  # Preload all models once in production mode,
+  # and before every request in development mode
+  initializer "datamapper.add_to_prepare" do |app|
+    config.to_prepare { Rails::DataMapper.preload_models(app) }
+  end
 
+  # Run setup code once in after_initialize to make sure all initializers
+  # are in effect once we setup the connection. Also, this will make sure
+  # that the connection gets set up after all models have been loaded,
+  # because #after_initialize is guaranteed to run after #to_prepare.
+  # Both production and development environment will execute the setup
+  # code only once.
   config.after_initialize do |app|
-    setup_data_mapper(app)
+    Rails::DataMapper.setup(Rails.env)
   end
 
 If you want to add additional rake tasks in your extension, you can do so by adding the following to your railtie.
@@ -440,8 +443,6 @@ Currently dm-rails publishes the same benchmarking information like active_recor
 
   Completed in 9ms (Views: 7.6ms | Models: 0.6ms) with 200
 
-While the SQL issued by DO adapters is already being logged properly, it is not yet published to possible rails subscribers. This is basically the only thing we're still missing in terms of datamapper rails3 notifications integration, compared with active_record. Of course we're not tied to only publishing these messages. If anyone can think of other useful information to publish, it's easy to hook into rails' notification system.
-
 
 == Current Issues
 
@@ -455,11 +456,6 @@ While the SQL issued by DO adapters is already being logged properly, it is not 
 * Think about a release strategy supporting both beta releases and master branch
 * Further README updates
 * More work on migrations
-* Check if the {session store}[http://github.com/datamapper/dm-rails/blob/master/lib/dm-rails/session_store.rb] support works
-* Provide a rails template for generating tailored apps for datamapper
-* Publish SQL issued by DO (and eventually every adapter) to rails subscribers
-* Think about integrating with {dana}[http://github.com/snusnu/dm-accepts_nested_attributes]
-* Think about integrating {dm-serializer}[http://github.com/datamapper/dm-more/tree/master/dm-serializer/]
 
 == Credits
 
