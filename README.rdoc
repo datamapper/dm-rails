@@ -415,13 +415,12 @@ Note that this scopes every call to datamapper to the :default repository specif
 In order to activate the Identity Map in your application, you need to explicitly use the provided middleware (or in fact any other middleware that does the job to your liking) in any of your controllers. For example, if you want to enable the Identity Map for all controllers, you would declare to use the middleware in your ApplicationController.
 
   require 'dm-rails/middleware/identity_map'
-
   class ApplicationController < ActionController::Base
     use Rails::DataMapper::Middleware::IdentityMap
     protect_from_forgery
   end
 
-If for some reason you don't want to enable the Identity Map globally for all controllers, you can either just use the middleware in a few selected controllers (in case you don't have too many controllers needing it), or you can create a controller class that uses the middleware, and inherit from that controller in cases where you need Identity Map support.
+If you've created your application using the official templates at http://datamapper.org/templates/rails.rb this has already been added for you. If for some reason you don't want to enable the Identity Map globally for all controllers, you can either just use the middleware in a few selected controllers (in case you don't have too many controllers needing it), or you can create a controller class that uses the middleware, and inherit from that controller in cases where you need Identity Map support.
 
   # app/controllers/identity_map_controller.rb
   require 'dm-rails/middleware/identity_map'
