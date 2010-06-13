@@ -30,16 +30,6 @@ module Rails
         end
       end
 
-
-      def identity_map=(value)
-        @identity_map = value
-      end
-
-      def identity_map
-        @identity_map ||= true
-      end
-
-
     private
 
       def initialize(root, database_yml_hash)

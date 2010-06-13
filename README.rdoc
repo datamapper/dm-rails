@@ -283,9 +283,6 @@ Rails3 makes it easy to expose framework component specific configuration to app
   Rails::DataMapper::Configuration#raw
   Rails::DataMapper::Configuration#environments
   Rails::DataMapper::Configuration#repositories
-  Rails::DataMapper::Configuration#identity_map=(value)
-  Rails::DataMapper::Configuration#identity_map
-
 
 
 As promised, you can easily inspect the configuration from your running rails application. Let's start a rails console and have a look what's configured for our app.
@@ -296,7 +293,6 @@ As promised, you can easily inspect the configuration from your running rails ap
    => ["PP"]
   ruby-1.8.7-p248 > pp Rails::DataMapper.configuration
   #<Rails::DataMapper::Configuration:0x103b46460
-   @identity_map=true,
    @raw=
     {"production"=>
       {"adapter"=>"mysql",
@@ -363,7 +359,6 @@ To give you an idea of what you get when inheriting from Rails::DataMapper::Rail
   Rails::DataMapper::Railtie.configure_data_mapper(app)
   Rails::DataMapper::Railtie.setup_i18n_support(app)
   Rails::DataMapper::Railtie#setup_controller_runtime(app)
-  Rails::DataMapper::Railtie#setup_identity_map(app)
   Rails::DataMapper::Railtie#setup_logger(app)
 
 
@@ -384,10 +379,6 @@ To complete the picture of dm-rails's initialization process, here's an overview
   # Expose database runtime to controller for logging.
   initializer "data_mapper.log_runtime" do |app|
     setup_controller_runtime(app)
-  end
-
-  initializer 'data_mapper.setup_identity_map' do |app|
-    setup_identity_map(app)
   end
 
   # Preload all models once in production mode,
@@ -415,16 +406,33 @@ If you want to add additional rake tasks in your extension, you can do so by add
 
 == Identity Map support
 
-By default, dm-rails enables the use of the {identity map}[http://datamapper.org/why.html]. If for any reason you want to turn that off, just add the following line to your config/application.rb or your config/environments/*.rb file.
-
-    config.data_mapper.identity_map = false
-
-Activating the identity map is achieved by installing a middleware that wraps the whole request inside
+Activating the identity map is achieved by installing a middleware that wraps the whole request inside a block
 
   DataMapper.repository { ... }
 
 Note that this scopes every call to datamapper to the :default repository specified in your database.yml file. If you need to access a different repository from within your actions, just wrap the calls in another DataMapper.repository block. DataMapper stacks the repositories it uses and the innermost will always win.
 
+In order to activate the Identity Map in your application, you need to explicitly use the provided middleware (or in fact any other middleware that does the job to your liking) in any of your controllers. For example, if you want to enable the Identity Map for all controllers, you would declare to use the middleware in your ApplicationController.
+
+  require 'dm-rails/middleware/identity_map'
+
+  class ApplicationController < ActionController::Base
+    use Rails::DataMapper::Middleware::IdentityMap
+    protect_from_forgery
+  end
+
+If for some reason you don't want to enable the Identity Map globally for all controllers, you can either just use the middleware in a few selected controllers (in case you don't have too many controllers needing it), or you can create a controller class that uses the middleware, and inherit from that controller in cases where you need Identity Map support.
+
+  # app/controllers/identity_map_controller.rb
+  require 'dm-rails/middleware/identity_map'
+  class IdentityMapController < ApplicationController
+    use Rails::DataMapper::Middleware::IdentityMap
+  end
+
+  # app/controllers/people_controller.rb
+  class PeopleController < IdentityMapController
+    # ...
+  end
 
 == Using additional datamapper plugins
 

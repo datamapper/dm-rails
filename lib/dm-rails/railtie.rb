@@ -44,13 +44,6 @@ module Rails
         ActionController::Base.send :include, Rails::DataMapper::Railties::ControllerRuntime
       end
 
-      def setup_identity_map(app)
-        if app.config.data_mapper.identity_map
-          require 'dm-rails/middleware/identity_map'
-          app.config.middleware.use Rails::DataMapper::Middleware::IdentityMap
-        end
-      end
-
       def setup_logger(app, logger)
         Rails::DataMapper.setup_logger(logger)
       end
@@ -71,10 +64,6 @@ module Rails
       # Expose database runtime to controller for logging.
       initializer "data_mapper.log_runtime" do |app|
         setup_controller_runtime(app)
-      end
-
-      initializer 'data_mapper.setup_identity_map' do |app|
-        setup_identity_map(app)
       end
 
       # Preload all models once in production mode,
