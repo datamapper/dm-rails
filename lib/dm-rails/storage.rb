@@ -47,13 +47,17 @@ module Rails
         end
 
         def lookup_class(adapter)
-          klass_name = adapter.camelize.to_sym
+          klass_name = normalized_adapter_name(adapter).camelize.to_sym
 
           unless Storage.const_defined?(klass_name)
             raise "Adapter #{adapter} not supported (#{klass_name.inspect})"
           end
 
           const_get(klass_name)
+        end
+
+        def normalized_adapter_name(adapter_name)
+          adapter_name.to_s == 'sqlite3' ? 'sqlite' : adapter_name
         end
 
       end
@@ -88,7 +92,7 @@ module Rails
         @charset ||= config['charset'] || ENV['CHARSET'] || 'utf8'
       end
 
-      class Sqlite3 < Storage
+      class Sqlite < Storage
         def _create
           return if in_memory?
           ::DataMapper.setup(name, config.merge('database' => path))
