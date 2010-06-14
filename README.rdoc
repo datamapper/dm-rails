@@ -516,6 +516,7 @@ Thx to all contributors, every patch, big or small is very much appreciated!
 * Randall Brewer
 * Josh Huckabee
 * Patrik Sundberg
+* Corin Langosch
 
 == Copyright
 
