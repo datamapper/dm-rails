@@ -456,7 +456,7 @@ If your underlying database doesn't support transactions, you can instead use th
   require 'database_cleaner/cucumber'
   DatabaseCleaner.strategy = :truncation
 
-== Using different Resource naming conventions
+== Using adapter specific Resource naming conventions
 
 Say you want to namespace your models and don't want your storage names to reflect your module nesting. DataMapper provides easy ways to use just the naming conventions you like. Basically, all you need to do is tell dm-rails and thus DataMapper that you either want to use a predefined naming convention
 
@@ -467,7 +467,6 @@ Say you want to namespace your models and don't want your storage names to refle
 or that you want to use your own naming convention, that is implemented in e.g. a lambda
 
   # in some config/initializers/file.rb
-  convention = DataMapper::NamingConventions::Resource::UnderscoredAndPluralizedWithoutModule
   Rails::DataMapper.configuration.resource_naming_convention[:default] = lambda do |value|
     'tbl' + value.camelize(true)
   end
