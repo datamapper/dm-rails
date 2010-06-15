@@ -30,6 +30,10 @@ module Rails
         end
       end
 
+      def resource_naming_convention
+        @resource_naming_convention ||= {}
+      end
+
     private
 
       def initialize(root, database_yml_hash)
