@@ -18,7 +18,9 @@ module Rails
     def self.setup_with_instrumentation(name, options)
       ::DataMapper.logger.info "[datamapper] Setting up #{name.inspect} repository: '#{options['database']}' on #{options['adapter']}"
       adapter = ::DataMapper.setup(name, options)
-      adapter.resource_naming_convention = configuration.resource_naming_convention[name]
+      if configuration.resource_naming_convention[name]
+        adapter.resource_naming_convention = configuration.resource_naming_convention[name]
+      end
       adapter.extend ::DataMapper::Adapters::Benchmarking
       setup_log_listener(options['adapter'])
     end
