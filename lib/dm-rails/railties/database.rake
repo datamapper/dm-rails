@@ -35,9 +35,6 @@ namespace :db do
   desc "Drops the database(s) for the current Rails.env - also drops the test database(s) if Rails.env.development?"
   task :drop => :environment do
     Rails::DataMapper.storage.drop_environment(Rails::DataMapper.configuration.repositories[Rails.env])
-    if Rails.env.development? && Rails::DataMapper.configuration.repositories['test']
-      Rails::DataMapper.storage.drop_environment(Rails::DataMapper.configuration.repositories['test'])
-    end
   end
 
 
@@ -48,13 +45,6 @@ namespace :db do
       ::DataMapper.auto_migrate!(repository.to_sym)
       ::DataMapper.logger.info "[datamapper] Finished auto_migrate! for :#{repository} repository '#{config['database']}'"
     end
-    if Rails.env.development? && Rails::DataMapper.configuration.repositories['test']
-      Rails::DataMapper.setup('test')
-      Rails::DataMapper.configuration.repositories['test'].each do |repository, config|
-        ::DataMapper.auto_migrate!(repository.to_sym)
-        ::DataMapper.logger.info "[datamapper] Finished auto_migrate! for :#{repository} repository '#{config['database']}'"
-      end
-    end
   end
 
   desc 'Perform non destructive automigration of all repositories in the current Rails.env'
@@ -63,13 +53,6 @@ namespace :db do
     Rails::DataMapper.configuration.repositories[Rails.env].each do |repository, config|
       ::DataMapper.auto_upgrade!(repository.to_sym)
       ::DataMapper.logger.info "[datamapper] Finished auto_upgrade! for :#{repository} repository '#{config['database']}'"
-    end
-    if Rails.env.development? && Rails::DataMapper.configuration.repositories['test']
-      Rails::DataMapper.setup('test')
-      Rails::DataMapper.configuration.repositories['test'].each do |repository, config|
-        ::DataMapper.auto_upgrade!(repository.to_sym)
-        ::DataMapper.logger.info "[datamapper] Finished auto_upgrade! for :#{repository} repository '#{config['database']}'"
-      end
     end
   end
 
