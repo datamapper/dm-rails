@@ -1,7 +1,7 @@
 module DataMapper
   module Railties
 
-    class LogSubscriber < Rails::LogSubscriber
+    class LogSubscriber < ActiveSupport::LogSubscriber
 
       def initialize
         super
