@@ -525,16 +525,16 @@ Big thanks to everyone working on {datamapper}[http://github.com/datamapper/dm-c
 
 Thx to all contributors, every patch, big or small is very much appreciated!
 
-* Martin Gamsjaeger (snusnu)
-* Dan Kubb (dkubb)
-* Alex Coles (myabc)
-* Alex Mankuta
-* Foy Savas
+* Martin Gamsjaeger ({snusnu}[http://github.com/snusnu])
+* Dan Kubb ({dkubb}[http://github.com/dkubb])
+* Alex Coles ({myabc}[http://github.com/myabc])
+* Alex Mankuta ({cheba}[http://github.com/cheba])
+* Foy Savas ({foysavas}[http://github.com/foysavas])
 * Randall Brewer
-* Josh Huckabee
-* Patrik Sundberg
-* Corin Langosch
-* Jared Morgan
+* Josh Huckabee {jhuckabee}[http://github.com/jhuckabee]
+* Patrik Sundberg ({sundbp}[http://github.com/sundbp])
+* Corin Langosch ({gucki}[http://github.com/gucki])
+* Jared Morgan ({jm81}[http://github.com/jm81])
 
 == Copyright
 
