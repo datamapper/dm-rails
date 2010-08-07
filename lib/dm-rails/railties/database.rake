@@ -44,7 +44,7 @@ namespace :db do
     Rails::DataMapper.configuration.repositories[Rails.env].each do |repository, config|
       ::DataMapper.setup(repository.to_sym, config)
       ::DataMapper.auto_migrate!(repository.to_sym)
-      ::DataMapper.logger.info "[datamapper] Finished auto_migrate! for :#{repository} repository '#{config['database']}'"
+      puts "[datamapper] Finished auto_migrate! for :#{repository} repository '#{config['database']}'"
     end
   end
 
@@ -54,7 +54,7 @@ namespace :db do
     Rails::DataMapper.configuration.repositories[Rails.env].each do |repository, config|
       ::DataMapper.setup(repository.to_sym, config)
       ::DataMapper.auto_upgrade!(repository.to_sym)
-      ::DataMapper.logger.info "[datamapper] Finished auto_upgrade! for :#{repository} repository '#{config['database']}'"
+      puts "[datamapper] Finished auto_upgrade! for :#{repository} repository '#{config['database']}'"
     end
   end
 
@@ -92,7 +92,7 @@ namespace :db do
       require 'dm-rails/session_store'
       Rails::DataMapper::SessionStore::Session.auto_migrate!
       database = Rails::DataMapper.configuration.repositories[Rails.env]['database']
-      ::DataMapper.logger.info "Created '#{database}.sessions'"
+      puts "Created '#{database}.sessions'"
     end
 
     desc "Clear the sessions table for DataMapperStore"
@@ -100,7 +100,7 @@ namespace :db do
       require 'dm-rails/session_store'
       Rails::DataMapper::SessionStore::Session.destroy!
       database = Rails::DataMapper.configuration.repositories[Rails.env]['database']
-      ::DataMapper.logger.info "Deleted entries from '#{database}.sessions'"
+      puts "Deleted entries from '#{database}.sessions'"
     end
   end
 
