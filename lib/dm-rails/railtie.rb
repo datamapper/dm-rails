@@ -39,7 +39,9 @@ module Rails
 
       def setup_controller_runtime(app)
         require "dm-rails/railties/controller_runtime"
-        ActionController::Base.send :include, Rails::DataMapper::Railties::ControllerRuntime
+        ActiveSupport.on_load(:action_controller) do
+          include Rails::DataMapper::Railties::ControllerRuntime
+        end
       end
 
       def setup_logger(app, logger)
