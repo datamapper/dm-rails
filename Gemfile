@@ -7,9 +7,9 @@ group :runtime do
 
   git 'git://github.com/rails/rails.git' do
 
-    gem 'activesupport', '~> 3.0.0.beta3', :require => 'active_support'
-    gem 'actionpack',    '~> 3.0.0.beta3', :require => 'action_pack'
-    gem 'railties',      '~> 3.0.0.beta3', :require => 'rails'
+    gem 'activesupport', :require => 'active_support'
+    gem 'actionpack',    :require => 'action_pack'
+    gem 'railties',      :require => 'rails'
 
   end
 
