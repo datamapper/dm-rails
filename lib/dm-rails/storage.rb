@@ -95,7 +95,8 @@ module Rails
       class Sqlite < Storage
         def _create
           return if in_memory?
-          ::DataMapper.setup(name, config.merge('database' => path))
+          # TODO don't to_s the path once a do_sqlite3 gem supports it
+          ::DataMapper.setup(name, config.merge('database' => path.to_s))
         end
 
         def _drop
