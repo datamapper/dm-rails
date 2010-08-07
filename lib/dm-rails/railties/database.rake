@@ -42,6 +42,7 @@ namespace :db do
   task :automigrate => :environment do
     require 'dm-migrations'
     Rails::DataMapper.configuration.repositories[Rails.env].each do |repository, config|
+      ::DataMapper.setup(repository.to_sym, config)
       ::DataMapper.auto_migrate!(repository.to_sym)
       ::DataMapper.logger.info "[datamapper] Finished auto_migrate! for :#{repository} repository '#{config['database']}'"
     end
@@ -51,6 +52,7 @@ namespace :db do
   task :autoupgrade => :environment do
     require 'dm-migrations'
     Rails::DataMapper.configuration.repositories[Rails.env].each do |repository, config|
+      ::DataMapper.setup(repository.to_sym, config)
       ::DataMapper.auto_upgrade!(repository.to_sym)
       ::DataMapper.logger.info "[datamapper] Finished auto_upgrade! for :#{repository} repository '#{config['database']}'"
     end
