@@ -22,8 +22,6 @@ module Rails
 
     class Railtie < Rails::Railtie
 
-      ::DataMapper::Railties::LogSubscriber.attach_to :data_mapper
-
       config.generators.orm :data_mapper, :migration => true
 
 

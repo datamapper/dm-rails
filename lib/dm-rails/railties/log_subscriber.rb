@@ -50,3 +50,6 @@ module DataMapper
 
   end
 end
+
+DataMapper::Railties::LogSubscriber.attach_to :data_mapper
+
