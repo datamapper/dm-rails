@@ -25,7 +25,7 @@ module DataMapper
         self.class.runtime += event.duration
         return unless logger.debug?
 
-        name = '%s (%.1fms)' % [event.payload[:name], event.duration]
+        name = '%s (%.3fms)' % [event.payload[:name], event.duration]
         sql  = event.payload[:sql].squeeze(' ')
 
         if odd?
