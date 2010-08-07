@@ -2,7 +2,6 @@ require 'active_support/core_ext/hash/except'
 
 require 'dm-rails/configuration'
 require 'dm-rails/railties/log_listener'
-require 'dm-rails/railties/benchmarking_mixin'
 
 module Rails
   module DataMapper
@@ -21,7 +20,6 @@ module Rails
       if convention = configuration.resource_naming_convention[name]
         adapter.resource_naming_convention = convention
       end
-      adapter.extend ::DataMapper::Adapters::Benchmarking
       setup_log_listener(options['adapter'])
     end
 

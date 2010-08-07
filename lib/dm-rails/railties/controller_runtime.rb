@@ -15,9 +15,9 @@ module Rails
         def cleanup_view_runtime
           # TODO add checks if DataMapper is connected to a repository.
           # If it is, do this, if it isn't, just delegate to super
-          db_rt_before_render = ::DataMapper.repository.adapter.reset_runtime
+          db_rt_before_render = ::DataMapper::Railties::LogSubscriber.reset_runtime
           runtime = super
-          db_rt_after_render = ::DataMapper.repository.adapter.reset_runtime
+          db_rt_after_render = ::DataMapper::Railties::LogSubscriber.reset_runtime
           self.db_runtime = db_rt_before_render + db_rt_after_render
           runtime - db_rt_after_render
         end

@@ -17,7 +17,7 @@ module ActiveSupport
   module Notifications
     class Event
       def duration
-        @duration ||= payload[:duration] ? (payload[:duration] / 1000.0) : 1000.0 * (@end - @time)
+        payload[:duration] ? (payload[:duration] / 1000.0) : 1000.0 * (self.end - self.time)
       end
     end
   end
