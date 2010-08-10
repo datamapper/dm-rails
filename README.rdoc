@@ -96,19 +96,17 @@ Using {bundler}[http://github.com/carlhuda/bundler] it's really easy to get an a
 
   source 'http://rubygems.org'
 
-  RAILS_VERSION = '~> 3.0.0.beta4'
-
+  RAILS_VERSION = '~> 3.0.0.rc'
   DM_VERSION    = '~> 1.0.0'
-
-  RSPEC_VERSION = '~> 2.0.0.beta.11'
+  RSPEC_VERSION = '~> 2.0.0.beta.19'
 
   gem 'activesupport',      RAILS_VERSION, :require => 'active_support'
   gem 'actionpack',         RAILS_VERSION, :require => 'action_pack'
   gem 'actionmailer',       RAILS_VERSION, :require => 'action_mailer'
   gem 'railties',           RAILS_VERSION, :require => 'rails'
 
-  gem 'dm-rails',               DM_VERSION
-  gem 'dm-#{database}-adapter', DM_VERSION
+  gem 'dm-rails',          DM_VERSION # !NOTE! 1.0.2 will be released soon
+  gem 'dm-sqlite-adapter', DM_VERSION
 
   # You can use any of the other available database adapters.
   # This is only a small excerpt of the list of all available adapters
@@ -136,32 +134,23 @@ Using {bundler}[http://github.com/carlhuda/bundler] it's really easy to get an a
 
   group(:test) do
 
-    gem 'rspec',              RSPEC_VERSION
-    gem 'rspec-core',         RSPEC_VERSION, :require => 'rspec/core'
-    gem 'rspec-expectations', RSPEC_VERSION, :require => 'rspec/expectations'
-    gem 'rspec-mocks',        RSPEC_VERSION, :require => 'rspec/mocks'
     gem 'rspec-rails',        RSPEC_VERSION
 
+    # To get a detailed overview about what queries get issued and how long they take
+    # have a look at rails_metrics. Once you bundled it, you can run
+    #
+    #   rails g rails_metrics Metric
+    #   rake db:automigrate
+    #
+    # to generate a model that stores the metrics. You can access them by visiting
+    #
+    #   /rails_metrics
+    #
+    # in your rails application.
+
+    # gem 'rails_metrics', '~> 0.1', :git => 'git://github.com/engineyard/rails_metrics'
+
   end
-
-  # ------------------------------------------------------------------------------
-
-  # These gems are only listed here in the Gemfile because we want to pin them
-  # to the github repositories for as long as no stable version has been released.
-  # The dm-core gem is a hard dependency for dm-rails so it would get pulled in by
-  # simply adding dm-rails. The dm-do-adapter gem is a hard dependency for any of
-  # the available dm-xxx-adapters. Once we have stable gems available, pinning these
-  # gems to github will be optional.
-
-  gem 'dm-core',              DM_VERSION
-  gem 'dm-do-adapter',        DM_VERSION
-  gem 'dm-active_model',      DM_VERSION
-
-
-  # Uncomment this line if you want to see application specific metric data
-
-  # gem 'rails_metrics', '~> 0.1', :git => 'git://github.com/engineyard/rails_metrics'
-
 
 
 == Sample database.yml files
