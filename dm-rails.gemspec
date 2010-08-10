@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Martin Gamsjaeger (snusnu)", "Dan Kubb"]
-  s.date = %q{2010-08-10}
+  s.date = %q{2010-08-11}
   s.description = %q{Integrate DataMapper with Rails 3}
   s.email = %q{gamsnjaga@gmail.com}
   s.extra_rdoc_files = [
@@ -65,22 +65,22 @@ Gem::Specification.new do |s|
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
       s.add_runtime_dependency(%q<dm-core>, ["~> 1.0.0"])
       s.add_runtime_dependency(%q<dm-active_model>, ["~> 1.0.0"])
-      s.add_runtime_dependency(%q<activesupport>, ["~> 3.0.0.beta3"])
-      s.add_runtime_dependency(%q<actionpack>, ["~> 3.0.0.beta3"])
-      s.add_runtime_dependency(%q<railties>, ["~> 3.0.0.beta3"])
+      s.add_runtime_dependency(%q<activesupport>, ["~> 3.0.0.rc"])
+      s.add_runtime_dependency(%q<actionpack>, ["~> 3.0.0.rc"])
+      s.add_runtime_dependency(%q<railties>, ["~> 3.0.0.rc"])
     else
       s.add_dependency(%q<dm-core>, ["~> 1.0.0"])
       s.add_dependency(%q<dm-active_model>, ["~> 1.0.0"])
-      s.add_dependency(%q<activesupport>, ["~> 3.0.0.beta3"])
-      s.add_dependency(%q<actionpack>, ["~> 3.0.0.beta3"])
-      s.add_dependency(%q<railties>, ["~> 3.0.0.beta3"])
+      s.add_dependency(%q<activesupport>, ["~> 3.0.0.rc"])
+      s.add_dependency(%q<actionpack>, ["~> 3.0.0.rc"])
+      s.add_dependency(%q<railties>, ["~> 3.0.0.rc"])
     end
   else
     s.add_dependency(%q<dm-core>, ["~> 1.0.0"])
     s.add_dependency(%q<dm-active_model>, ["~> 1.0.0"])
-    s.add_dependency(%q<activesupport>, ["~> 3.0.0.beta3"])
-    s.add_dependency(%q<actionpack>, ["~> 3.0.0.beta3"])
-    s.add_dependency(%q<railties>, ["~> 3.0.0.beta3"])
+    s.add_dependency(%q<activesupport>, ["~> 3.0.0.rc"])
+    s.add_dependency(%q<actionpack>, ["~> 3.0.0.rc"])
+    s.add_dependency(%q<railties>, ["~> 3.0.0.rc"])
   end
 end
 
