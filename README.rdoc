@@ -105,7 +105,7 @@ Using {bundler}[http://github.com/carlhuda/bundler] it's really easy to get an a
   gem 'actionmailer',       RAILS_VERSION, :require => 'action_mailer'
   gem 'railties',           RAILS_VERSION, :require => 'rails'
 
-  gem 'dm-rails',          DM_VERSION # !NOTE! 1.0.2 will be released soon
+  gem 'dm-rails',          '~> 1.0.3'
   gem 'dm-sqlite-adapter', DM_VERSION
 
   # You can use any of the other available database adapters.
