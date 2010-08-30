@@ -74,7 +74,7 @@ If you haven't done so for whatever reason, use
 
 instead.
 
-You may have noticed that rspec is included into both the `:development` and `:test` groups in the Gemfile the application template generated. I couldn't find another way to make it so that the above mentioned way of running the specs work. If rspec is not included into the `:development` group, rails must be informed explicitly about the environment it should run in, by prefixing the above rake commands with `RAILS_ENV=test`. 
+You may have noticed that rspec is included into both the `:development` and `:test` groups in the Gemfile the application template generated. I couldn't find another way to make it so that the above mentioned way of running the specs work. If rspec is not included into the `:development` group, rails must be informed explicitly about the environment it should run in, by prefixing the above rake commands with `RAILS_ENV=test`.
 
 == Developing dm-rails
 

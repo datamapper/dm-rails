@@ -52,4 +52,3 @@ module DataMapper
 end
 
 DataMapper::Railties::LogSubscriber.attach_to :data_mapper
-
