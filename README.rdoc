@@ -16,6 +16,8 @@ Once you have {rails}[http://github.com/rails/rails] and thus {bundler}[http://g
 
 When run, the command will print out some options on how to proceed with your newly generated application.
 
+Be aware that this command executes code loaded from the internet! It is currently the simplest way to bootstrap a new application, and a commonly used way to reuse rails application templates.  Have a look at {rails templates}[http://github.com/datamapper/datamapper.github.com/tree/master/templates/] to know exactly what we'll do to your system, but be aware that a man-in-the-middle attack could alter that.
+
 == rspec support
 
 I haven't yet tested rspec support extensively, but the basics are working after a few modifications to the spec/spec_helper.rb file that the necessary
