@@ -94,9 +94,14 @@ module Rails
 
       class Sqlite < Storage
         def _create
-          return if in_memory?
-          # TODO don't to_s the path once a do_sqlite3 gem supports it
-          ::DataMapper.setup(name, config.merge('database' => path.to_s))
+          # This is a noop for sqlite
+          #
+          # Both auto_migrate!/auto_upgrade! will create the actual database
+          # if the connection has been setup properly and there actually
+          # are statements to execute (i.e. at least one model is declared)
+          #
+          # DataMapper.setup alone won't create the actual database so there
+          # really is no API to simply create an empty database for sqlite3.
         end
 
         def _drop

@@ -43,17 +43,28 @@ module Rails
       def normalize_repository_config(hash)
         config = {}
         hash.each do |key, value|
+
           config[key] = if value.kind_of?(Hash)
             normalize_repository_config(value)
           elsif key == 'port'
             value.to_i
           elsif key == 'adapter' && value == 'postgresql'
             'postgres'
-          elsif key == 'database' && hash['adapter'] == 'sqlite3'
-            value == ':memory:' ? value : File.expand_path(hash['database'], root)
+          elsif (key == 'database' || key == 'path') && hash['adapter'] =~ /sqlite/
+            value == ':memory:' ? value : File.expand_path(hash[key], root)
           else
             value
           end
+
+          # FIXME Rely on a new dm-sqlite-adapter to do the right thing
+          # For now, we need to make sure that both 'path' and 'database'
+          # point to the same thing, since dm-sqlite-adapter always passes
+          # both to the underlying do_sqlite3 adapter and there's no
+          # guarantee which one will be used
+
+          config['path']     = config[key] if key == 'database'
+          config['database'] = config[key] if key == 'path'
+
         end
         config
       end
