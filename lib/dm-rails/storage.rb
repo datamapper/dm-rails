@@ -68,12 +68,12 @@ module Rails
 
       def create
         _create
-        puts "[datamapper] Created database '#{database}'"
+        puts create_message
       end
 
       def drop
         _drop
-        puts "[datamapper] Dropped database '#{database}'"
+        puts drop_message
       end
 
       def database
@@ -92,6 +92,14 @@ module Rails
         @charset ||= config['charset'] || ENV['CHARSET'] || 'utf8'
       end
 
+      def create_message
+        "[datamapper] Created database '#{database}'"
+      end
+
+      def drop_message
+        "[datamapper] Dropped database '#{database}'"
+      end
+
       class Sqlite < Storage
         def _create
           # This is a noop for sqlite
@@ -107,6 +115,10 @@ module Rails
         def _drop
           return if in_memory?
           path.unlink if path.file?
+        end
+
+        def create_message
+          "[datamapper] db:create is a noop for sqlite3, use db:automigrate instead"
         end
 
       private
