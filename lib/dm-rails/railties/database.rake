@@ -6,10 +6,6 @@ namespace :db do
   desc 'Create the database, load the schema, and initialize with the seed data'
   task :setup => [ 'db:create', 'db:automigrate', 'db:seed' ]
 
-  namespace :test do
-    task :prepare => ['db:setup']
-  end
-
   namespace :create do
     desc 'Create all the local databases defined in config/database.yml'
     task :all => :environment do
