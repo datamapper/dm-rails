@@ -17,12 +17,9 @@ namespace :db do
     end
   end
 
-  desc "Create the database(s) defined in config/database.yml for the current Rails.env - also creates the test database(s) if Rails.env.development?"
+  desc "Create all local databases defined for the current Rails.env"
   task :create => :environment do
     Rails::DataMapper.storage.create_environment(Rails::DataMapper.configuration.repositories[Rails.env])
-    if Rails.env.development? && Rails::DataMapper.configuration.repositories['test']
-      Rails::DataMapper.storage.create_environment(Rails::DataMapper.configuration.repositories['test'])
-    end
   end
 
   namespace :drop do
@@ -32,7 +29,7 @@ namespace :db do
     end
   end
 
-  desc "Drops the database(s) for the current Rails.env - also drops the test database(s) if Rails.env.development?"
+  desc "Drop all local databases defined for the current Rails.env"
   task :drop => :environment do
     Rails::DataMapper.storage.drop_environment(Rails::DataMapper.configuration.repositories[Rails.env])
   end
