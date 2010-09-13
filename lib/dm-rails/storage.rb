@@ -67,13 +67,11 @@ module Rails
       end
 
       def create
-        _create
-        puts create_message
+        puts create_message if _create
       end
 
       def drop
-        _drop
-        puts drop_message
+        puts drop_message if _drop
       end
 
       def database
