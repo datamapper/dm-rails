@@ -108,6 +108,10 @@ module Rails
           #
           # DataMapper.setup alone won't create the actual database so there
           # really is no API to simply create an empty database for sqlite3.
+          #
+          # we return true to indicate success nevertheless
+
+          true
         end
 
         def _drop
@@ -116,7 +120,7 @@ module Rails
         end
 
         def create_message
-          "[datamapper] db:create is a noop for sqlite3, use db:automigrate instead"
+          "[datamapper] db:create is a noop for sqlite3, use db:automigrate instead (#{database})"
         end
 
       private
