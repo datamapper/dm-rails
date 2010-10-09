@@ -27,6 +27,7 @@ Gem::Specification.new do |s|
      "dm-rails.gemspec",
      "lib/dm-rails.rb",
      "lib/dm-rails/configuration.rb",
+     "lib/dm-rails/mass_assignment_security.rb",
      "lib/dm-rails/middleware/identity_map.rb",
      "lib/dm-rails/railtie.rb",
      "lib/dm-rails/railties/controller_runtime.rb",
