@@ -22,15 +22,16 @@ module Rails
 
     class Railtie < Rails::Railtie
 
+      config.data_mapper = Rails::DataMapper::Configuration.create
+
       config.generators.orm :data_mapper, :migration => true
 
 
       # Support overwriting crucial steps in subclasses
 
       def configure_data_mapper(app)
-        app.config.data_mapper = Rails::DataMapper::Configuration.for(
-          Rails.root, app.config.database_configuration
-        )
+        app.config.data_mapper.root = Rails.root
+        app.config.data_mapper.raw  = app.config.database_configuration
       end
 
       def setup_i18n_support(app)

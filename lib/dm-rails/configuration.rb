@@ -8,18 +8,19 @@ module Rails
 
     class Configuration
 
-      def self.for(root, database_yml_hash)
-        Rails::DataMapper.configuration ||= new(root, database_yml_hash)
-      end
+      attr_accessor :raw
+      attr_accessor :root
 
-      attr_reader :root, :raw
+      def self.create
+        Rails::DataMapper.configuration ||= new
+      end
 
       def environments
         raw.keys
       end
 
       def repositories
-        @repositories ||= @raw.reject { |k,v| k =~ /defaults/ }.inject({}) do |repositories, pair|
+        @repositories ||= raw.reject { |k,v| k =~ /defaults/ }.inject({}) do |repositories, pair|
           environment, config = pair.first, pair.last
           repositories[environment] = begin
             c = config['repositories'] || {}
@@ -35,10 +36,6 @@ module Rails
       end
 
     private
-
-      def initialize(root, database_yml_hash)
-        @root, @raw = root, database_yml_hash
-      end
 
       def normalize_repository_config(hash)
         config = {}
