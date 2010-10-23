@@ -16,7 +16,7 @@ begin
     gem.rubyforge_project = 'datamapper'
 
     gem.add_dependency 'dm-core',         '~> 1.0.0'
-    gem.add_dependency 'dm-active_model', '~> 1.0.0'
+    gem.add_dependency 'dm-active_model', '~> 1.0.3'
     gem.add_dependency 'activesupport',   '~> 3.0.0'
     gem.add_dependency 'actionpack',      '~> 3.0.0'
     gem.add_dependency 'railties',        '~> 3.0.0'
