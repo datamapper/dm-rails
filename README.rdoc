@@ -487,6 +487,9 @@ or that you want to use your own naming convention, that is implemented in e.g. 
 
 For more detailed documentation about DataMapper naming conventions and the ones that are available by default, have a look at http://rdoc.info/projects/datamapper/dm-core and search for _NamingConventions_ in the Class List.
 
+== Mass assignment protection
+
+The `attr_protected` and `attr_accessible` methods are available to your models. They work like their activerecord counterparts, and allow you to set fine grained control over what attributes may be assigned in one go by users of your app.
 
 == Using additional datamapper plugins
 
@@ -549,6 +552,7 @@ Thx to all contributors, every patch, big or small is very much appreciated!
 * Patrik Sundberg ({sundbp}[http://github.com/sundbp])
 * Corin Langosch ({gucki}[http://github.com/gucki])
 * Jared Morgan ({jm81}[http://github.com/jm81])
+* Blake Gentry ({bgentry}[http://github.com/bgentry])
 
 == Copyright
 

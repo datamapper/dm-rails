@@ -11,6 +11,10 @@ module Rails
       configuration.repositories[environment].each do |name, config|
         setup_with_instrumentation(name.to_sym, config)
       end
+
+      require 'dm-rails/mass_assignment_security'
+      ::DataMapper::Model.append_inclusions(Rails::DataMapper::MassAssignmentSecurity)
+
       finalize
     end
 
