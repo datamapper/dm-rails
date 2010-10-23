@@ -16,6 +16,8 @@ require 'dm-rails/setup'
 require "dm-rails/railties/log_subscriber"
 require "dm-rails/railties/i18n_support"
 
+require 'dm-rails/mass_assignment_security'
+DataMapper::Model.append_inclusions(Rails::DataMapper::MassAssignmentSecurity)
 
 module Rails
   module DataMapper
