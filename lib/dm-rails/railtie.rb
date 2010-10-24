@@ -16,8 +16,10 @@ require 'dm-rails/setup'
 require "dm-rails/railties/log_subscriber"
 require "dm-rails/railties/i18n_support"
 
+# The module provided in there is made available
+# but users will still need to include it into the
+# models they want it to use it in.
 require 'dm-rails/mass_assignment_security'
-DataMapper::Model.append_inclusions(Rails::DataMapper::MassAssignmentSecurity)
 
 module Rails
   module DataMapper
