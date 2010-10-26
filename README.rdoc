@@ -46,7 +46,7 @@ gives us. First you need to uncomment/remove a seemingly invalid rspec configura
     # config.mock_with :rr
     config.mock_with :rspec
 
-    config.before(:all) { DataMapper.auto_migrate! }
+    config.before(:suite) { DataMapper.auto_migrate! }
 
     # I can't find that option when looking at current rspec-core source
     # config.fixture_path = "#{::Rails.root}/spec/fixtures"
