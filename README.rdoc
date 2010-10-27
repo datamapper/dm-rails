@@ -536,12 +536,6 @@ Currently dm-rails publishes the same benchmarking information like active_recor
   Completed in 9ms (Views: 7.6ms | Models: 0.6ms) with 200
 
 
-== Current Issues
-
-* migrations might not work perfectly
-* rspec-2 is not yet integrated
-
-
 == TODO (not necessarily in that order)
 
 * SPECS !!!
