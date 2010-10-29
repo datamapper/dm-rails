@@ -5,7 +5,7 @@ DM_VERSION = '~> 1.0.0'
 
 group :runtime do
 
-  git 'git://github.com/rails/rails.git', :branch => '3-0-stable' do
+  git 'git://github.com/rails/rails.git' do
 
     gem 'activesupport', :require => 'active_support'
     gem 'actionpack',    :require => 'action_pack'

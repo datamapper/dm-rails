@@ -17,9 +17,9 @@ begin
 
     gem.add_dependency 'dm-core',         '~> 1.0.0'
     gem.add_dependency 'dm-active_model', '~> 1.0.3'
-    gem.add_dependency 'activesupport',   '~> 3.0.0'
-    gem.add_dependency 'actionpack',      '~> 3.0.0'
-    gem.add_dependency 'railties',        '~> 3.0.0'
+    gem.add_dependency 'activesupport',   '~> 3.1.0.beta'
+    gem.add_dependency 'actionpack',      '~> 3.1.0.beta'
+    gem.add_dependency 'railties',        '~> 3.1.0.beta'
   end
 
   Jeweler::GemcutterTasks.new
@@ -30,3 +30,4 @@ rescue LoadError
 end
 
 task(:spec) {} # stub out the spec task for as long as we don't have any specs
+
