@@ -39,7 +39,8 @@ module Rails
       end
 
       def setup_i18n_support(app)
-        ::DataMapper::Model.append_inclusions(Rails::DataMapper::I18nSupport)
+        ::DataMapper::Model.append_extensions(::ActiveModel::Translation)
+        ::DataMapper::Model.append_extensions(Rails::DataMapper::I18nSupport)
       end
 
       def setup_controller_runtime(app)
