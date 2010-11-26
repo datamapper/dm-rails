@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Martin Gamsjaeger (snusnu)", "Dan Kubb"]
-  s.date = %q{2010-10-29}
+  s.date = %q{2010-11-26}
   s.description = %q{Integrate DataMapper with Rails 3}
   s.email = %q{gamsnjaga@gmail.com}
   s.extra_rdoc_files = [
@@ -45,10 +45,7 @@ Gem::Specification.new do |s|
      "lib/generators/data_mapper/model/templates/model.rb",
      "lib/generators/data_mapper/observer/observer_generator.rb",
      "lib/generators/data_mapper/observer/templates/observer.rb",
-     "tasks/ci.rake",
      "tasks/clean.rake",
-     "tasks/local_gemfile.rake",
-     "tasks/metrics.rake",
      "tasks/yard.rake",
      "tasks/yardstick.rake"
   ]
