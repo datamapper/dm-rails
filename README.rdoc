@@ -1,6 +1,6 @@
 = dm-rails
 
-This gem provides the railtie that allows {datamapper}[http://github.com/datamapper/dm-core] to hook into {rails3}[http://github.com/rails/rails] and thus behave like a rails framework component. Just like activercord does in rails, {dm-rails}[http://github.com/datamapper/dm-rails] uses the railtie API to hook into rails. The two are actually hooked into rails almost identically.
+This gem provides the railtie that allows {datamapper}[http://github.com/datamapper/dm-core] to hook into {rails3}[http://github.com/rails/rails] and thus behave like a rails framework component. Just like activerecord does in rails, {dm-rails}[http://github.com/datamapper/dm-rails] uses the railtie API to hook into rails. The two are actually hooked into rails almost identically.
 
 Creating new datamapper apps on rails3 from scratch is actually really easy. The following will guide you through the process.
 
