@@ -29,5 +29,6 @@ rescue LoadError
   puts 'Jeweler (or a dependency) not available. Install it with: gem install jeweler'
 end
 
-task(:spec) {} # stub out the spec task for as long as we don't have any specs
+require "spec/rake/spectask"
+Spec::Rake::SpecTask.new
 
