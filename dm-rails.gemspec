@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Martin Gamsjaeger (snusnu)", "Dan Kubb"]
-  s.date = %q{2011-01-03}
+  s.date = %q{2011-02-08}
   s.description = %q{Integrate DataMapper with Rails 3}
   s.email = %q{gamsnjaga@gmail.com}
   s.extra_rdoc_files = [
@@ -29,6 +29,7 @@ Gem::Specification.new do |s|
      "lib/dm-rails/configuration.rb",
      "lib/dm-rails/mass_assignment_security.rb",
      "lib/dm-rails/middleware/identity_map.rb",
+     "lib/dm-rails/multiparameter_attribute_support.rb",
      "lib/dm-rails/railtie.rb",
      "lib/dm-rails/railties/controller_runtime.rb",
      "lib/dm-rails/railties/database.rake",
@@ -45,8 +46,10 @@ Gem::Specification.new do |s|
      "lib/generators/data_mapper/model/templates/model.rb",
      "lib/generators/data_mapper/observer/observer_generator.rb",
      "lib/generators/data_mapper/observer/templates/observer.rb",
+     "spec/spec.opts",
+     "spec/spec_helper.rb",
+     "spec/unit/multiparameter_attribute_spec.rb",
      "tasks/clean.rake",
-     "tasks/local_gemfile.rake",
      "tasks/yard.rake",
      "tasks/yardstick.rake"
   ]
@@ -54,11 +57,14 @@ Gem::Specification.new do |s|
   s.rdoc_options = ["--charset=UTF-8"]
   s.require_paths = ["lib"]
   s.rubyforge_project = %q{datamapper}
-  s.rubygems_version = %q{1.3.7}
+  s.rubygems_version = %q{1.5.0}
   s.summary = %q{Use DataMapper with Rails 3}
+  s.test_files = [
+    "spec/spec_helper.rb",
+     "spec/unit/multiparameter_attribute_spec.rb"
+  ]
 
   if s.respond_to? :specification_version then
-    current_version = Gem::Specification::CURRENT_SPECIFICATION_VERSION
     s.specification_version = 3
 
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
