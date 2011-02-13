@@ -115,6 +115,31 @@ describe Rails::DataMapper::MultiparameterAttribute do
 
       resource.attributes = multiparameter_hash
     end
+
+    it 'raises exception on failure' do
+      multiparameter_hash = { 'composite(1)'  => 'a string' }
+      attributes = { 'composite' => Object.new }
+
+      composite_exception = StandardError.new('foo')
+      ::Rails::DataMapper::Models::Composite.
+        should_receive(:new).with('a string').and_raise(composite_exception)
+
+      composite_property = mock(::DataMapper::Property)
+      composite_property.stub!(:primitive).and_return(::Rails::DataMapper::Models::Composite)
+
+      resource = ::Rails::DataMapper::Models::Fake.new
+      resource.stub!(:properties).and_return('composite' => composite_property)
+
+      lambda { resource.attributes = multiparameter_hash }.
+        should raise_error(::Rails::DataMapper::MultiparameterAssignmentErrors) { |ex|
+          ex.errors.size.should == 1
+
+          error = ex.errors[0]
+          error.attribute.should == 'composite'
+          error.values.should == ['a string']
+          error.exception.should == composite_exception
+        }
+    end
   end
 
   describe 'new' do
