@@ -26,6 +26,6 @@ module Rails; module DataMapper; module Models
     end
     include super_module
 
-    include ::Rails::DataMapper::MultiparameterAttribute
+    include ::Rails::DataMapper::MultiparameterAttributes
   end
 end; end; end

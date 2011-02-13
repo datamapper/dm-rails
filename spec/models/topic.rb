@@ -1,7 +1,7 @@
 module Rails; module DataMapper; module Models
   class Topic
     include ::DataMapper::Resource
-    include ::Rails::DataMapper::MultiparameterAttribute
+    include ::Rails::DataMapper::MultiparameterAttributes
 
     property :id, Serial
     property :last_read, Date
