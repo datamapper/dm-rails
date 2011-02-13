@@ -20,7 +20,7 @@ require "dm-rails/railties/i18n_support"
 # but users will still need to include it into the
 # models they want it to use it in.
 require 'dm-rails/mass_assignment_security'
-require 'dm-rails/multiparameter_attribute_support'
+require 'dm-rails/multiparameter_attributes'
 
 module Rails
   module DataMapper
@@ -58,7 +58,7 @@ module Rails
 
       initializer 'data_mapper.configuration' do |app|
         configure_data_mapper(app)
-        ::DataMapper::Model.append_inclusions(Rails::DataMapper::MultiparameterAttribute)
+        ::DataMapper::Model.append_inclusions(Rails::DataMapper::MultiparameterAttributes)
       end
 
       initializer 'data_mapper.logger' do |app|

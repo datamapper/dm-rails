@@ -29,7 +29,7 @@ module Rails
       end
     end
 
-    # Raised by {MultiparameterAttribute#attributes=} when there are errors when
+    # Raised by {MultiparameterAttributes#attributes=} when there are errors when
     # merging multiparameter attributes. Use {#errors} to get the array of errors
     # occured.
     class MultiparameterAssignmentErrors < StandardError
@@ -68,7 +68,7 @@ module Rails
     #   # +Date+ will be initialized with each string cast to a number using
     #   # #to_i.
     #   resource.written_on == Date.new(2004, 6, 24)
-    module MultiparameterAttribute
+    module MultiparameterAttributes
       # Merges multiparameter attributes and calls +super+ with the merged
       # attributes.
       #
@@ -162,6 +162,6 @@ module Rails
           attributes[name] = values.sort_by{ |v| v.first }.collect { |v| v.last }
         }
       end
-    end # MultiparameterAttribute
+    end # MultiparameterAttributes
   end
 end

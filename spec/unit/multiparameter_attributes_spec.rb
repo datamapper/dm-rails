@@ -1,9 +1,9 @@
 require 'spec_helper'
-require 'dm-rails/multiparameter_attribute_support'
+require 'dm-rails/multiparameter_attributes'
 
 # Since multiparameters are a feature of Rails some tests are based on the test
 # suite of Rails.
-describe Rails::DataMapper::MultiparameterAttribute do
+describe Rails::DataMapper::MultiparameterAttributes do
   before :all do
     load Pathname(__FILE__).dirname.parent.join('models/topic.rb').expand_path
     load Pathname(__FILE__).dirname.parent.join('models/fake.rb').expand_path
