@@ -1,9 +1,12 @@
 $:.unshift File.expand_path File.dirname(__FILE__) + '../lib'
-require "dm-migrations"
+require 'dm-migrations'
 require 'dm-core/spec/setup'
 require 'dm-core/spec/lib/adapter_helpers'
 require 'dm-core/spec/lib/spec_helper'
 require 'dm-core/spec/lib/pending_helpers'
+
+DataMapper::Spec.setup
+DataMapper.finalize
 
 Spec::Runner.configure do |config|
 

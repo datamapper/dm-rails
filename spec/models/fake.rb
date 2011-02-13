@@ -1,0 +1,31 @@
+module Rails; module DataMapper; module Models
+  class Composite
+    attr_accessor :args
+
+    def initialize(*args)
+      @args = args
+    end
+
+    def ==(other)
+      eql?(other)
+    end
+
+    def eql?(other)
+      !other.nil? && other.args == args
+    end
+  end
+
+  class Fake
+    super_module = Module.new do
+      def _super_attributes=(*args)
+      end
+
+      def attributes=(*args)
+        self._super_attributes = *args
+      end
+    end
+    include super_module
+
+    include ::Rails::DataMapper::MultiparameterAttribute
+  end
+end; end; end
