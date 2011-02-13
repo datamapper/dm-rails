@@ -58,6 +58,7 @@ module Rails
 
       initializer 'data_mapper.configuration' do |app|
         configure_data_mapper(app)
+        ::DataMapper::Model.append_inclusions(Rails::DataMapper::MultiparameterAttribute)
       end
 
       initializer 'data_mapper.logger' do |app|

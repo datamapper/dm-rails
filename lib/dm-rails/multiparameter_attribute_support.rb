@@ -98,5 +98,3 @@ module Rails
   end
 
 end
-
-DataMapper::Model.append_inclusions(Rails::DataMapper::MultiparameterAttribute)
