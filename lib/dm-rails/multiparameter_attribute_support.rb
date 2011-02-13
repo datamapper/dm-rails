@@ -3,12 +3,7 @@ require 'active_support/core_ext/module/aliasing'
 module Rails
   module DataMapper
     module MultiparameterAttribute
-      def self.included(model)
-        model.alias_method_chain :attributes=, :multiparameter
-      end
-
-      protected
-      def attributes_with_multiparameter=(values_hash)
+      def attributes=(values_hash)
         attribs = values_hash.dup
         multi_parameter_attributes = []
         attribs.each do |k, v|
@@ -22,9 +17,10 @@ module Rails
 
         attribs = attribs.merge(assign_multiparameter_attributes(multi_parameter_attributes))
 
-        self.attributes_without_multiparameter = attribs
+        super(attribs)
       end
 
+    protected
       def assign_multiparameter_attributes(pairs)
         execute_callstack_for_multiparameter_attributes(
           extract_callstack_for_multiparameter_attributes(pairs)
