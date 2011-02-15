@@ -5,9 +5,16 @@ require 'active_model'
 
 module ActiveModel
   module MassAssignmentSecurity
+    # Provides a patched version of the Sanitizer used in Rails to handle property
+    # and relationship objects as keys. There is no way to inject a custom sanitizer
+    # without reimplementing the permission sets.
     module Sanitizer
-      # Returns all attributes not denied by the authorizer. Property keys can
-      # be a Symbol, String, DataMapper::Property, or DataMapper::Relationship
+      # Returns all attributes not denied by the authorizer.
+      #
+      # @param [Hash{Symbol,String,::DataMapper::Property,::DataMapper::Relationship=>Object}] attributes
+      #   Names and values of attributes to sanitize.
+      # @return [Hash]
+      #   Sanitized hash of attributes.
       def sanitize(attributes)
         sanitized_attributes = attributes.reject do |key, value|
           key_name = key.name rescue key
@@ -21,7 +28,11 @@ module ActiveModel
 end
 
 module DataMapper
-  # = Active Model Mass-Assignment Security
+  # Include this module into a DataMapper model to enable ActiveModel's mass
+  # assignment security.
+  #
+  # To use second parameter of {#attributes=} make sure to include this module
+  # last.
   module MassAssignmentSecurity
     extend ::ActiveSupport::Concern
     include ::ActiveModel::MassAssignmentSecurity
@@ -32,34 +43,47 @@ module DataMapper
       def logger
         @logger ||= ::DataMapper.logger
       end
-
     end
 
-    # Allows you to set all the attributes at once by passing in a hash with keys
-    # matching the attribute names (which again matches the column names).
+    # Sanitizes the specified +attributes+ according to the defined mass-assignment
+    # security rules and calls +super+ with the result.
     #
-    # If +guard_protected_attributes+ is true (the default), then sensitive
-    # attributes can be protected from this form of mass-assignment by using
-    # the +attr_protected+ macro. Or you can alternatively specify which
-    # attributes *can* be accessed with the +attr_accessible+ macro. Then all the
-    # attributes not included in that won't be allowed to be mass-assigned.
+    # Use either +attr_accessible+ to specify which attributes are allowed to be
+    # assigned via {#attributes=}, or +attr_protected+ to specify which attributes
+    # are *not* allowed to be assigned via {#attributes=}.
     #
-    #   class User < ActiveRecord::Base
-    #     attr_protected :is_admin
+    # +attr_accessible+ and +attr_protected+ are mutually exclusive.
+    #
+    # @param [Hash{Symbol,String,::DataMapper::Property,::DataMapper::Relationship=>Object}] attributes
+    #   Names and values of attributes to sanitize.
+    # @param [Boolean] guard_protected_attributes
+    #   Determines whether mass-security rules are applied (when +true+) or not.
+    # @return [Hash]
+    #   Sanitized hash of attributes.
+    # @api public
+    #
+    # @example [Usage]
+    #   class User
+    #     include DataMapper::Resource
+    #     include DataMapper::MassAssignmentSecurity
+    #
+    #     property :name, String
+    #     property :is_admin, Boolean
+    #
+    #     # Only allow name to be set via #attributes=
+    #     attr_accessible :name
     #   end
     #
     #   user = User.new
     #   user.attributes = { :username => 'Phusion', :is_admin => true }
-    #   user.username   # => "Phusion"
-    #   user.is_admin?  # => false
+    #   user.username  # => "Phusion"
+    #   user.is_admin  # => false
     #
     #   user.send(:attributes=, { :username => 'Phusion', :is_admin => true }, false)
-    #   user.is_admin?  # => true
+    #   user.is_admin  # => true
     def attributes=(attributes, guard_protected_attributes = true)
       attributes = sanitize_for_mass_assignment(attributes) if guard_protected_attributes
       super(attributes)
     end
-
   end
 end
-
