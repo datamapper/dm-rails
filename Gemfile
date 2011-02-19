@@ -5,18 +5,13 @@ source 'http://rubygems.org'
 SOURCE       = ENV['SOURCE']   ? ENV['SOURCE'].to_sym              : :git
 REPO_POSTFIX = SOURCE == :path ? ''                                : '.git'
 DATAMAPPER   = SOURCE == :path ? Pathname(__FILE__).dirname.parent : 'http://github.com/datamapper'
-DM_VERSION   = '~> 1.0.0'
+DM_VERSION   = '~> 1.0.2'
 
 group :runtime do
 
-  git 'git://github.com/rails/rails.git' do
-
-    gem 'activesupport', :require => 'active_support'
-    gem 'actionpack',    :require => 'action_pack'
-    gem 'railties',      :require => 'rails'
-
-  end
-
+  gem 'activesupport',  '~> 3.0.4', :require => 'active_support'
+  gem 'actionpack',     '~> 3.0.4', :require => 'action_pack'
+  gem 'railties',       '~> 3.0.4', :require => 'rails'
   gem 'dm-core',         DM_VERSION, SOURCE => "#{DATAMAPPER}/dm-core#{REPO_POSTFIX}"
   gem 'dm-active_model', DM_VERSION, SOURCE => "#{DATAMAPPER}/dm-active_model#{REPO_POSTFIX}"
 
@@ -25,7 +20,7 @@ end
 group :development do
 
   gem 'rake',            '~> 0.8.7'
-  gem 'jeweler',         '~> 1.4.0'
+  gem 'jeweler',         '~> 1.5.2'
   gem 'rspec',           '~> 1.3.1'
 end
 

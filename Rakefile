@@ -2,7 +2,7 @@ require 'rubygems'
 require 'rake'
 
 begin
-  gem 'jeweler', '~> 1.4'
+  gem 'jeweler', '~> 1.5.2'
   require 'jeweler'
 
   Jeweler::Tasks.new do |gem|
@@ -14,12 +14,6 @@ begin
     gem.authors     = [ 'Martin Gamsjaeger (snusnu)', 'Dan Kubb' ]
 
     gem.rubyforge_project = 'datamapper'
-
-    gem.add_dependency 'dm-core',         '~> 1.0.0'
-    gem.add_dependency 'dm-active_model', '~> 1.0.3'
-    gem.add_dependency 'activesupport',   '~> 3.1.0.beta'
-    gem.add_dependency 'actionpack',      '~> 3.1.0.beta'
-    gem.add_dependency 'railties',        '~> 3.1.0.beta'
   end
 
   Jeweler::GemcutterTasks.new
