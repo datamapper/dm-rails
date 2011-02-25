@@ -9,6 +9,7 @@ DM_VERSION   = '~> 1.0.2'
 
 group :runtime do
 
+  gem 'i18n',           '~> 0.5.0'
   gem 'activesupport',  '~> 3.0.4', :require => 'active_support'
   gem 'actionpack',     '~> 3.0.4', :require => 'action_pack'
   gem 'railties',       '~> 3.0.4', :require => 'rails'
