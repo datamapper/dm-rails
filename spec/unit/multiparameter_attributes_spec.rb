@@ -7,7 +7,8 @@ describe Rails::DataMapper::MultiparameterAttributes do
   before :all do
     load Pathname(__FILE__).dirname.parent.join('models/topic.rb').expand_path
     load Pathname(__FILE__).dirname.parent.join('models/fake.rb').expand_path
-    ::Rails::DataMapper::Models::Topic.auto_migrate!
+    model = ::Rails::DataMapper::Models::Topic
+    model.auto_migrate! if model.respond_to?(:auto_migrate!)
   end
 
   describe '#attributes=' do
