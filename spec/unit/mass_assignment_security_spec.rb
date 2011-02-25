@@ -11,7 +11,7 @@ describe DataMapper::MassAssignmentSecurity do
         end
 
         def attributes=(*args)
-          self._super_attributes = *args
+          self.send(:_super_attributes=, *args)
         end
       end
       include super_module
