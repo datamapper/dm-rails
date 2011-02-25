@@ -73,9 +73,9 @@ Gem::Specification.new do |s|
 
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
       s.add_runtime_dependency(%q<i18n>, ["~> 0.5.0"])
-      s.add_runtime_dependency(%q<activesupport>, ["~> 3.0.4"])
-      s.add_runtime_dependency(%q<actionpack>, ["~> 3.0.4"])
-      s.add_runtime_dependency(%q<railties>, ["~> 3.0.4"])
+      s.add_runtime_dependency(%q<activesupport>, [">= 0"])
+      s.add_runtime_dependency(%q<actionpack>, [">= 0"])
+      s.add_runtime_dependency(%q<railties>, [">= 0"])
       s.add_runtime_dependency(%q<dm-core>, ["~> 1.0.2"])
       s.add_runtime_dependency(%q<dm-active_model>, ["~> 1.0.2"])
       s.add_development_dependency(%q<rake>, ["~> 0.8.7"])
@@ -83,9 +83,9 @@ Gem::Specification.new do |s|
       s.add_development_dependency(%q<rspec>, ["~> 1.3.1"])
     else
       s.add_dependency(%q<i18n>, ["~> 0.5.0"])
-      s.add_dependency(%q<activesupport>, ["~> 3.0.4"])
-      s.add_dependency(%q<actionpack>, ["~> 3.0.4"])
-      s.add_dependency(%q<railties>, ["~> 3.0.4"])
+      s.add_dependency(%q<activesupport>, [">= 0"])
+      s.add_dependency(%q<actionpack>, [">= 0"])
+      s.add_dependency(%q<railties>, [">= 0"])
       s.add_dependency(%q<dm-core>, ["~> 1.0.2"])
       s.add_dependency(%q<dm-active_model>, ["~> 1.0.2"])
       s.add_dependency(%q<rake>, ["~> 0.8.7"])
@@ -94,9 +94,9 @@ Gem::Specification.new do |s|
     end
   else
     s.add_dependency(%q<i18n>, ["~> 0.5.0"])
-    s.add_dependency(%q<activesupport>, ["~> 3.0.4"])
-    s.add_dependency(%q<actionpack>, ["~> 3.0.4"])
-    s.add_dependency(%q<railties>, ["~> 3.0.4"])
+    s.add_dependency(%q<activesupport>, [">= 0"])
+    s.add_dependency(%q<actionpack>, [">= 0"])
+    s.add_dependency(%q<railties>, [">= 0"])
     s.add_dependency(%q<dm-core>, ["~> 1.0.2"])
     s.add_dependency(%q<dm-active_model>, ["~> 1.0.2"])
     s.add_dependency(%q<rake>, ["~> 0.8.7"])

@@ -10,9 +10,9 @@ DM_VERSION   = '~> 1.0.2'
 group :runtime do
 
   gem 'i18n',           '~> 0.5.0'
-  gem 'activesupport',  '~> 3.0.4', :require => 'active_support'
-  gem 'actionpack',     '~> 3.0.4', :require => 'action_pack'
-  gem 'railties',       '~> 3.0.4', :require => 'rails'
+  gem 'activesupport',  :git => 'git://github.com/rails/rails.git', :require => 'active_support'
+  gem 'actionpack',     :git => 'git://github.com/rails/rails.git', :require => 'action_pack'
+  gem 'railties',       :git => 'git://github.com/rails/rails.git', :require => 'rails'
   gem 'dm-core',         DM_VERSION, SOURCE => "#{DATAMAPPER}/dm-core#{REPO_POSTFIX}"
   gem 'dm-active_model', DM_VERSION, SOURCE => "#{DATAMAPPER}/dm-active_model#{REPO_POSTFIX}"
 
