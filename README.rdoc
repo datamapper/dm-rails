@@ -99,7 +99,7 @@ Using {bundler}[http://github.com/carlhuda/bundler] it's really easy to get an a
   gem 'actionmailer',       RAILS_VERSION, :require => 'action_mailer'
   gem 'railties',           RAILS_VERSION, :require => 'rails'
 
-  gem 'dm-rails',          '~> 1.0.3'
+  gem 'dm-rails',          '~> 1.1.0.rc1'
   gem 'dm-sqlite-adapter', DM_VERSION
 
   # You can use any of the other available database adapters.
@@ -584,4 +584,4 @@ Thx to all contributors, every patch, big or small is very much appreciated!
 
 == Copyright
 
-Copyright (c) 2010-2010 The dm-rails team. See {LICENSE}[http://github.com/datamapper/dm-rails/blob/master/LICENSE] for details.
+Copyright (c) 2011-2010 The dm-rails team. See {LICENSE}[http://github.com/datamapper/dm-rails/blob/master/LICENSE] for details.
