@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new("> 1.3.1") if s.respond_to? :required_rubygems_version=
   s.authors = ["Martin Gamsjaeger (snusnu)", "Dan Kubb"]
-  s.date = %q{2011-02-28}
+  s.date = %q{2011-03-01}
   s.description = %q{Integrate DataMapper with Rails 3}
   s.email = %q{gamsnjaga@gmail.com}
   s.extra_rdoc_files = [
@@ -74,8 +74,8 @@ Gem::Specification.new do |s|
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
       s.add_runtime_dependency(%q<actionpack>, ["~> 3.0.4"])
       s.add_runtime_dependency(%q<activesupport>, ["~> 3.0.4"])
-      s.add_runtime_dependency(%q<dm-core>, ["~> 1.0.2"])
-      s.add_runtime_dependency(%q<dm-active_model>, ["~> 1.0.2"])
+      s.add_runtime_dependency(%q<dm-core>, ["~> 1.1.0.rc1"])
+      s.add_runtime_dependency(%q<dm-active_model>, ["~> 1.1.0.rc1"])
       s.add_runtime_dependency(%q<i18n>, ["~> 0.5.0"])
       s.add_runtime_dependency(%q<railties>, ["~> 3.0.4"])
       s.add_development_dependency(%q<jeweler>, ["~> 1.5.2"])
@@ -84,8 +84,8 @@ Gem::Specification.new do |s|
     else
       s.add_dependency(%q<actionpack>, ["~> 3.0.4"])
       s.add_dependency(%q<activesupport>, ["~> 3.0.4"])
-      s.add_dependency(%q<dm-core>, ["~> 1.0.2"])
-      s.add_dependency(%q<dm-active_model>, ["~> 1.0.2"])
+      s.add_dependency(%q<dm-core>, ["~> 1.1.0.rc1"])
+      s.add_dependency(%q<dm-active_model>, ["~> 1.1.0.rc1"])
       s.add_dependency(%q<i18n>, ["~> 0.5.0"])
       s.add_dependency(%q<railties>, ["~> 3.0.4"])
       s.add_dependency(%q<jeweler>, ["~> 1.5.2"])
@@ -95,8 +95,8 @@ Gem::Specification.new do |s|
   else
     s.add_dependency(%q<actionpack>, ["~> 3.0.4"])
     s.add_dependency(%q<activesupport>, ["~> 3.0.4"])
-    s.add_dependency(%q<dm-core>, ["~> 1.0.2"])
-    s.add_dependency(%q<dm-active_model>, ["~> 1.0.2"])
+    s.add_dependency(%q<dm-core>, ["~> 1.1.0.rc1"])
+    s.add_dependency(%q<dm-active_model>, ["~> 1.1.0.rc1"])
     s.add_dependency(%q<i18n>, ["~> 0.5.0"])
     s.add_dependency(%q<railties>, ["~> 3.0.4"])
     s.add_dependency(%q<jeweler>, ["~> 1.5.2"])
