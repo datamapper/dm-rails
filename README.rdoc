@@ -581,6 +581,11 @@ Thx to all contributors, every patch, big or small is very much appreciated!
 * Corin Langosch ({gucki}[http://github.com/gucki])
 * Jared Morgan ({jm81}[http://github.com/jm81])
 * Blake Gentry ({bgentry}[http://github.com/bgentry])
+* Kabari Hendrick ({RipTheJacker}[http://github.com/RipTheJacker])
+* Nate Mueller ({natemueller}[http://github.com/natemueller])
+* Xavier Shay ({xaviershay}[http://github.com/xaviershay])
+* Nico Rieck ({gix}[http://github.com/gix])
+* Piotr Solnica ({solnic}[http://github.com/solnic])
 
 == Copyright
 
