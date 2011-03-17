@@ -91,7 +91,7 @@ Using {bundler}[http://github.com/carlhuda/bundler] it's really easy to get an a
   source 'http://rubygems.org'
 
   RAILS_VERSION = '~> 3.0.4'
-  DM_VERSION    = '~> 1.1.0.rc3'
+  DM_VERSION    = '~> 1.1.0'
   RSPEC_VERSION = '~> 2.5.0'
 
   gem 'activesupport',      RAILS_VERSION, :require => 'active_support'
@@ -99,7 +99,7 @@ Using {bundler}[http://github.com/carlhuda/bundler] it's really easy to get an a
   gem 'actionmailer',       RAILS_VERSION, :require => 'action_mailer'
   gem 'railties',           RAILS_VERSION, :require => 'rails'
 
-  gem 'dm-rails',          '~> 1.1.0.rc3'
+  gem 'dm-rails',          '~> 1.1.0'
   gem 'dm-sqlite-adapter', DM_VERSION
 
   # You can use any of the other available database adapters.
