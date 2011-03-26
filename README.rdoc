@@ -535,14 +535,6 @@ Currently dm-rails publishes the same benchmarking information like active_recor
 
   Completed in 9ms (Views: 7.6ms | Models: 0.6ms) with 200
 
-
-== Migrations
-
-The latest released version of {dm-migrations}[http://github.com/datamapper/dm-migrations] suffers from a {bug}[http://datamapper.lighthouseapp.com/projects/20609/tickets/1214]
-that prevents any migration to be run at all when invoked via the standard `rake db:migrate` command. Currently, there are two ways to workaround that.
-
-You can either point {dm-migrations}[http://github.com/datamapper/dm-migrations] to :git in your application's Gemfile, or you can patch the generated Rakefile as shown at the bottom of the related {bug report}[http://datamapper.lighthouseapp.com/projects/20609/tickets/1214].
-
 == TODO (not necessarily in that order)
 
 * SPECS !!!
