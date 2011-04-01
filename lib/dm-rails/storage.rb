@@ -98,19 +98,39 @@ module Rails
         "[datamapper] Dropped database '#{database}'"
       end
 
-      class Sqlite < Storage
-        def _create
-          # This is a noop for sqlite
-          #
-          # Both auto_migrate!/auto_upgrade! will create the actual database
-          # if the connection has been setup properly and there actually
-          # are statements to execute (i.e. at least one model is declared)
-          #
-          # DataMapper.setup alone won't create the actual database so there
-          # really is no API to simply create an empty database for sqlite3.
-          #
-          # we return true to indicate success nevertheless
+      # Create the configured database
+      #
+      # This is a noop so that calling this method
+      # won't explode on people who use adapters that
+      # don't support creating a storage recepticle
+      def _create
+        true
+      end
 
+      # Drop the configured database
+      #
+      # This is a noop so that calling this method
+      # won't explode on people who use adapters that
+      # don't support dropping a storage recepticle
+      def _drop
+        true
+      end
+
+      class Sqlite < Storage
+
+        # This is a noop for sqlite
+        #
+        # Overwritten solely for documentation purposes
+        #
+        # Both auto_migrate!/auto_upgrade! will create the actual database
+        # if the connection has been setup properly and there actually
+        # are statements to execute (i.e. at least one model is declared)
+        #
+        # DataMapper.setup alone won't create the actual database so there
+        # really is no API to simply create an empty database for sqlite3.
+        #
+        # we return true to indicate success nevertheless
+        def _create
           true
         end
 
