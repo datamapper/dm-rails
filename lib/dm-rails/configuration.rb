@@ -35,6 +35,10 @@ module Rails
         @resource_naming_convention ||= {}
       end
 
+      def field_naming_convention
+        @field_naming_convention ||= {}
+      end
+
     private
 
       def normalize_repository_config(hash)
