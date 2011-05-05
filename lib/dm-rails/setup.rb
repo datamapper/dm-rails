@@ -20,6 +20,9 @@ module Rails
       if convention = configuration.resource_naming_convention[name]
         adapter.resource_naming_convention = convention
       end
+      if convention = configuration.field_naming_convention[name]
+        adapter.field_naming_convention = convention
+      end
       setup_log_listener(options['adapter'])
     end
 
