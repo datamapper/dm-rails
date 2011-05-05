@@ -580,6 +580,7 @@ Thx to all contributors, every patch, big or small is very much appreciated!
 * Xavier Shay ({xaviershay}[http://github.com/xaviershay])
 * Nico Rieck ({gix}[http://github.com/gix])
 * Piotr Solnica ({solnic}[http://github.com/solnic])
+* Corin Lawson ({maxsum-corin}[http://github.com/maxsum-corin])
 
 == Copyright
 
