@@ -479,6 +479,8 @@ or that you want to use your own naming convention, that is implemented in e.g. 
     'tbl' + value.camelize(true)
   end
 
+Field names can be customized in the same manner using `Rails::DataMapper.configuration.resource_naming_convention`.
+
 For more detailed documentation about DataMapper naming conventions and the ones that are available by default, have a look at http://rdoc.info/projects/datamapper/dm-core and search for _NamingConventions_ in the Class List.
 
 == Mass assignment protection
