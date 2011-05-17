@@ -18,7 +18,7 @@ module Rails
         property :updated_at, DateTime,                    :index => true
 
         def self.name
-          'session'
+          'Session'
         end
 
         def data
