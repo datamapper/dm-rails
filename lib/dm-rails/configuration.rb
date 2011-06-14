@@ -24,7 +24,7 @@ module Rails
           environment, config = pair.first, pair.last
           repositories[environment] = begin
             c = config['repositories'] || {}
-            c['default'] = config.except('repositories') if config.except('repositories')
+            c['default'] ||= config.except('repositories') if config.except('repositories')
             normalize_repository_config(c)
           end
           repositories
