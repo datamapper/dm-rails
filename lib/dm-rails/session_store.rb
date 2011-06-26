@@ -44,7 +44,7 @@ module Rails
       def set_session(env, sid, session_data)
         session            = get_session_resource(env, sid)
         session.data       = session_data
-        session.updated_at = Time.now if session.dirty?
+        session.updated_at = DateTime.now if session.dirty?
         session.save ? sid : false
       end
 
