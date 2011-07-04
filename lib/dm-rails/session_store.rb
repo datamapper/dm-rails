@@ -68,3 +68,11 @@ module Rails
 
   end
 end
+
+class ActionDispatch::Flash::FlashHash
+  attr_reader :used
+
+  def eql?(other)
+    keys == other.keys && values == other.values && used == other.used
+  end
+end
