@@ -38,7 +38,7 @@ module Rails
         sid ||= generate_sid
         session = find_session(sid)
         env[SESSION_RECORD_KEY] = session
-        [ sid, session.data ]
+        [ sid, Marshal.load(Marshal.dump(session.data)) ] # deep copy!
       end
 
       def set_session(env, sid, session_data)
