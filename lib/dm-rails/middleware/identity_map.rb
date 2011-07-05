@@ -3,12 +3,13 @@ module Rails
     module Middleware
 
       class IdentityMap
-        def initialize(app)
+        def initialize(app, name = :default)
           @app = app
+          @name = name.to_sym
         end
 
         def call(env)
-          ::DataMapper.repository do
+          ::DataMapper.repository(@name) do
             @app.call(env)
           end
         end
