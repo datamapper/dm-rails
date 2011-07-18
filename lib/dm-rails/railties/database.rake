@@ -64,12 +64,12 @@ namespace :db do
     end
 
     desc 'Migrate up using migrations'
-    task :up, :version, :needs => :load do |t, args|
+    task :up, [:version] => [:load] do |t, args|
       ::DataMapper::MigrationRunner.migrate_up!(args[:version])
     end
 
     desc 'Migrate down using migrations'
-    task :down, :version, :needs => :load do |t, args|
+    task :down, [:version] => [:load] do |t, args|
       ::DataMapper::MigrationRunner.migrate_down!(args[:version])
     end
   end
