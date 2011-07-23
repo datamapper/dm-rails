@@ -29,7 +29,7 @@ module Rails
 
       config.data_mapper = Rails::DataMapper::Configuration.create
 
-      config.generators.orm :data_mapper, :migration => true
+      config.app_generators.orm :data_mapper, :migration => true
 
 
       # Support overwriting crucial steps in subclasses
