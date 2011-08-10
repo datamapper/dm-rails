@@ -15,10 +15,11 @@ module Rails
     end
 
     def self.setup_with_instrumentation(name, options)
+      
       adapter = if options['uri']
-                  database_uri = URI.parse(options['uri'])
+                  database_uri = ::Addressable::URI.parse(options['uri'])
                   ::DataMapper.logger.info "[datamapper] Setting up #{name} repository: '#{database_uri.path}' on #{database_uri.scheme}"
-                  ::DataMapper.setup(name, options['uri'])
+                  ::DataMapper.setup(name, database_uri)
                 else
                   ::DataMapper.logger.info "[datamapper] Setting up #{name.inspect} repository: '#{options['database']}' on #{options['adapter']}"
                  ::DataMapper.setup(name, options)
