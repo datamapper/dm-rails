@@ -15,15 +15,23 @@ module Rails
     end
 
     def self.setup_with_instrumentation(name, options)
-      ::DataMapper.logger.info "[datamapper] Setting up #{name.inspect} repository: '#{options['database']}' on #{options['adapter']}"
-      adapter = ::DataMapper.setup(name, options)
+      
+      adapter = if options['uri']
+                  database_uri = ::Addressable::URI.parse(options['uri'])
+                  ::DataMapper.logger.info "[datamapper] Setting up #{name} repository: '#{database_uri.path}' on #{database_uri.scheme}"
+                  ::DataMapper.setup(name, database_uri)
+                else
+                  ::DataMapper.logger.info "[datamapper] Setting up #{name.inspect} repository: '#{options['database']}' on #{options['adapter']}"
+                 ::DataMapper.setup(name, options)
+                end
+
       if convention = configuration.resource_naming_convention[name]
         adapter.resource_naming_convention = convention
       end
       if convention = configuration.field_naming_convention[name]
         adapter.field_naming_convention = convention
       end
-      setup_log_listener(options['adapter'])
+      setup_log_listener(adapter.options['adapter'])
     end
 
     def self.setup_logger(logger)
