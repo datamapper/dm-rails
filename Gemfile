@@ -9,10 +9,13 @@ DM_VERSION     = '~> 1.1.0'
 DO_VERSION     = '~> 0.10.6'
 DM_DO_ADAPTERS = %w[ sqlite postgres mysql oracle sqlserver ]
 
-gem 'dm-core', DM_VERSION, SOURCE => "#{DATAMAPPER}/dm-core#{REPO_POSTFIX}"
-gem 'actionpack',      '>= 3.0.4', '< 3.2', :require => 'action_pack'
+# DataMapper dependencies
+gem 'dm-core',         DM_VERSION, SOURCE => "#{DATAMAPPER}/dm-core#{REPO_POSTFIX}"
 gem 'dm-active_model', DM_VERSION, SOURCE => "#{DATAMAPPER}/dm-active_model#{REPO_POSTFIX}"
-gem 'railties',        '>= 3.0.4', '< 3.2', :require => 'rails'
+
+# Rails dependencies
+gem 'actionpack', '~> 3.1.0', :require => 'action_pack'
+gem 'railties',   '~> 3.1.0', :require => 'rails'
 
 group :development do
 
