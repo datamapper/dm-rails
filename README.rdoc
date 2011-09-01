@@ -170,7 +170,7 @@ An example for setting up a single repository for every environment.
     <<: *defaults
 
 An example of setting up a single repository with a URI, which overrides all other configuration for that environment:
-  
+
   development:
     uri: mysql://localhost/rails3_app_development?user=mysql
 

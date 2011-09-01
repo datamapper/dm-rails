@@ -15,7 +15,7 @@ module Rails
     end
 
     def self.setup_with_instrumentation(name, options)
-      
+
       adapter = if options['uri']
                   database_uri = ::Addressable::URI.parse(options['uri'])
                   ::DataMapper.logger.info "[datamapper] Setting up #{name.inspect} repository: '#{database_uri.path}' on #{database_uri.scheme}"
