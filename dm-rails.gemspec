@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = [%q{Martin Gamsjaeger (snusnu)}, %q{Dan Kubb}]
-  s.date = %q{2011-07-23}
+  s.date = %q{2011-09-01}
   s.description = %q{Integrate DataMapper with Rails 3}
   s.email = %q{gamsnjaga@gmail.com}
   s.extra_rdoc_files = [
@@ -58,7 +58,7 @@ Gem::Specification.new do |s|
   s.homepage = %q{http://github.com/datamapper/dm-rails}
   s.require_paths = [%q{lib}]
   s.rubyforge_project = %q{datamapper}
-  s.rubygems_version = %q{1.8.5}
+  s.rubygems_version = %q{1.8.6}
   s.summary = %q{Use DataMapper with Rails 3}
   s.test_files = [
     "spec/models/fake.rb",
@@ -73,26 +73,26 @@ Gem::Specification.new do |s|
 
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
       s.add_runtime_dependency(%q<dm-core>, ["~> 1.1.0"])
-      s.add_runtime_dependency(%q<actionpack>, ["< 3.2", ">= 3.0.4"])
       s.add_runtime_dependency(%q<dm-active_model>, ["~> 1.1.0"])
-      s.add_runtime_dependency(%q<railties>, ["< 3.2", ">= 3.0.4"])
+      s.add_runtime_dependency(%q<actionpack>, ["~> 3.1.0"])
+      s.add_runtime_dependency(%q<railties>, ["~> 3.1.0"])
       s.add_development_dependency(%q<jeweler>, ["~> 1.5.2"])
       s.add_development_dependency(%q<rake>, ["~> 0.8.7"])
       s.add_development_dependency(%q<rspec>, ["~> 1.3.1"])
     else
       s.add_dependency(%q<dm-core>, ["~> 1.1.0"])
-      s.add_dependency(%q<actionpack>, ["< 3.2", ">= 3.0.4"])
       s.add_dependency(%q<dm-active_model>, ["~> 1.1.0"])
-      s.add_dependency(%q<railties>, ["< 3.2", ">= 3.0.4"])
+      s.add_dependency(%q<actionpack>, ["~> 3.1.0"])
+      s.add_dependency(%q<railties>, ["~> 3.1.0"])
       s.add_dependency(%q<jeweler>, ["~> 1.5.2"])
       s.add_dependency(%q<rake>, ["~> 0.8.7"])
       s.add_dependency(%q<rspec>, ["~> 1.3.1"])
     end
   else
     s.add_dependency(%q<dm-core>, ["~> 1.1.0"])
-    s.add_dependency(%q<actionpack>, ["< 3.2", ">= 3.0.4"])
     s.add_dependency(%q<dm-active_model>, ["~> 1.1.0"])
-    s.add_dependency(%q<railties>, ["< 3.2", ">= 3.0.4"])
+    s.add_dependency(%q<actionpack>, ["~> 3.1.0"])
+    s.add_dependency(%q<railties>, ["~> 3.1.0"])
     s.add_dependency(%q<jeweler>, ["~> 1.5.2"])
     s.add_dependency(%q<rake>, ["~> 0.8.7"])
     s.add_dependency(%q<rspec>, ["~> 1.3.1"])
