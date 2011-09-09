@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new("> 1.3.1") if s.respond_to? :required_rubygems_version=
   s.authors = ["Martin Gamsjaeger (snusnu)", "Dan Kubb"]
-  s.date = "2011-09-05"
+  s.date = "2011-09-09"
   s.description = "Integrate DataMapper with Rails 3"
   s.email = "gamsnjaga@gmail.com"
   s.extra_rdoc_files = [
