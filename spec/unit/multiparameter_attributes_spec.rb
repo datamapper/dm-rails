@@ -108,7 +108,7 @@ describe Rails::DataMapper::MultiparameterAttributes do
         and_return(attributes['composite'])
 
       composite_property = mock(::DataMapper::Property)
-      composite_property.stub!(:primitive).and_return(::Rails::DataMapper::Models::Composite)
+      composite_property.stub!(:dump_class).and_return(::Rails::DataMapper::Models::Composite)
 
       resource = ::Rails::DataMapper::Models::Fake.new
       resource.stub!(:properties).and_return('composite' => composite_property)
@@ -127,7 +127,7 @@ describe Rails::DataMapper::MultiparameterAttributes do
         should_receive(:new).with('a string').and_raise(composite_exception)
 
       composite_property = mock(::DataMapper::Property)
-      composite_property.stub!(:primitive).and_return(::Rails::DataMapper::Models::Composite)
+      composite_property.stub!(:dump_class).and_return(::Rails::DataMapper::Models::Composite)
 
       resource = ::Rails::DataMapper::Models::Fake.new
       resource.stub!(:properties).and_return('composite' => composite_property)

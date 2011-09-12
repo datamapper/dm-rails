@@ -110,7 +110,7 @@ module Rails
             next
           end
 
-          klass = properties[name].primitive
+          klass = properties[name].dump_class
           begin
             attributes[name] =
               if klass == Time
