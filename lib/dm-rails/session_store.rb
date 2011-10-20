@@ -60,13 +60,8 @@ module Rails
         self.class.session_class.first_or_new(:session_id => sid)
       end
 
-      def destroy_session(env, sid = nil, options = {})
-        sid ||= current_session_id(env)
-        find_session(sid).destroy
-      end
-
       def destroy(env)
-        destroy_session(env)
+        find_session(current_session_id(env)).destroy
       end
 
     end
