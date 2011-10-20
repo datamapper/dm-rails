@@ -27,7 +27,7 @@ module Rails
 
       end
 
-      ENV_SESSION_OPTIONS_KEY ||= ::Rack::Session::Abstract::ENV_SESSION_OPTIONS_KEY
+      ENV_SESSION_OPTIONS_KEY = ::Rack::Session::Abstract::ENV_SESSION_OPTIONS_KEY unless const_defined?("ENV_SESSION_OPTIONS_KEY")
       SESSION_RECORD_KEY      = 'rack.session.record'.freeze
 
       class_attribute :session_class
