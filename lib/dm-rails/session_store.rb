@@ -41,7 +41,7 @@ module Rails
         [ sid, session.data ]
       end
 
-      def set_session(env, sid, session_data)
+      def set_session(env, sid, session_data, options = {})
         session            = get_session_resource(env, sid)
         session.data       = session_data
         session.updated_at = DateTime.now if session.dirty?
@@ -60,7 +60,7 @@ module Rails
         self.class.session_class.first_or_new(:session_id => sid)
       end
 
-      def destroy(env)
+      def destroy_session(env, sid, options = {})
         find_session(current_session_id(env)).destroy
       end
 
