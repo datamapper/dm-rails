@@ -40,7 +40,7 @@ module Rails
         sid ||= generate_sid
         session = find_session(sid)
         env[SESSION_RECORD_KEY] = session
-        [ sid, session.data || {} ]
+        [ sid, session.data ]
       end
 
       def set_session(env, sid, session_data, options = {})
