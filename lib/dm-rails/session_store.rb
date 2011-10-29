@@ -13,7 +13,7 @@ module Rails
         include ::DataMapper::Resource
 
         property :id,         Serial
-        property :session_id, String,   :required => true, :unique => true
+        property :session_id, String,   :required => true, :unique => true, :length => 0..150
         property :data,       Object,   :required => true
         property :updated_at, DateTime,                    :index => true
 
@@ -27,6 +27,7 @@ module Rails
 
       end
 
+      # for backward compatibility with Rails 3.0
       ENV_SESSION_OPTIONS_KEY = ::Rack::Session::Abstract::ENV_SESSION_OPTIONS_KEY unless const_defined?("ENV_SESSION_OPTIONS_KEY")
       SESSION_RECORD_KEY      = 'rack.session.record'.freeze
 
