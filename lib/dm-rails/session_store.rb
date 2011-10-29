@@ -14,7 +14,7 @@ module Rails
 
         property :id,         Serial
         property :session_id, String,   :required => true, :unique => true, :length => 0..150
-        property :data,       Object,   :required => true
+        property :data,       Object,   :required => false
         property :updated_at, DateTime,                    :index => true
 
         def self.name
@@ -40,7 +40,7 @@ module Rails
         sid ||= generate_sid
         session = find_session(sid)
         env[SESSION_RECORD_KEY] = session
-        [ sid, session.data ]
+        [ sid, session.data || {} ]
       end
 
       def set_session(env, sid, session_data, options = {})
