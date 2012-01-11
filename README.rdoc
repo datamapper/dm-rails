@@ -151,7 +151,7 @@ Using {bundler}[http://github.com/carlhuda/bundler] it's really easy to get an a
 
 DataMapper supports connecting to and working with multiple repositories easily. In order to be able to take full advantage of that feature in rails, you can configure as many repositories for your different environments as you wish. All you need to do is follow some simple naming conventions and you're good to go. Have a look at the #{adapter}_defaults declarations in the sample files below. That's the only convention you need to follow. Your default declarations should always end with "defaults". This is necessary for dm-rails to not confuse these with any of your environment declarations. In fact, dm-rails looks at the content of your database.yml and rejects every key that matches /defaults/. The remaining entries represent the repository configurations for the available environments.
 
-An example for setting up a single repository for every environment.
+An example for setting up a single repository for every environment. This will setup an implicit 'default' repository.
 
   defaults: &defaults
     adapter: mysql
