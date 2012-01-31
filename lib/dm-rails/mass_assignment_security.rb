@@ -8,17 +8,17 @@ module ActiveModel
     # Provides a patched version of the Sanitizer used in Rails to handle property
     # and relationship objects as keys. There is no way to inject a custom sanitizer
     # without reimplementing the permission sets.
-    module Sanitizer
+    Sanitizer.send(Sanitizer.is_a?(Module) ? :module_eval : :class_eval) do
       # Returns all attributes not denied by the authorizer.
       #
       # @param [Hash{Symbol,String,::DataMapper::Property,::DataMapper::Relationship=>Object}] attributes
       #   Names and values of attributes to sanitize.
       # @return [Hash]
       #   Sanitized hash of attributes.
-      def sanitize(attributes)
+      def sanitize(attributes, authorizer = nil)
         sanitized_attributes = attributes.reject do |key, value|
           key_name = key.name rescue key
-          deny?(key_name)
+          authorizer ? authorizer.deny?(key_name) : deny?(key_name)
         end
         debug_protected_attribute_removal(attributes, sanitized_attributes)
         sanitized_attributes
