@@ -4,13 +4,11 @@ branches:
     - /^release-.*$/
 script: "bundle exec rake spec"
 rvm:
-  - 1.9.2
   - 1.9.3
   - 2.0.0
   - ruby-head
   - jruby-19mode
   - jruby-head
-  - ree
   - rbx-19mode
 env:
   - "GIT_BRANCH=release-1.2"
