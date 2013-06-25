@@ -20,4 +20,4 @@ notifications:
     - dan.kubb@gmail.com
 matrix:
   allow_failures:
-    - rvm: rbx-19mode
+    - rvm: ruby-head
