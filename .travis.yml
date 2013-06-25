@@ -13,9 +13,16 @@ rvm:
 env:
   - "GIT_BRANCH=release-1.2"
 notifications:
-  irc: "irc.freenode.org#datamapper"
+  irc:
+    channels:
+      - irc.freenode.org#datamapper
+    on_success: never
+    on_failure: change
   email:
-    - dan.kubb@gmail.com
+    recipients:
+      - dan.kubb@gmail.com
+    on_success: never
+    on_failure: change
 matrix:
   allow_failures:
     - rvm: ruby-head
