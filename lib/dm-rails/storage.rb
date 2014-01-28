@@ -167,13 +167,14 @@ module Rails
       private
 
         def execute(statement)
-          system(
+          command = [
             'mysql',
-            (username.blank? ? '' : "--user=#{username}"),
-            (password.blank? ? '' : "--password=#{password}"),
+            username.present? ? "--user=#{username}"     : nil,
+            password.present? ? "--password=#{password}" : nil,
             '-e',
-            statement
-          )
+            statement,
+          ].compact
+          system(*command)
         end
 
         def collation

@@ -4,25 +4,25 @@ branches:
     - /^release-.*$/
 script: "bundle exec rake spec"
 rvm:
-  - ree
-  - 1.8.7
-  - 1.9.2
   - 1.9.3
   - 2.0.0
   - ruby-head
-  - jruby-18mode
   - jruby-19mode
   - jruby-head
-  - ree
-  - rbx-18mode
   - rbx-19mode
 env:
   - "GIT_BRANCH=release-1.2"
 notifications:
-  irc: "irc.freenode.org#datamapper"
+  irc:
+    channels:
+      - irc.freenode.org#datamapper
+    on_success: never
+    on_failure: change
   email:
-    - dan.kubb@gmail.com
+    recipients:
+      - dan.kubb@gmail.com
+    on_success: never
+    on_failure: change
 matrix:
   allow_failures:
-    - rvm: rbx-18mode
-    - rvm: rbx-19mode
+    - rvm: ruby-head
