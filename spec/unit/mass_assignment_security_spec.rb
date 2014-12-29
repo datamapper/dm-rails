@@ -1,4 +1,10 @@
 require 'spec_helper'
+
+begin
+  require 'protected_attributes'
+rescue LoadError
+end
+
 require 'dm-rails/mass_assignment_security'
 
 # Because mass-assignment security is based on ActiveModel we just have to
@@ -31,13 +37,12 @@ describe DataMapper::MassAssignmentSecurity do
       model.attributes = attributes
     end
 
-    it 'skips sanitation when called with true' do
+    it 'skips sanitation when called with false' do
       attributes = { :name => 'John', :is_admin => true }
-      sanitized_attributes = { :name => 'John' }
       model = Fake.new
       model.should_receive(:_super_attributes=).with(attributes)
 
-      model.send(:attributes=, attributes, true)
+      model.send(:attributes=, attributes, false)
     end
   end
 end

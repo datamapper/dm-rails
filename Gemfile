@@ -1,6 +1,6 @@
 require 'pathname'
 
-source :rubygems
+source "https://rubygems.org"
 
 gemspec
 
@@ -15,6 +15,8 @@ CURRENT_BRANCH = ENV.fetch('GIT_BRANCH', 'master')
 # DataMapper dependencies
 gem 'dm-core',         DM_VERSION, SOURCE => "#{DATAMAPPER}/dm-core#{REPO_POSTFIX}", :branch => CURRENT_BRANCH
 gem 'dm-active_model', DM_VERSION, SOURCE => "#{DATAMAPPER}/dm-active_model#{REPO_POSTFIX}", :branch => CURRENT_BRANCH
+
+gem 'protected_attributes'
 
 platforms :mri_18 do
   group :quality do
