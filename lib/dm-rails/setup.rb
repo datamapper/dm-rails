@@ -16,8 +16,10 @@ module Rails
     end
 
     def self.setup_with_instrumentation(name, options)
-      adapter = if options['uri']
-        database_uri = ::Addressable::URI.parse(options['uri'])
+      # The url option is the convention used by rails, while uri is legacy dm-rails
+      url     = options.fetch('url', options['uri'])
+      adapter = if url
+        database_uri = ::Addressable::URI.parse(url)
         ::DataMapper.logger.info "[datamapper] Setting up #{name.inspect} repository: '#{database_uri.path[1..-1]}' on #{database_uri.scheme}"
         ::DataMapper.setup(name, database_uri)
       else
