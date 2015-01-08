@@ -5,11 +5,15 @@ require 'dm-rails/railties/log_listener'
 
 module Rails
   module DataMapper
-
     def self.setup(environment)
       ::DataMapper.logger.info "[datamapper] Setting up the #{environment.inspect} environment:"
       env = configuration.repositories.fetch(environment) do
-        raise KeyError, "The environment #{environment} is unknown"
+        database_url = ENV['DATABASE_URL']
+        if database_url.present?
+          { 'default' => { 'url' => database_url } }
+        else
+          fail KeyError, "The environment #{environment} is unknown"
+        end
       end
       env.symbolize_keys.each { |pair| setup_with_instrumentation(*pair) }
       finalize
