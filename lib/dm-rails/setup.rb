@@ -8,22 +8,22 @@ module Rails
 
     def self.setup(environment)
       ::DataMapper.logger.info "[datamapper] Setting up the #{environment.inspect} environment:"
-      configuration.repositories[environment].each do |name, config|
-        setup_with_instrumentation(name.to_sym, config)
+      env = configuration.repositories.fetch(environment) do
+        raise KeyError, "The environment #{environment} is unknown"
       end
+      env.symbolize_keys.each { |pair| setup_with_instrumentation(*pair) }
       finalize
     end
 
     def self.setup_with_instrumentation(name, options)
-
       adapter = if options['uri']
-                  database_uri = ::Addressable::URI.parse(options['uri'])
-                  ::DataMapper.logger.info "[datamapper] Setting up #{name.inspect} repository: '#{database_uri.path}' on #{database_uri.scheme}"
-                  ::DataMapper.setup(name, database_uri)
-                else
-                  ::DataMapper.logger.info "[datamapper] Setting up #{name.inspect} repository: '#{options['database']}' on #{options['adapter']}"
-                 ::DataMapper.setup(name, options)
-                end
+        database_uri = ::Addressable::URI.parse(options['uri'])
+        ::DataMapper.logger.info "[datamapper] Setting up #{name.inspect} repository: '#{database_uri.path}' on #{database_uri.scheme}"
+        ::DataMapper.setup(name, database_uri)
+      else
+        ::DataMapper.logger.info "[datamapper] Setting up #{name.inspect} repository: '#{options['database']}' on #{options['adapter']}"
+       ::DataMapper.setup(name, options)
+      end
 
       if convention = configuration.resource_naming_convention[name]
         adapter.resource_naming_convention = convention
