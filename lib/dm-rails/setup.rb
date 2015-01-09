@@ -21,15 +21,16 @@ module Rails
 
     def self.setup_with_instrumentation(name, options)
       # The url option is the convention used by rails, while uri is legacy dm-rails
-      url     = options.fetch('url', options['uri'])
-      adapter = if url
+      url = options.fetch('url', options['uri'])
+      args, database, adapter_name = if url
         database_uri = ::Addressable::URI.parse(url)
-        ::DataMapper.logger.info "[datamapper] Setting up #{name.inspect} repository: '#{database_uri.path[1..-1]}' on #{database_uri.scheme}"
-        ::DataMapper.setup(name, database_uri)
+        [database_uri, database_uri.path[1..-1], database_uri.scheme]
       else
-        ::DataMapper.logger.info "[datamapper] Setting up #{name.inspect} repository: '#{options['database']}' on #{options['adapter']}"
-       ::DataMapper.setup(name, options)
+        [options, *options.values_at('database', 'adapter')]
       end
+
+      ::DataMapper.logger.info "[datamapper] Setting up #{name.inspect} repository: '#{database}' on #{adapter_name}"
+      adapter = ::DataMapper.setup(name, args)
 
       if convention = configuration.resource_naming_convention[name]
         adapter.resource_naming_convention = convention
