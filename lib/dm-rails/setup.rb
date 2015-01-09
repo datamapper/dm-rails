@@ -7,7 +7,7 @@ module Rails
   module DataMapper
     def self.setup(environment)
       ::DataMapper.logger.info "[datamapper] Setting up the #{environment.inspect} environment:"
-      env = configuration.repositories.fetch(environment) do
+      env = configuration.repositories[environment] ||= begin
         database_url = ENV['DATABASE_URL']
         if database_url.present?
           { 'default' => { 'url' => database_url } }
