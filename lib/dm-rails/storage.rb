@@ -186,6 +186,7 @@ module Rails
       class Postgres < Storage
         def _create
           system(
+            {'PGPASSWORD' => password},
             'createdb',
             '-E',
             charset,
@@ -197,6 +198,7 @@ module Rails
 
         def _drop
           system(
+            {'PGPASSWORD' => password},
             'dropdb',
             '-U',
             username,
