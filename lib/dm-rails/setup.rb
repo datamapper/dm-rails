@@ -5,25 +5,32 @@ require 'dm-rails/railties/log_listener'
 
 module Rails
   module DataMapper
-
     def self.setup(environment)
       ::DataMapper.logger.info "[datamapper] Setting up the #{environment.inspect} environment:"
-      configuration.repositories[environment].each do |name, config|
-        setup_with_instrumentation(name.to_sym, config)
+      env = configuration.repositories[environment] ||= begin
+        database_url = ENV['DATABASE_URL']
+        if database_url.present?
+          { 'default' => { 'url' => database_url } }
+        else
+          fail KeyError, "The environment #{environment} is unknown"
+        end
       end
+      env.symbolize_keys.each { |pair| setup_with_instrumentation(*pair) }
       finalize
     end
 
     def self.setup_with_instrumentation(name, options)
+      # The url option is the convention used by rails, while uri is legacy dm-rails
+      url = options.fetch('url', options['uri'])
+      args, database, adapter_name = if url
+        database_uri = ::Addressable::URI.parse(url)
+        [database_uri, database_uri.path[1..-1], database_uri.scheme]
+      else
+        [options, *options.values_at('database', 'adapter')]
+      end
 
-      adapter = if options['uri']
-                  database_uri = ::Addressable::URI.parse(options['uri'])
-                  ::DataMapper.logger.info "[datamapper] Setting up #{name.inspect} repository: '#{database_uri.path}' on #{database_uri.scheme}"
-                  ::DataMapper.setup(name, database_uri)
-                else
-                  ::DataMapper.logger.info "[datamapper] Setting up #{name.inspect} repository: '#{options['database']}' on #{options['adapter']}"
-                 ::DataMapper.setup(name, options)
-                end
+      ::DataMapper.logger.info "[datamapper] Setting up #{name.inspect} repository: '#{database}' on #{adapter_name}"
+      adapter = ::DataMapper.setup(name, args)
 
       if convention = configuration.resource_naming_convention[name]
         adapter.resource_naming_convention = convention

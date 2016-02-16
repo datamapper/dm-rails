@@ -1,5 +1,5 @@
 module DataMapper
   module Rails
-    VERSION = '1.3.0.beta'
+    VERSION = '1.2.1'
   end
 end
