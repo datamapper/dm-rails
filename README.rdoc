@@ -491,43 +491,6 @@ Field names can be customized in the same manner using `Rails::DataMapper.config
 
 For more detailed documentation about DataMapper naming conventions and the ones that are available by default, have a look at http://rdoc.info/projects/datamapper/dm-core and search for _NamingConventions_ in the Class List.
 
-== Mass assignment protection
-
-By default, `dm-rails` doesn't activate any support for mass assignment protection.
-You can however activate it for your application by including the relevant module
-either globally into all known models, or on a per model basis (the latter being
-advised, for reasons explained below).
-
-  # Global installation (config/application.rb is a good place for adding this)
-  #
-  # Make .attr_protected and .attr_accessible available to all models
-  # NOTE: This won't work if you have code that includes DataMapper::Resource
-  # into any other module. This is done by dm-is-remixable for example, so to
-  # be safe, you should only do that if you really know what you're doing.
-  # Quite some plugins make use of dm-is-remixable, so be sure to check that out
-  # before you go ahead and do the following in your config/application.rb
-  DataMapper::Model.append_inclusions(Rails::DataMapper::MassAssignmentSecurity)
-
-  # Local installation (recommended)
-  #
-  # Include the mass assignment protection only into models that actually need it
-  # This is the preferred way of doing things, at least for now. You will only
-  # have the functionality available where you actually need it, and you don't run
-  # into problems with third party code including DataMapper::Resource into other
-  # modules.
-
-  class Person
-
-    include DataMapper::Resource
-    include DataMapper::MassAssignmentSecurity
-
-    property :id, Serial
-    property :login, String
-
-    attr_protected :login
-
-  end
-
 == Using additional datamapper plugins
 
 In order to use additional plugins add them to the Gemfile and require them from inside a file in config/initializers. Once you've done that, update your bundle and you should be ready to use the plugin(s)
