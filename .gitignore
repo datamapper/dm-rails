@@ -18,18 +18,20 @@ tmtags
 
 ## PROJECT::GENERAL
 *.gem
-coverage
 rdoc
-pkg
-tmp
-doc
+/coverage/
+/doc/
+/pkg/
+/spec/reports/
+/tmp/
 log
-.yardoc
+/.yardoc
+/_yardoc/
 measurements
 
 ## BUNDLER
-.bundle
-Gemfile.*
+/.bundle/
+/Gemfile.lock
 
 ## PROJECT::SPECIFIC
 vendor
