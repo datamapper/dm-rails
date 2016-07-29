@@ -1,12 +1,11 @@
+before_install: gem install bundler
 bundler_args: --without yard guard metrics benchmarks
 script: "bundle exec rake spec"
 rvm:
   - 2.2.2
   - 2.3.0
   - ruby-head
-  - jruby-19mode
   - jruby-head
-  - rbx-19mode
 notifications:
   irc:
     channels:
