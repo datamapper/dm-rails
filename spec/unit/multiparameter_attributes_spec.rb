@@ -107,11 +107,11 @@ describe Rails::DataMapper::MultiparameterAttributes do
         with('a string', '1.5', '1.5'.to_i, '1.5'.to_f).
         and_return(attributes['composite'])
 
-      composite_property = mock(::DataMapper::Property)
-      composite_property.stub!(:primitive).and_return(::Rails::DataMapper::Models::Composite)
+      composite_property = instance_double(::DataMapper::Property)
+      allow(composite_property).to receive(:primitive).and_return(::Rails::DataMapper::Models::Composite)
 
       resource = ::Rails::DataMapper::Models::Fake.new
-      resource.stub!(:properties).and_return('composite' => composite_property)
+      allow(resource).to receive(:properties).and_return('composite' => composite_property)
 
       resource.should_receive(:_super_attributes=).with(attributes)
 
@@ -126,11 +126,11 @@ describe Rails::DataMapper::MultiparameterAttributes do
       ::Rails::DataMapper::Models::Composite.
         should_receive(:new).with('a string').and_raise(composite_exception)
 
-      composite_property = mock(::DataMapper::Property)
-      composite_property.stub!(:primitive).and_return(::Rails::DataMapper::Models::Composite)
+      composite_property = instance_double(::DataMapper::Property)
+      allow(composite_property).to receive(:primitive).and_return(::Rails::DataMapper::Models::Composite)
 
       resource = ::Rails::DataMapper::Models::Fake.new
-      resource.stub!(:properties).and_return('composite' => composite_property)
+      allow(resource).to receive(:properties).and_return('composite' => composite_property)
 
       lambda { resource.attributes = multiparameter_hash }.
         should raise_error(::Rails::DataMapper::MultiparameterAssignmentErrors) { |ex|
