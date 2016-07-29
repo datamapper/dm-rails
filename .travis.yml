@@ -1,7 +1,4 @@
 bundler_args: --without yard guard metrics benchmarks
-branches:
-  only:
-    - /^release-.*$/
 script: "bundle exec rake spec"
 rvm:
   - 1.9.3
@@ -10,8 +7,6 @@ rvm:
   - jruby-19mode
   - jruby-head
   - rbx-19mode
-env:
-  - "GIT_BRANCH=release-1.2"
 notifications:
   irc:
     channels:
