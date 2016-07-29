@@ -1,6 +1,10 @@
 require 'dm-rails/setup'
 require 'dm-rails/storage'
 
+def migration_paths
+  Rails.configuration.paths['db/migrate'].map {|path| path+"/*.rb"}
+end
+
 namespace :db do
 
   desc 'Create the database, load the schema, and initialize with the seed data'
@@ -58,7 +62,8 @@ namespace :db do
   namespace :migrate do
     task :load => :environment do
       require 'dm-migrations/migration_runner'
-      FileList['db/migrate/*.rb'].each do |migration|
+
+      FileList[migration_paths].each do |migration|
         load migration
       end
     end
@@ -76,7 +81,7 @@ namespace :db do
 
   desc 'Migrate the database to the latest version'
   task :migrate do
-    migrate_task = if Dir['db/migrate/*.rb'].empty?
+    migrate_task = if migration_paths.all? { |path| Dir[path].empty? }
                      'db:autoupgrade'
                    else
                      'db:migrate:up'
