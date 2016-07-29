@@ -23,6 +23,9 @@ module Rails; module DataMapper; module Models
       def attributes=(*args)
         self.send(:_super_attributes=, *args)
       end
+
+      def properties
+      end
     end
     include super_module
 

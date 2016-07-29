@@ -22,6 +22,6 @@ Gem::Specification.new do |spec|
   spec.add_runtime_dependency('actionpack',      '>= 3.0', '< 6.0')
   spec.add_runtime_dependency('railties',        '>= 3.0', '< 6.0')
 
-  spec.add_development_dependency('rake',      '~> 0.9.2')
-  spec.add_development_dependency('rspec',     '~> 1.3.2')
+  spec.add_development_dependency('rake', '~> 0.9.2')
+  spec.add_development_dependency('rspec')
 end
