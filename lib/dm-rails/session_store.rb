@@ -40,7 +40,7 @@ module Rails
         sid ||= generate_sid
         session = find_session(sid)
         env[SESSION_RECORD_KEY] = session
-        [ sid, session.data ]
+        [ sid, Marshal.load(Marshal.dump(session.data)) ] # deep copy!
       end
 
       def set_session(env, sid, session_data, options = {})
@@ -73,5 +73,13 @@ module Rails
 
     end
 
+  end
+end
+
+class ActionDispatch::Flash::FlashHash
+  attr_reader :used
+
+  def eql?(other)
+    keys == other.keys && values == other.values && used == other.used
   end
 end
